@@ -6,7 +6,7 @@ use TheIconic\NameParser\Part\AbstractPart;
 use TheIconic\NameParser\Part\Lastname;
 use TheIconic\NameParser\Part\Suffix;
 
-class FirstnameMapper
+class LastnameMapper
 {
 
     protected $prefixes = [

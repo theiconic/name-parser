@@ -3,6 +3,11 @@
 namespace TheIconic\NameParser;
 
 use TheIconic\NameParser\Part\AbstractPart;
+use TheIconic\NameParser\Mapper\SalutationMapper;
+use TheIconic\NameParser\Mapper\SuffixMapper;
+use TheIconic\NameParser\Mapper\InitialMapper;
+use TheIconic\NameParser\Mapper\LastnameMapper;
+use TheIconic\NameParser\Mapper\FirstnameMapper;
 
 class Parser
 {
