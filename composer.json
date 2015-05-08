@@ -1,0 +1,24 @@
+{
+    "name": "theiconic/name-parser",
+    "description": "Parse a full name string into a name object for further processing",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "THE ICONIC ENGINEERING TEAM",
+            "email": "engineering@theiconic.com.au"
+        }
+    ],
+    "require": {
+        "php": ">=5.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.4.*",
+        "satooshi/php-coveralls": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "TheIconic\\NameParser\\": "src/"
+        }
+    }
+}
