@@ -38,6 +38,12 @@ class FirstnameMapper
 
                 $parts[$k] = new Firstname($part);
             }
+
+            if ($part instanceof AbstractPart) {
+                break;
+            }
+
+            $parts[$k] = new Firstname($part);
         }
 
         return $parts;

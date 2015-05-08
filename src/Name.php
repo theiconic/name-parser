@@ -2,6 +2,8 @@
 
 namespace TheIconic\NameParser;
 
+use TheIconic\NameParser\Part\AbstractPart;
+
 class Name
 {
 
@@ -44,7 +46,7 @@ class Name
         $matched = [];
 
         foreach ($this->parts as $part) {
-            if ($part instanceof AbstractPart && is_subclass_of($part, $type)) {
+            if ($part instanceof AbstractPart && is_a($part, 'TheIconic\\NameParser\\Part\\' . $type)) {
                 $matched[] = $part->getValue();
             }
         }

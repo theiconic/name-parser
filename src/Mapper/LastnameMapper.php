@@ -38,8 +38,6 @@ class LastnameMapper
 
         $parts = array_reverse($parts);
 
-        $lastNames = [];
-
         foreach ($parts as $k => $part) {
             if ($part instanceof Suffix) {
                 continue;
@@ -50,10 +48,14 @@ class LastnameMapper
             }
 
             if (false !== $prefix = $this->isPrefix($part)) {
-                $lastNames[] = $prefix;
+                if (isset($parts[$k-1]) && $parts[$k-1] instanceof Lastname) {
+                    $parts[$k] = new Lastname($prefix);
+                }
+            } else if (!isset($parts[$k-1]) || !($parts[$k-1] instanceof Lastname)) {
+                $parts[$k] = new Lastname($part);
+            } else {
+                break;
             }
-
-            $parts[$k] = new Lastname(array_reverse($lastNames));
         }
 
         return array_reverse($parts);
@@ -61,6 +63,9 @@ class LastnameMapper
 
     protected function isPrefix($part)
     {
+        $part = str_replace('.', '', $part);
+        $part = strtolower($part);
+
         if (array_key_exists($part, $this->prefixes)) {
             return $this->prefixes[$part];
         }

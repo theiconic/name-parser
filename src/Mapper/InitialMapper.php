@@ -2,6 +2,7 @@
 
 namespace TheIconic\NameParser\Mapper;
 
+use TheIconic\NameParser\Part\AbstractPart;
 use TheIconic\NameParser\Part\Initial;
 
 // single letter, possibly followed by a period
@@ -19,7 +20,7 @@ class InitialMapper
             }
         }
 
-        return parts;
+        return $parts;
     }
 
 }

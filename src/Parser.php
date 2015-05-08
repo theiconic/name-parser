@@ -46,7 +46,7 @@ class Parser
 
         $parts = $this->filter($parts);
 
-        foreach ($this->getMappers as $mapper) {
+        foreach ($this->getMappers() as $mapper) {
             $parts = $mapper->map($parts);
         }
 
@@ -73,7 +73,7 @@ class Parser
 
         $name = trim($name);
 
-        return preg_replace('/[' + $whitespace + ']+/', ' ', $name);
+        return preg_replace('/[' . preg_quote($whitespace) . ']+/', ' ', $name);
     }
 
     protected function getWhitespace()
