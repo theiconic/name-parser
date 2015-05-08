@@ -22,17 +22,24 @@ class FirstnameMapper
             return $parts;
         }
 
-        foreach ($parts as $k => $part) {
-            if ($part instanceof Salutation) {
-                continue;
+        // skip to after salutation
+        $length = count($parts);
+        $start = 0;
+        for ($i = 0; $i < $length; $i++) {
+            if ($parts[$i] instanceof Salutation) {
+                $start = $i + 1;
             }
+        }
+
+        for ($k = $start; $k < $length; $k++) {
+            $part = $parts[$k];
 
             if ($part instanceof Lastname) {
                 break;
             }
 
             if ($part instanceof Initial) {
-                if ($parts[$k-1] instanceof Firstname || $parts[$k-1] instanceof Initial) {
+                if (!isset($parts[$k-1]) || $parts[$k-1] instanceof Firstname || $parts[$k-1] instanceof Initial) {
                     continue;
                 }
 
