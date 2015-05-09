@@ -3,13 +3,14 @@
 namespace TheIconic\NameParser\Mapper;
 
 use TheIconic\NameParser\Part\AbstractPart;
-use TheIconic\NameParser\Part\Salutation;
+use TheIconic\NameParser\Part\Nickname;
 
-class SalutationMapper extends AbstractMapper
+// single letter, possibly followed by a period
+class NicknameMapper extends AbstractMapper
 {
 
     /**
-     * map salutations in the parts array
+     * map nicknames in the parts array
      *
      * @param array $parts the name parts
      * @return array the mapped parts
@@ -17,11 +18,11 @@ class SalutationMapper extends AbstractMapper
     function map(array $parts) {
         foreach ($parts as $k => $part) {
             if ($part instanceof AbstractPart) {
-                break;
+                continue;
             }
 
-            if (Salutation::isSalutation($part)) {
-                $parts[$k] = new Salutation($part);
+            if (preg_match('/^[\(\[\<\{].*[\)\]\>\}]$/', $part)) {
+                $parts[$k] = new Nickname(substr($part, 1, -1));
             }
         }
 

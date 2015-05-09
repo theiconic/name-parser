@@ -2,11 +2,11 @@
 
 namespace TheIconic\NameParser\Part;
 
-class Firstname extends AbstractPart
+class Nickname extends AbstractPart
 {
 
     /**
-     * camelcase the firstname
+     * camelcase the nickname for normalization
      *
      * @return mixed
      */

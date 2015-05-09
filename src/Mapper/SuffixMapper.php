@@ -5,45 +5,33 @@ namespace TheIconic\NameParser\Mapper;
 use TheIconic\NameParser\Part\AbstractPart;
 use TheIconic\NameParser\Part\Suffix;
 
-class SuffixMapper
+class SuffixMapper extends AbstractMapper
 {
 
-    protected $suffixes = [
-        'i' => 'I',
-        'ii' => 'II',
-        'iii' => 'III',
-        'iv' => 'IV',
-        'v' => 'V',
-        'seniour' => 'Senior',
-        'junior' => 'Junior',
-        'jr' => 'Jr',
-        'sr' => 'Sr',
-        'phd' => 'PhD',
-        'apr' => 'APR',
-        'rph' => 'RPh',
-        'pe' => 'PE',
-        'md' => 'MD',
-        'ma' => 'MA',
-        'dmd' => 'DMD',
-        'cme' => 'CME',
-    ];
-
+    /**
+     * map suffixes in the parts array
+     *
+     * @param array $parts the name parts
+     * @return array the mapped parts
+     */
     function map(array $parts) {
-        $parts = array_reverse($parts);
-        foreach ($parts as $k => $part) {
+        $start = count($parts) - 1;
+
+        for ($k = $start; $k > 1; $k--) {
+            $part = $parts[$k];
+
             if ($part instanceof AbstractPart) {
                 break;
             }
 
-            $part = str_replace('.', '', $part);
-            $part = strtolower($part);
-
-            if (array_key_exists($part, $this->suffixes)) {
-                $parts[$k] = new Suffix($this->suffixes[$part]);
+            if (Suffix::isSuffix($part)) {
+                $parts[$k] = new Suffix($part);
+            } else {
+                break;
             }
         }
 
-        return array_reverse($parts);
+        return $parts;
     }
 
 }

@@ -5,26 +5,19 @@ namespace TheIconic\NameParser\Mapper;
 use TheIconic\NameParser\Part\AbstractPart;
 use TheIconic\NameParser\Part\Firstname;
 use TheIconic\NameParser\Part\Lastname;
-use TheIconic\NameParser\Part\Initial;
-use TheIconic\NameParser\Part\Salutation;
+use TheIconic\NameParser\Part\Middlename;
 
-class FirstnameMapper extends AbstractMapper
+class MiddlenameMapper extends AbstractMapper
 {
 
     /**
-     * map firstnames in parts array
+     * map middlenames in the parts array
      *
-     * @param array $parts the parts
+     * @param array $parts the name parts
      * @return array the mapped parts
      */
     public function map(array $parts) {
-        if (count($parts) < 2) {
-            if ($parts[0] instanceof AbstractPart) {
-                return $parts;
-            }
-
-            $parts[0] = new Firstname($parts[0]);
-
+        if (count($parts) < 3) {
             return $parts;
         }
 
@@ -32,12 +25,10 @@ class FirstnameMapper extends AbstractMapper
         $length = count($parts);
         $start = 0;
         for ($i = 0; $i < $length; $i++) {
-            if ($parts[$i] instanceof Salutation) {
+            if ($parts[$i] instanceof Firstname) {
                 $start = $i + 1;
             }
         }
-
-        $pos = null;
 
         for ($k = $start; $k < $length; $k++) {
             $part = $parts[$k];
@@ -46,22 +37,11 @@ class FirstnameMapper extends AbstractMapper
                 break;
             }
 
-            if ($part instanceof Initial) {
-                if (null === $pos) {
-                    $pos = $k;
-                }
-            }
-
             if ($part instanceof AbstractPart) {
                 continue;
             }
 
-            $pos = $k;
-            break;
-        }
-
-        if (null !== $pos) {
-            $parts[$pos] = new Firstname($parts[$pos]);
+            $parts[$k] = new Middlename($part);
         }
 
         return $parts;
