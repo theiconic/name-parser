@@ -46,6 +46,21 @@ class Name
         return $this->parts;
     }
 
+    public function getAll()
+    {
+        $results = [];
+        $keys = ['salutation', 'firstname', 'middlename', 'lastname', 'nickname', 'initials', 'suffix'];
+
+        foreach ($keys as $key) {
+            $method = sprintf('get%s', ucfirst($key));
+            if ($value = call_user_func(array($this, $method))) {
+                $results[$key] = $value;
+            };
+        }
+
+        return $results;
+    }
+
     /**
      * get the first name
      *

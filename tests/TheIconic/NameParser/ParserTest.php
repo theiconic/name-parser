@@ -37,270 +37,270 @@ class ParserTest extends PHPUnit_Framework_TestCase
                 )
             ),
             array(
-                "Mr Anthony R Von Fange III",
+                'Mr Anthony R Von Fange III',
                 array(
-                    "salutation" => "Mr.",
-                    "firstname"      => "Anthony",
-                    "initials"   => "R",
-                    "lastname"      => "von Fange",
-                    "suffix"     => "III"
+                    'salutation' => 'Mr.',
+                    'firstname'      => 'Anthony',
+                    'initials'   => 'R',
+                    'lastname'      => 'von Fange',
+                    'suffix'     => 'III'
                 )
             ),
             array(
-                "J. B. Hunt",
+                'J. B. Hunt',
                 array(
-                    "firstname"      => "J.",
-                    "initials"   => "B.",
-                    "lastname"      => "Hunt",
+                    'firstname'      => 'J.',
+                    'initials'   => 'B.',
+                    'lastname'      => 'Hunt',
                 )
             ),
             array(
-                "J.B. Hunt",
+                'J.B. Hunt',
                 array(
-                    "firstname"      => "J.B.",
-                    "lastname"      => "Hunt",
+                    'firstname'      => 'J.B.',
+                    'lastname'      => 'Hunt',
                 )
             ),
             array(
-                "Edward Senior III",
+                'Edward Senior III',
                 array(
-                    "firstname"      => "Edward",
-                    "lastname"      => "Senior",
-                    "suffix"     => "III"
+                    'firstname'      => 'Edward',
+                    'lastname'      => 'Senior',
+                    'suffix'     => 'III'
                 )
             ),
             array(
-                "Edward Dale Senior II",
+                'Edward Dale Senior II',
                 array(
-                    "firstname"      => "Edward",
-                    "lastname"      => "Dale",
-                    "suffix"     => "Senior II"
+                    'firstname'      => 'Edward',
+                    'lastname'      => 'Dale',
+                    'suffix'     => 'Senior II'
                 )
             ),
             array(
-                "Dale Edward Jones Senior",
+                'Dale Edward Jones Senior',
                 array(
-                    "firstname" => "Dale",
+                    'firstname' => 'Dale',
                     'middlename' => 'Edward',
-                    "lastname" => "Jones",
-                    "suffix" => "Senior"
+                    'lastname' => 'Jones',
+                    'suffix' => 'Senior'
                 )
             ),
             array(
-                "Jason Rodriguez Sr.",
+                'Jason Rodriguez Sr.',
                 array(
-                    "firstname"      => "Jason",
-                    "lastname"      => "Rodriguez",
-                    "suffix"     => "Sr"
+                    'firstname'      => 'Jason',
+                    'lastname'      => 'Rodriguez',
+                    'suffix'     => 'Sr'
                 )
             ),
             array(
-                "Jason Senior",
+                'Jason Senior',
                 array(
-                    "firstname"      => "Jason",
-                    "lastname"      => "Senior",
+                    'firstname'      => 'Jason',
+                    'lastname'      => 'Senior',
                 )
             ),
             array(
-                "Bill Junior",
+                'Bill Junior',
                 array(
-                    "firstname" => "Bill",
-                    "lastname" => "Junior",
+                    'firstname' => 'Bill',
+                    'lastname' => 'Junior',
                 )
             ),
             array(
-                "Sara Ann Fraser",
+                'Sara Ann Fraser',
                 array(
-                    "firstname" => "Sara",
+                    'firstname' => 'Sara',
                     'middlename' => 'Ann',
-                    "lastname" => "Fraser",
+                    'lastname' => 'Fraser',
                 )
             ),
             array(
-                "Adam",
+                'Adam',
                 array(
-                    "firstname" => "Adam",
+                    'firstname' => 'Adam',
                 )
             ),
             array(
-                "OLD MACDONALD",
+                'OLD MACDONALD',
                 array(
-                    "firstname"      => "Old",
-                    "lastname"      => "Macdonald",
+                    'firstname'      => 'Old',
+                    'lastname'      => 'Macdonald',
                 )
             ),
             array(
-                "Old MacDonald",
+                'Old MacDonald',
                 array(
-                    "firstname"      => "Old",
-                    "lastname"      => "MacDonald",
+                    'firstname'      => 'Old',
+                    'lastname'      => 'MacDonald',
                 )
             ),
             array(
-                "Old McDonald",
+                'Old McDonald',
                 array(
-                    "firstname"      => "Old",
-                    "lastname"      => "McDonald",
+                    'firstname'      => 'Old',
+                    'lastname'      => 'McDonald',
                 )
             ),
             array(
-                "Old Mc Donald",
+                'Old Mc Donald',
                 array(
-                    "firstname"      => "Old",
+                    'firstname'      => 'Old',
                     'middlename' => 'Mc',
-                    "lastname"      => "Donald",
+                    'lastname'      => 'Donald',
                 )
             ),
             array(
-                "Old Mac Donald",
+                'Old Mac Donald',
                 array(
-                    "firstname"      => "Old",
+                    'firstname'      => 'Old',
                     'middlename' => 'Mac',
-                    "lastname"      => "Donald",
+                    'lastname'      => 'Donald',
                 )
             ),
             array(
-                "James van Allen",
+                'James van Allen',
                 array(
-                    "firstname"      => "James",
-                    "lastname"      => "van Allen",
+                    'firstname'      => 'James',
+                    'lastname'      => 'van Allen',
                 )
             ),
             array(
-                "Jimmy (Bubba) Smith",
+                'Jimmy (Bubba) Smith',
                 array(
-                    "firstname" => "Jimmy",
-                    "lastname" => "Smith",
-                    "nickname" => "Bubba",
+                    'firstname' => 'Jimmy',
+                    'lastname' => 'Smith',
+                    'nickname' => 'Bubba',
                 )
             ),
             array(
-                "Miss Jennifer Shrader Lawrence",
+                'Miss Jennifer Shrader Lawrence',
                 array(
-                    "salutation" => "Ms.",
-                    "firstname" => "Jennifer",
+                    'salutation' => 'Ms.',
+                    'firstname' => 'Jennifer',
                     'middlename' => 'Shrader',
-                    "lastname" => "Lawrence",
+                    'lastname' => 'Lawrence',
                 )
             ),
             array(
-                "Dr. Jonathan Smith",
+                'Dr. Jonathan Smith',
                 array(
-                    "salutation" => "Dr.",
-                    "firstname"      => "Jonathan",
-                    "lastname"      => "Smith",
+                    'salutation' => 'Dr.',
+                    'firstname'      => 'Jonathan',
+                    'lastname'      => 'Smith',
                 )
             ),
             array(
-                "Miss Jamie P. Harrowitz",
+                'Miss Jamie P. Harrowitz',
                 array(
-                    "salutation" => "Ms.",
-                    "firstname"      => "Jamie",
-                    "initials"   => "P.",
-                    "lastname"      => "Harrowitz",
+                    'salutation' => 'Ms.',
+                    'firstname'      => 'Jamie',
+                    'initials'   => 'P.',
+                    'lastname'      => 'Harrowitz',
                 )
             ),
             array(
-                "Mr John Doe",
+                'Mr John Doe',
                 array(
-                    "salutation" => "Mr.",
-                    "firstname"      => "John",
-                    "lastname"      => "Doe",
+                    'salutation' => 'Mr.',
+                    'firstname'      => 'John',
+                    'lastname'      => 'Doe',
                 )
             ),
             array(
-                "Rev. Dr John Doe",
+                'Rev. Dr John Doe',
                 array(
-                    "salutation" => "Rev. Dr.",
-                    "firstname"      => "John",
-                    "lastname"      => "Doe",
+                    'salutation' => 'Rev. Dr.',
+                    'firstname'      => 'John',
+                    'lastname'      => 'Doe',
                 )
             ),
             array(
-                "Anthony Von Fange III",
+                'Anthony Von Fange III',
                 array(
-                    "firstname"      => "Anthony",
-                    "lastname"      => "von Fange",
-                    "suffix"     => "III"
+                    'firstname'      => 'Anthony',
+                    'lastname'      => 'von Fange',
+                    'suffix'     => 'III'
                 )
             ),
             array(
-                "Smarty Pants Phd",
+                'Smarty Pants Phd',
                 array(
-                    "firstname"      => "Smarty",
-                    "lastname"      => "Pants",
-                    "suffix"     => "PhD"
+                    'firstname'      => 'Smarty',
+                    'lastname'      => 'Pants',
+                    'suffix'     => 'PhD'
                 )
             ),
             array(
-                "Mark Peter Williams",
+                'Mark Peter Williams',
                 array(
-                    "firstname" => "Mark",
+                    'firstname' => 'Mark',
                     'middlename' => 'Peter',
-                    "lastname" => "Williams",
+                    'lastname' => 'Williams',
                 )
             ),
             array(
-                "Mark P Williams",
+                'Mark P Williams',
                 array(
-                    "firstname"      => "Mark",
-                    "lastname"      => "Williams",
+                    'firstname'      => 'Mark',
+                    'lastname'      => 'Williams',
                     'initials' => 'P',
                 )
             ),
             array(
-                "Mark P. Williams",
+                'Mark P. Williams',
                 array(
-                    "firstname"      => "Mark",
-                    "initials"   => "P.",
-                    "lastname"      => "Williams",
+                    'firstname'      => 'Mark',
+                    'initials'   => 'P.',
+                    'lastname'      => 'Williams',
                 )
             ),
             array(
-                "M Peter Williams",
+                'M Peter Williams',
                 array(
-                    "firstname"      => "Peter",
-                    "initials"   => "M",
-                    "lastname"      => "Williams",
+                    'firstname'      => 'Peter',
+                    'initials'   => 'M',
+                    'lastname'      => 'Williams',
                 )
             ),
             array(
-                "M. Peter Williams",
+                'M. Peter Williams',
                 array(
-                    "firstname"      => "Peter",
-                    "initials"   => "M.",
-                    "lastname"      => "Williams",
+                    'firstname'      => 'Peter',
+                    'initials'   => 'M.',
+                    'lastname'      => 'Williams',
                 )
             ),
             array(
-                "M. P. Williams",
+                'M. P. Williams',
                 array(
-                    "firstname"      => "M.",
-                    "initials"   => "P.",
-                    "lastname"      => "Williams",
+                    'firstname'      => 'M.',
+                    'initials'   => 'P.',
+                    'lastname'      => 'Williams',
                 )
             ),
             array(
-                "The Rev. Mark Williams",
+                'The Rev. Mark Williams',
                 array(
-                    "salutation" => "Rev.",
-                    "firstname"      => "Mark",
-                    "lastname"      => "Williams",
+                    'salutation' => 'Rev.',
+                    'firstname'      => 'Mark',
+                    'lastname'      => 'Williams',
                 )
             ),
             array(
-                "Mister Mark Williams",
+                'Mister Mark Williams',
                 array(
-                    "salutation" => "Mr.",
-                    "firstname"      => "Mark",
-                    "lastname"      => "Williams",
+                    'salutation' => 'Mr.',
+                    'firstname'      => 'Mark',
+                    'lastname'      => 'Williams',
                 )
             ),
             array(
-                "Fraser, Joshua",
+                'Fraser, Joshua',
                 array(
-                    "firstname"      => "Joshua",
-                    "lastname"      => "Fraser",
+                    'firstname'      => 'Joshua',
+                    'lastname'      => 'Fraser',
                 )
             ),
             array(
@@ -310,7 +310,16 @@ class ParserTest extends PHPUnit_Framework_TestCase
                     'firstname' => 'Amanda',
                     'lastname' => 'Brown',
                 )
-            )
+            ),
+            array(
+                "Mr.\r\nPaul\rJoseph\nMaria\tWinters",
+                array(
+                    'salutation' => 'Mr.',
+                    'firstname' => 'Paul',
+                    'middlename' => 'Joseph Maria',
+                    'lastname' => 'Winters',
+                )
+            ),
         );
     }
     
@@ -318,57 +327,46 @@ class ParserTest extends PHPUnit_Framework_TestCase
     {
         return array(
             array(
-                "Jonathan Smith, MD",
+                'Jonathan Smith, MD',
                 array(
-                    "firstname"      => "Jonathan",
-                    "lastname"      => "Smith",
-                    "suffix"     => "MD"
+                    'firstname'      => 'Jonathan',
+                    'lastname'      => 'Smith',
+                    'suffix'     => 'MD'
                 )
             ),
             // fails. both initials should be capitalized
             array(
-                "JB Hunt",
+                'JB Hunt',
                 array(
-                    "salutation" => "",
-                    "firstname"      => "JB",
-                    "initials"   => "",
-                    "lastname"      => "Hunt",
-                    "suffix"     => ""
+                    'firstname'      => 'JB',
+                    'lastname'      => 'Hunt',
                 )
             ),
             // fails.  doesn't handle multiple words inside parenthesis
             array(
-                "Jimmy (Bubba Junior) Smith",
+                'Jimmy (Bubba Junior) Smith',
                 array(
-                    "nickname"   => "Bubba Junior",
-                    "salutation" => "",
-                    "firstname"      => "Jimmy",
-                    "initials"   => "",
-                    "lastname"      => "Smith",
-                    "suffix"     => ""
+                    'nickname'   => 'Bubba Junior',
+                    'firstname'      => 'Jimmy',
+                    'lastname'      => 'Smith',
                 )
             ),
             // fails.  should normalize the PhD suffix
             array(
-                "Anthony Von Fange III, PHD",
+                'Anthony Von Fange III, PHD',
                 array(
-                    "salutation" => "",
-                    "firstname"      => "Anthony",
-                    "initials"   => "",
-                    "lastname"      => "Von Fange",
-                    "suffix"     => "III, PhD"
+                    'firstname'      => 'Anthony',
+                    'lastname'      => 'Von Fange',
+                    'suffix'     => 'III, PhD'
                 )
             ),
-            // fails.  should treat "Silly" as the nickname or remove altogether
+            // fails.  should treat 'Silly' as the nickname or remove altogether
             array(
-                "Not So Smarty Pants, Silly",
+                'Not So Smarty Pants, Silly',
                 array(
-                    "nickname"   => "Silly",
-                    "salutation" => "",
-                    "firstname"      => "Not So Smarty",
-                    "initials"   => "",
-                    "lastname"      => "Pants",
-                    "suffix"     => ""
+                    'nickname'   => 'Silly',
+                    'firstname'      => 'Not So Smarty',
+                    'lastname'      => 'Pants',
                 )
             )
         );
@@ -382,19 +380,11 @@ class ParserTest extends PHPUnit_Framework_TestCase
      */
     public function testParse($input, $expectation)
     {
-
         $parser = new Parser();
         $name = $parser->parse($input);
 
         $this->assertInstanceOf('\\TheIconic\\NameParser\\Name', $name);
-        $results = [];
-        foreach (['salutation', 'firstname', 'middlename', 'lastname', 'nickname', 'initials', 'suffix'] as $key) {
-            $method = sprintf('get%s', ucfirst($key));
-            if ($value = call_user_func(array($name, $method))) {
-                $results[$key] = $value;
-            };
-        }
-        $this->assertEquals($expectation, $results);
+        $this->assertEquals($expectation, $name->getAll());
     }
 
 }
