@@ -320,6 +320,13 @@ class ParserTest extends PHPUnit_Framework_TestCase
                     'lastname' => 'Winters',
                 )
             ),
+            array(
+                'Van Truong',
+                array(
+                    'firstname' => 'Van',
+                    'lastname' => 'Truong',
+                ),
+            ),
         );
     }
     
@@ -368,7 +375,7 @@ class ParserTest extends PHPUnit_Framework_TestCase
                     'firstname'      => 'Not So Smarty',
                     'lastname'      => 'Pants',
                 )
-            )
+            ),
         );
     }
 

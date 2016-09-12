@@ -43,8 +43,10 @@ class LastnameMapper extends AbstractMapper
             }
 
             if (Lastname::isPrefix($part)) {
-                if (isset($parts[$k-1]) && $parts[$k-1] instanceof Lastname) {
-                    $parts[$k] = new Lastname($part);
+                if (isset($parts[$k-1]) && $parts[$k-1] instanceof Lastname ) {
+                    if ($this->hasUnmappedPartsBefore(array_reverse($parts), count($parts) - $k - 1)) {
+                        $parts[$k] = new Lastname($part);
+                    }
                 }
             } else if (!isset($parts[$k-1]) || !($parts[$k-1] instanceof Lastname)) {
                 $parts[$k] = new Lastname($part);
@@ -54,6 +56,29 @@ class LastnameMapper extends AbstractMapper
         }
 
         return array_reverse($parts);
+    }
+
+    /**
+     * checks if there are still unmapped parts left before the given position
+     *
+     * @param array $parts
+     * @param $index
+     * @return bool
+     */
+    protected function hasUnmappedPartsBefore(array $parts, $index)
+    {
+        foreach ($parts as $k => $part)
+        {
+            if ($k === $index) {
+                break;
+            }
+
+            if (!($part instanceof AbstractPart)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }
