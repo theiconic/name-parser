@@ -4,7 +4,6 @@ namespace TheIconic\NameParser\Part;
 
 class Suffix extends AbstractPart
 {
-
     /**
      * @var array possible suffixes
      */
@@ -64,5 +63,4 @@ class Suffix extends AbstractPart
     {
         return static::$suffixes[self::getKey($this->getValue())];
     }
-
 }

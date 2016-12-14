@@ -5,7 +5,7 @@
         >
     <testsuites>
         <testsuite name="The Iconic Name Parser Test Suite">
-            <directory>./tests/TheIconic/NameParser</directory>
+            <directory>./tests</directory>
         </testsuite>
     </testsuites>
     <filter>

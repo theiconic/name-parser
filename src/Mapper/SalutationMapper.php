@@ -7,7 +7,6 @@ use TheIconic\NameParser\Part\Salutation;
 
 class SalutationMapper extends AbstractMapper
 {
-
     /**
      * map salutations in the parts array
      *
@@ -27,5 +26,4 @@ class SalutationMapper extends AbstractMapper
 
         return $parts;
     }
-
 }

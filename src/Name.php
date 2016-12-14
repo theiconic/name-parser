@@ -6,7 +6,6 @@ use TheIconic\NameParser\Part\AbstractPart;
 
 class Name
 {
-
     /**
      * @var array the parts that make up this name
      */
@@ -14,6 +13,7 @@ class Name
 
     /**
      * constructor takes the array of parts this name consists of
+     *
      * @param array|null $parts
      */
     public function __construct(array $parts = null)
@@ -46,6 +46,9 @@ class Name
         return $this->parts;
     }
 
+    /**
+     * @return array
+     */
     public function getAll()
     {
         $results = [];
@@ -149,5 +152,4 @@ class Name
 
         return implode(' ',  $matched);
     }
-
 }

@@ -4,7 +4,6 @@ namespace TheIconic\NameParser\Part;
 
 class Nickname extends AbstractPart
 {
-
     /**
      * camelcase the nickname for normalization
      *
@@ -14,5 +13,4 @@ class Nickname extends AbstractPart
     {
         return $this->camelcase($this->getValue());
     }
-
 }

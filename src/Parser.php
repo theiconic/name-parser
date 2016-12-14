@@ -12,9 +12,14 @@ use TheIconic\NameParser\Mapper\MiddlenameMapper;
 
 class Parser
 {
-
+    /**
+     * @var string
+     */
     protected $whitespace = " \r\n\t";
 
+    /**
+     * @var array
+     */
     protected $mappers = [];
 
     /**
@@ -28,8 +33,8 @@ class Parser
      * @param $full_name
      * @return Name
      */
-    public function parse($name) {
-
+    public function parse($name)
+    {
         $name = $this->normalize($name);
 
         if (false !== $pos = strpos($name, ',')) {
@@ -53,24 +58,32 @@ class Parser
      *
      * @return Name
      */
-    protected function parseSplitName($left, $right) {
+    protected function parseSplitName($left, $right)
+    {
         $first = new Parser();
         $first->setMappers([
             new SalutationMapper(),
             new SuffixMapper(),
             new LastnameMapper(['match_single' => true]),
+            new FirstnameMapper(),
+            new MiddlenameMapper(),
         ]);
+
         $second = new Parser();
         $second->setMappers([
+            new SalutationMapper(),
+            new SuffixMapper(['match_single' => true]),
             new NicknameMapper(),
             new InitialMapper(),
             new FirstnameMapper(),
             new MiddlenameMapper(),
         ]);
+
         $parts = array_merge(
             $first->parse($left)->getParts(),
             $second->parse($right)->getParts()
         );
+
         return new Name($parts);
     }
 
@@ -140,5 +153,4 @@ class Parser
     {
         $this->whitespace = $whitespace;
     }
-
 }

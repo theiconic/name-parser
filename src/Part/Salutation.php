@@ -4,7 +4,6 @@ namespace TheIconic\NameParser\Part;
 
 class Salutation extends AbstractPart
 {
-
     /**
      * @var array possible salutations
      */

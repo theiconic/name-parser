@@ -9,7 +9,6 @@ use TheIconic\NameParser\Part\Middlename;
 
 class MiddlenameMapper extends AbstractMapper
 {
-
     /**
      * map middlenames in the parts array
      *
@@ -23,12 +22,7 @@ class MiddlenameMapper extends AbstractMapper
 
         // skip to after salutation
         $length = count($parts);
-        $start = 0;
-        for ($i = 0; $i < $length; $i++) {
-            if ($parts[$i] instanceof Firstname) {
-                $start = $i + 1;
-            }
-        }
+        $start = $this->getStartIndex($parts, $length);
 
         for ($k = $start; $k < $length; $k++) {
             $part = $parts[$k];
@@ -47,4 +41,22 @@ class MiddlenameMapper extends AbstractMapper
         return $parts;
     }
 
+    /**
+     * @param array $parts
+     * @param int $total
+     * @return int
+     */
+    protected function getStartIndex(array $parts, $total)
+    {
+        // skip to after salutation
+        $start = 0;
+
+        for ($i = 0; $i < $total; $i++) {
+            if ($parts[$i] instanceof Firstname) {
+                $start = $i + 1;
+            }
+        }
+
+        return $start;
+    }
 }

@@ -67,7 +67,7 @@ abstract class AbstractPart
      */
     protected function camelcase($word)
     {
-        if (preg_match("/[A-Za-z]([A-Z]*[a-z][a-z]*[A-Z]|[a-z]*[A-Z][A-Z]*[a-z])[A-Za-z]*/", $word)) {
+        if (preg_match('/[A-Za-z]([A-Z]*[a-z][a-z]*[A-Z]|[a-z]*[A-Z][A-Z]*[a-z])[A-Za-z]*/', $word)) {
             return $word;
         }
 

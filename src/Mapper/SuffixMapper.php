@@ -7,6 +7,12 @@ use TheIconic\NameParser\Part\Suffix;
 
 class SuffixMapper extends AbstractMapper
 {
+    /**
+     * @var array options
+     */
+    protected $options = [
+        'match_single' => false,
+    ];
 
     /**
      * map suffixes in the parts array
@@ -15,6 +21,11 @@ class SuffixMapper extends AbstractMapper
      * @return array the mapped parts
      */
     function map(array $parts) {
+        if ($this->options['match_single'] && count($parts) == 1 && Suffix::isSuffix($parts[0])) {
+            $parts[0] = new Suffix($parts[0]);
+            return $parts;
+        }
+
         $start = count($parts) - 1;
 
         for ($k = $start; $k > 1; $k--) {
@@ -33,5 +44,4 @@ class SuffixMapper extends AbstractMapper
 
         return $parts;
     }
-
 }

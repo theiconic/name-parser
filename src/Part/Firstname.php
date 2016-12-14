@@ -4,7 +4,6 @@ namespace TheIconic\NameParser\Part;
 
 class Firstname extends AbstractPart
 {
-
     /**
      * camelcase the firstname
      *
@@ -14,5 +13,4 @@ class Firstname extends AbstractPart
     {
         return $this->camelcase($this->getValue());
     }
-
 }

@@ -8,7 +8,6 @@ use TheIconic\NameParser\Part\Suffix;
 
 class LastnameMapper extends AbstractMapper
 {
-
     /**
      * @var array options
      */
@@ -67,8 +66,7 @@ class LastnameMapper extends AbstractMapper
      */
     protected function hasUnmappedPartsBefore(array $parts, $index)
     {
-        foreach ($parts as $k => $part)
-        {
+        foreach ($parts as $k => $part) {
             if ($k === $index) {
                 break;
             }
@@ -80,5 +78,4 @@ class LastnameMapper extends AbstractMapper
 
         return false;
     }
-
 }

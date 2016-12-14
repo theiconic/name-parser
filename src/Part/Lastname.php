@@ -4,7 +4,6 @@ namespace TheIconic\NameParser\Part;
 
 class Lastname extends AbstractPart
 {
-
     /**
      * @var array possible lastname prefixes
      */
@@ -64,5 +63,4 @@ class Lastname extends AbstractPart
 
         return $this->camelcase($this->getValue());
     }
-
 }

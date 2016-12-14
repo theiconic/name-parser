@@ -10,7 +10,6 @@ use TheIconic\NameParser\Part\Salutation;
 
 class FirstnameMapper extends AbstractMapper
 {
-
     /**
      * map firstnames in parts array
      *
@@ -19,23 +18,11 @@ class FirstnameMapper extends AbstractMapper
      */
     public function map(array $parts) {
         if (count($parts) < 2) {
-            if ($parts[0] instanceof AbstractPart) {
-                return $parts;
-            }
-
-            $parts[0] = new Firstname($parts[0]);
-
-            return $parts;
+            return [$this->handleSinglePart($parts[0])];
         }
 
-        // skip to after salutation
         $length = count($parts);
-        $start = 0;
-        for ($i = 0; $i < $length; $i++) {
-            if ($parts[$i] instanceof Salutation) {
-                $start = $i + 1;
-            }
-        }
+        $start = $this->getStartIndex($parts, $length);
 
         $pos = null;
 
@@ -46,10 +33,8 @@ class FirstnameMapper extends AbstractMapper
                 break;
             }
 
-            if ($part instanceof Initial) {
-                if (null === $pos) {
-                    $pos = $k;
-                }
+            if ($part instanceof Initial && null === $pos) {
+                $pos = $k;
             }
 
             if ($part instanceof AbstractPart) {
@@ -67,4 +52,35 @@ class FirstnameMapper extends AbstractMapper
         return $parts;
     }
 
+    /**
+     * @param $part
+     * @return Firstname
+     */
+    protected function handleSinglePart($part)
+    {
+        if ($part instanceof AbstractPart) {
+            return $part;
+        }
+
+        return new Firstname($part);
+    }
+
+    /**
+     * @param array $parts
+     * @param int $total
+     * @return int
+     */
+    protected function getStartIndex(array $parts, $total)
+    {
+        // skip to after salutation
+        $start = 0;
+
+        for ($i = 0; $i < $total; $i++) {
+            if ($parts[$i] instanceof Salutation) {
+                $start = $i + 1;
+            }
+        }
+
+        return $start;
+    }
 }
