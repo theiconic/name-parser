@@ -56,26 +56,4 @@ class LastnameMapper extends AbstractMapper
 
         return array_reverse($parts);
     }
-
-    /**
-     * checks if there are still unmapped parts left before the given position
-     *
-     * @param array $parts
-     * @param $index
-     * @return bool
-     */
-    protected function hasUnmappedPartsBefore(array $parts, $index)
-    {
-        foreach ($parts as $k => $part) {
-            if ($k === $index) {
-                break;
-            }
-
-            if (!($part instanceof AbstractPart)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
 }

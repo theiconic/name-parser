@@ -2,6 +2,8 @@
 
 namespace TheIconic\NameParser\Mapper;
 
+use TheIconic\NameParser\Part\AbstractPart;
+
 abstract class AbstractMapper
 {
     /**
@@ -28,4 +30,26 @@ abstract class AbstractMapper
      * @return array $parts - the mapped parts
      */
     abstract public function map(array $parts);
+
+    /**
+     * checks if there are still unmapped parts left before the given position
+     *
+     * @param array $parts
+     * @param $index
+     * @return bool
+     */
+    protected function hasUnmappedPartsBefore(array $parts, $index)
+    {
+        foreach ($parts as $k => $part) {
+            if ($k === $index) {
+                break;
+            }
+
+            if (!($part instanceof AbstractPart)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
