@@ -4,7 +4,6 @@ namespace TheIconic\NameParser\Part;
 
 abstract class AbstractPart
 {
-
     /**
      * @var string the wrapped value
      */
@@ -84,5 +83,4 @@ abstract class AbstractPart
     {
         return ucfirst(strtolower($matches[0]));
     }
-
 }

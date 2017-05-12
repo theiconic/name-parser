@@ -2,9 +2,9 @@
 
 namespace TheIconic\NameParser\Mapper;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-abstract class AbstractMapperTest extends PHPUnit_Framework_TestCase
+abstract class AbstractMapperTest extends TestCase
 {
     /**
      * @dataProvider provider

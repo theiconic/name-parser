@@ -7,7 +7,7 @@ class Lastname extends AbstractPart
     /**
      * @var array possible lastname prefixes
      */
-    static protected $prefixes = [
+    protected static $prefixes = [
         'vere' => 'vere',
         'von' => 'von',
         'van' => 'van',
@@ -31,7 +31,7 @@ class Lastname extends AbstractPart
      * @param string $word the word to check
      * @return bool
      */
-    static public function isPrefix($word)
+    public static function isPrefix($word)
     {
         return (array_key_exists(self::getKey($word), static::$prefixes));
     }
@@ -42,7 +42,7 @@ class Lastname extends AbstractPart
      * @param string $word the word
      * @return string the key
      */
-    static protected function getKey($word)
+    protected static function getKey($word)
     {
         return strtolower(str_replace('.', '', $word));
     }

@@ -7,7 +7,7 @@ class Suffix extends AbstractPart
     /**
      * @var array possible suffixes
      */
-    static protected $suffixes = [
+    protected static $suffixes = [
         'i' => 'I',
         'ii' => 'II',
         'iii' => 'III',
@@ -38,7 +38,7 @@ class Suffix extends AbstractPart
      * @param string $word the word to check
      * @return bool
      */
-    static public function isSuffix($word)
+    public static function isSuffix($word)
     {
         return (array_key_exists(self::getKey($word), static::$suffixes));
     }
@@ -49,7 +49,7 @@ class Suffix extends AbstractPart
      * @param string $word the word
      * @return string the key
      */
-    static protected function getKey($word)
+    protected static function getKey($word)
     {
         return strtolower(str_replace('.', '', $word));
     }

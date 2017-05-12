@@ -16,7 +16,8 @@ class FirstnameMapper extends AbstractMapper
      * @param array $parts the parts
      * @return array the mapped parts
      */
-    public function map(array $parts) {
+    public function map(array $parts)
+    {
         if (count($parts) < 2) {
             return [$this->handleSinglePart($parts[0])];
         }

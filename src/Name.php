@@ -52,7 +52,15 @@ class Name
     public function getAll()
     {
         $results = [];
-        $keys = ['salutation', 'firstname', 'middlename', 'lastname', 'nickname', 'initials', 'suffix'];
+        $keys = [
+            'salutation',
+            'firstname',
+            'middlename',
+            'lastname',
+            'nickname',
+            'initials',
+            'suffix'
+        ];
 
         foreach ($keys as $key) {
             $method = sprintf('get%s', ucfirst($key));

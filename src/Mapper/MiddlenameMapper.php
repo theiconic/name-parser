@@ -15,7 +15,8 @@ class MiddlenameMapper extends AbstractMapper
      * @param array $parts the name parts
      * @return array the mapped parts
      */
-    public function map(array $parts) {
+    public function map(array $parts)
+    {
         if (count($parts) < 3) {
             return $parts;
         }

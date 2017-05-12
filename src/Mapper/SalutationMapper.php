@@ -13,7 +13,8 @@ class SalutationMapper extends AbstractMapper
      * @param array $parts the name parts
      * @return array the mapped parts
      */
-    function map(array $parts) {
+    public function map(array $parts)
+    {
         foreach ($parts as $k => $part) {
             if ($part instanceof AbstractPart) {
                 break;

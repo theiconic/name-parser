@@ -13,7 +13,8 @@ class NicknameMapper extends AbstractMapper
      * @param array $parts the name parts
      * @return array the mapped parts
      */
-    function map(array $parts) {
+    public function map(array $parts)
+    {
         $isEncapsulated = false;
 
         foreach ($parts as $k => $part) {

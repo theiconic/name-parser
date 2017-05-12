@@ -1,5 +1,3 @@
-.idea
 vendor
-coverage
-composer.phar
 phpunit.xml
+.idea

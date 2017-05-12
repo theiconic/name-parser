@@ -20,7 +20,8 @@ class SuffixMapper extends AbstractMapper
      * @param array $parts the name parts
      * @return array the mapped parts
      */
-    function map(array $parts) {
+    public function map(array $parts)
+    {
         if ($this->options['match_single'] && count($parts) == 1 && Suffix::isSuffix($parts[0])) {
             $parts[0] = new Suffix($parts[0]);
             return $parts;

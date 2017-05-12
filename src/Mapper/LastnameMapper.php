@@ -21,7 +21,8 @@ class LastnameMapper extends AbstractMapper
      * @param array $parts the name parts
      * @return array the mapped parts
      */
-    public function map(array $parts) {
+    public function map(array $parts)
+    {
         if (!$this->options['match_single'] && count($parts) < 2) {
             return $parts;
         }
@@ -42,12 +43,12 @@ class LastnameMapper extends AbstractMapper
             }
 
             if (Lastname::isPrefix($part)) {
-                if (isset($parts[$k-1]) && $parts[$k-1] instanceof Lastname ) {
+                if (isset($parts[$k-1]) && $parts[$k-1] instanceof Lastname) {
                     if ($this->hasUnmappedPartsBefore(array_reverse($parts), count($parts) - $k - 1)) {
                         $parts[$k] = new Lastname($part);
                     }
                 }
-            } else if (!isset($parts[$k-1]) || !($parts[$k-1] instanceof Lastname)) {
+            } elseif (!isset($parts[$k-1]) || !($parts[$k-1] instanceof Lastname)) {
                 $parts[$k] = new Lastname($part);
             } else {
                 break;

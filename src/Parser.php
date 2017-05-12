@@ -139,7 +139,7 @@ class Parser
      *
      * @return string
      */
-    protected function getWhitespace()
+    public function getWhitespace()
     {
         return $this->whitespace;
     }
@@ -148,9 +148,12 @@ class Parser
      * set the string of characters that are supposed to be treated as whitespace
      *
      * @param $whitespace
+     * @return Parser
      */
-    protected function setWhitespace($whitespace)
+    public function setWhitespace($whitespace): Parser
     {
         $this->whitespace = $whitespace;
+
+        return $this;
     }
 }

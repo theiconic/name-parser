@@ -2,9 +2,9 @@
 
 namespace TheIconic\NameParser;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class ParserTest extends PHPUnit_Framework_TestCase
+class ParserTest extends TestCase
 {
     /**
      * @return array
@@ -357,7 +357,7 @@ class ParserTest extends PHPUnit_Framework_TestCase
     /**
      * @return array
      */
-    public function disfunctionalastnameProvider()
+    public function dysfunctionalFirstnameProvider()
     {
         return [
             // fails. both initials should be capitalized
@@ -382,8 +382,18 @@ class ParserTest extends PHPUnit_Framework_TestCase
         $parser = new Parser();
         $name = $parser->parse($input);
 
-        $this->assertInstanceOf('\\TheIconic\\NameParser\\Name', $name);
+        $this->assertInstanceOf(Name::class, $name);
         $this->assertEquals($expectation, $name->getAll());
     }
 
+    public function testSetGetWhitespace()
+    {
+        $parser = new Parser();
+        $parser->setWhitespace('abc');
+        $this->assertSame('abc', $parser->getWhitespace());
+        $parser->setWhitespace(' ');
+        $this->assertSame(' ', $parser->getWhitespace());
+        $parser->setWhitespace('   _');
+        $this->assertSame('   _', $parser->getWhitespace());
+    }
 }

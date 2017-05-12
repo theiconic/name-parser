@@ -7,7 +7,7 @@ class Salutation extends AbstractPart
     /**
      * @var array possible salutations
      */
-    static protected $salutations = [
+    protected static $salutations = [
         'mr' => 'Mr.',
         'master' => 'Mr.',
         'mister' => 'Mr.',
@@ -25,7 +25,7 @@ class Salutation extends AbstractPart
      * @param string $word the word to check
      * @return bool
      */
-    static public function isSalutation($word)
+    public static function isSalutation($word)
     {
         return (array_key_exists(self::getKey($word), static::$salutations));
     }
@@ -36,7 +36,7 @@ class Salutation extends AbstractPart
      * @param string $word the word
      * @return string the key
      */
-    static protected function getKey($word)
+    protected static function getKey($word)
     {
         return strtolower(str_replace('.', '', $word));
     }

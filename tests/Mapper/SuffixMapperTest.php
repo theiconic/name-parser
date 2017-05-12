@@ -64,6 +64,18 @@ class SuffixMapperTest extends AbstractMapperTest
                     'Norrington',
                 ],
             ],
+            [
+                'input' => [
+                    'Senior',
+                    new Firstname('James'),
+                    new Lastname('Norrington'),
+                ],
+                'expectation' => [
+                    'Senior',
+                    new Firstname('James'),
+                    new Lastname('Norrington'),
+                ],
+            ],
         ];
     }
 }
