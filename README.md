@@ -1,5 +1,13 @@
 # THE ICONIC Name Parser
 
+[![Build Status](https://travis-ci.org/theiconic/name-parser.svg?branch=master)](https://travis-ci.org/theiconic/name-parser)
+[![Coverage Status](https://coveralls.io/repos/github/theiconic/name-parser/badge.svg?branch=master&t=2)](https://coveralls.io/github/theiconic/name-parser?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/theiconic/name-parser/badges/quality-score.png?b=master&t=1)](https://scrutinizer-ci.com/g/theiconic/name-parser/?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/theiconic/name-parser/v/stable)](https://packagist.org/packages/theiconic/name-parser)
+[![Total Downloads](https://poser.pugx.org/theiconic/name-parser/downloads)](https://packagist.org/packages/theiconic/name-parser)
+[![License](https://poser.pugx.org/theiconic/name-parser/license)](https://packagist.org/packages/theiconic/name-parser)
+[![Dependency Status](https://www.versioneye.com/user/projects/591a676ba593390051b42cdd/badge.svg?style=flat)](https://www.versioneye.com/user/projects/591a676ba593390051b42cdd)
+
 ## Purpose
 This is a universal, language-independent name parser.
 
