@@ -57,6 +57,18 @@ class MiddlenameMapperTest extends AbstractMapperTest
             ],
             [
                 'input' => [
+                    'James',
+                    'Tiberius',
+                    'Kirk',
+                ],
+                'expectation' => [
+                    'James',
+                    'Tiberius',
+                    'Kirk',
+                ],
+            ],
+            [
+                'input' => [
                     'Albert',
                     'Einstein',
                 ],
