@@ -23,7 +23,7 @@ class FirstnameMapper extends AbstractMapper
         }
 
         $length = count($parts);
-        $start = $this->getStartIndex($parts, $length);
+        $start = $this->getStartIndex($parts);
 
         $pos = null;
 
@@ -68,20 +68,16 @@ class FirstnameMapper extends AbstractMapper
 
     /**
      * @param array $parts
-     * @param int $total
      * @return int
      */
-    protected function getStartIndex(array $parts, $total)
+    protected function getStartIndex(array $parts)
     {
-        // skip to after salutation
-        $start = 0;
+        $index = $this->findFirstMapped(Salutation::class, $parts);
 
-        for ($i = 0; $i < $total; $i++) {
-            if ($parts[$i] instanceof Salutation) {
-                $start = $i + 1;
-            }
+        if (false === $index) {
+            return 0;
         }
 
-        return $start;
+        return $index + 1;
     }
 }

@@ -23,9 +23,13 @@ class MiddlenameMapper extends AbstractMapper
 
         // skip to after salutation
         $length = count($parts);
-        $start = $this->getStartIndex($parts, $length);
+        $start = $this->findFirstMapped(Firstname::class, $parts);
 
-        for ($k = $start; $k < $length; $k++) {
+        if (false === $start) {
+            return $parts;
+        }
+
+        for ($k = $start; $k < $length - 1; $k++) {
             $part = $parts[$k];
 
             if ($part instanceof Lastname) {
@@ -40,24 +44,5 @@ class MiddlenameMapper extends AbstractMapper
         }
 
         return $parts;
-    }
-
-    /**
-     * @param array $parts
-     * @param int $total
-     * @return int
-     */
-    protected function getStartIndex(array $parts, $total)
-    {
-        // skip to after salutation
-        $start = 0;
-
-        for ($i = 0; $i < $total; $i++) {
-            if ($parts[$i] instanceof Firstname) {
-                $start = $i + 1;
-            }
-        }
-
-        return $start;
     }
 }

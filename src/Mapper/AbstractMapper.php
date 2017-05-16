@@ -52,4 +52,22 @@ abstract class AbstractMapper
 
         return false;
     }
+
+    /**
+     * @param string $type
+     * @param array $parts
+     * @return int|bool
+     */
+    protected function findFirstMapped(string $type, array $parts)
+    {
+        $total = count($parts);
+
+        for ($i = 0; $i < $total; $i++) {
+            if ($parts[$i] instanceof $type) {
+                return $i;
+            }
+        }
+
+        return false;
+    }
 }

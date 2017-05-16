@@ -41,6 +41,30 @@ class MiddlenameMapperTest extends AbstractMapperTest
                     new Lastname('Brown'),
                 ],
             ],
+            [
+                'input' => [
+                    'Mr',
+                    new Firstname('James'),
+                    'Tiberius',
+                    'Kirk',
+                ],
+                'expectation' => [
+                    'Mr',
+                    new Firstname('James'),
+                    new Middlename('Tiberius'),
+                    'Kirk',
+                ],
+            ],
+            [
+                'input' => [
+                    'Albert',
+                    'Einstein',
+                ],
+                'expectation' => [
+                    'Albert',
+                    'Einstein',
+                ],
+            ],
         ];
     }
 }
