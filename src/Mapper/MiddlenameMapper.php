@@ -21,7 +21,6 @@ class MiddlenameMapper extends AbstractMapper
             return $parts;
         }
 
-        // skip to after salutation
         $length = count($parts);
         $start = $this->findFirstMapped(Firstname::class, $parts);
 

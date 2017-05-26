@@ -74,6 +74,26 @@ class LastnameMapperTest extends AbstractMapperTest
                     new Lastname('Huong'),
                 ],
             ],
+            [
+                'input' => [
+                    new Salutation('Mr'),
+                    'Von',
+                ],
+                'expectation' => [
+                    new Salutation('Mr'),
+                    new Lastname('Von'),
+                ],
+            ],
+            [
+                'input' => [
+                    'Mr',
+                    'Von',
+                ],
+                'expectation' => [
+                    'Mr',
+                    new Lastname('Von'),
+                ],
+            ],
         ];
     }
 }

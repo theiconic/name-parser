@@ -22,29 +22,7 @@ class FirstnameMapper extends AbstractMapper
             return [$this->handleSinglePart($parts[0])];
         }
 
-        $length = count($parts);
-        $start = $this->getStartIndex($parts);
-
-        $pos = null;
-
-        for ($k = $start; $k < $length; $k++) {
-            $part = $parts[$k];
-
-            if ($part instanceof Lastname) {
-                break;
-            }
-
-            if ($part instanceof Initial && null === $pos) {
-                $pos = $k;
-            }
-
-            if ($part instanceof AbstractPart) {
-                continue;
-            }
-
-            $pos = $k;
-            break;
-        }
+        $pos = $this->findFirstnamePosition($parts);
 
         if (null !== $pos) {
             $parts[$pos] = new Firstname($parts[$pos]);
@@ -64,6 +42,38 @@ class FirstnameMapper extends AbstractMapper
         }
 
         return new Firstname($part);
+    }
+
+    /**
+     * @param array $parts
+     * @return int|null
+     */
+    protected function findFirstnamePosition(array $parts)
+    {
+        $pos = null;
+
+        $length = count($parts);
+        $start = $this->getStartIndex($parts);
+
+        for ($k = $start; $k < $length; $k++) {
+            $part = $parts[$k];
+
+            if ($part instanceof Lastname) {
+                break;
+            }
+
+            if ($part instanceof Initial && null === $pos) {
+                $pos = $k;
+            }
+
+            if ($part instanceof AbstractPart) {
+                continue;
+            }
+
+            return $k;
+        }
+
+        return $pos;
     }
 
     /**

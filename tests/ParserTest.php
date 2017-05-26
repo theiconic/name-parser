@@ -351,6 +351,14 @@ class ParserTest extends TestCase
                     'suffix' => 'MD'
                 ]
             ],
+            [
+                'Kirk, James T.',
+                [
+                    'firstname' => 'James',
+                    'initials' => 'T.',
+                    'lastname' => 'Kirk',
+                ],
+            ],
         ];
     }
 

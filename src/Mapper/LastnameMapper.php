@@ -33,6 +33,17 @@ class LastnameMapper extends AbstractMapper
 
         $parts = array_reverse($parts);
 
+        $parts = $this->mapReversedParts($parts);
+
+        return array_reverse($parts);
+    }
+
+    /**
+     * @param array $parts
+     * @return array
+     */
+    protected function mapReversedParts(array $parts): array
+    {
         foreach ($parts as $k => $part) {
             if ($part instanceof Suffix) {
                 continue;
@@ -42,19 +53,55 @@ class LastnameMapper extends AbstractMapper
                 break;
             }
 
-            if (Lastname::isPrefix($part)) {
-                if (isset($parts[$k-1]) && $parts[$k-1] instanceof Lastname) {
-                    if ($this->hasUnmappedPartsBefore(array_reverse($parts), count($parts) - $k - 1)) {
-                        $parts[$k] = new Lastname($part);
-                    }
+            $originalIndex = count($parts) - $k - 1;
+            $originalParts = array_reverse($parts);
+
+            if ($this->isFollowedByLastnamePart($originalParts, $originalIndex)) {
+                if ($this->isApplicablePrefix($originalParts, $originalIndex)) {
+                    $parts[$k] = new Lastname($part);
+                    continue;
                 }
-            } elseif (!isset($parts[$k-1]) || !($parts[$k-1] instanceof Lastname)) {
-                $parts[$k] = new Lastname($part);
-            } else {
                 break;
             }
+
+            $parts[$k] = new Lastname($part);
         }
 
-        return array_reverse($parts);
+        return $parts;
+    }
+
+    /**
+     * @param array $parts
+     * @param int $index
+     * @return bool
+     */
+    protected function isFollowedByLastnamePart(array $parts, int $index): bool
+    {
+        $next = $index + 1;
+
+        return (isset($parts[$next]) && $parts[$next] instanceof Lastname);
+    }
+
+    /**
+     * Assuming that the part at the given index is matched as a prefix,
+     * determines if the prefix should be applied to the lastname.
+     *
+     * We only apply it to the lastname if we already have at least one
+     * lastname part and there are other parts left in
+     * the name (this effectively prioritises firstname over prefix matching).
+     *
+     * This expects the parts array and index to be in the original order.
+     *
+     * @param array $parts
+     * @param int $index
+     * @return bool
+     */
+    protected function isApplicablePrefix(array $parts, int $index): bool
+    {
+        if (!Lastname::isPrefix($parts[$index])) {
+            return false;
+        }
+
+        return $this->hasUnmappedPartsBefore($parts, $index);
     }
 }

@@ -22,7 +22,7 @@ class SuffixMapper extends AbstractMapper
      */
     public function map(array $parts)
     {
-        if ($this->options['match_single'] && count($parts) == 1 && Suffix::isSuffix($parts[0])) {
+        if ($this->isMatchingSinglePart($parts)) {
             $parts[0] = new Suffix($parts[0]);
             return $parts;
         }
@@ -32,17 +32,43 @@ class SuffixMapper extends AbstractMapper
         for ($k = $start; $k > 1; $k--) {
             $part = $parts[$k];
 
-            if ($part instanceof AbstractPart) {
+            if (!$this->isSuffix($part)) {
                 break;
             }
 
-            if (Suffix::isSuffix($part)) {
-                $parts[$k] = new Suffix($part);
-            } else {
-                break;
-            }
+            $parts[$k] = new Suffix($part);
         }
 
         return $parts;
+    }
+
+    /**
+     * @param $parts
+     * @return bool
+     */
+    protected function isMatchingSinglePart($parts)
+    {
+        if (!$this->options['match_single']) {
+            return false;
+        }
+
+        if (1 !== count($parts)) {
+            return false;
+        }
+
+        return $this->isSuffix($parts[0]);
+    }
+
+    /**
+     * @param $part
+     * @return bool
+     */
+    protected function isSuffix($part): bool
+    {
+        if ($part instanceof AbstractPart) {
+            return false;
+        }
+
+        return (Suffix::isSuffix($part));
     }
 }

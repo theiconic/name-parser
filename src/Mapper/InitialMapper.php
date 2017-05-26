@@ -23,11 +23,26 @@ class InitialMapper extends AbstractMapper
                 continue;
             }
 
-            if ((strlen($part) == 1) || (strlen($part) == 2 && substr($part, -1) ===  '.')) {
+            if ($this->isInitial($part)) {
                 $parts[$k] = new Initial($part);
             }
         }
 
         return $parts;
+    }
+
+    /**
+     * @param string $part
+     * @return bool
+     */
+    protected function isInitial(string $part): bool
+    {
+        $length = strlen($part);
+
+        if (1 === $length) {
+            return true;
+        }
+
+        return ($length === 2 && substr($part, -1) ===  '.');
     }
 }

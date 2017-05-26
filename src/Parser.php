@@ -30,10 +30,10 @@ class Parser
      * - surname / last name
      * - suffix (II, Phd, Jr, etc)
      *
-     * @param $full_name
+     * @param string $name
      * @return Name
      */
-    public function parse($name)
+    public function parse($name): Name
     {
         $name = $this->normalize($name);
 
@@ -60,8 +60,21 @@ class Parser
      */
     protected function parseSplitName($left, $right)
     {
-        $first = new Parser();
-        $first->setMappers([
+        $parts = array_merge(
+            $this->getLeftSplitNameParser()->parse($left)->getParts(),
+            $this->getRightSplitNameParser()->parse($right)->getParts()
+        );
+
+        return new Name($parts);
+    }
+
+    /**
+     * @return Parser
+     */
+    protected function getLeftSplitNameParser()
+    {
+        $parser = new Parser();
+        $parser->setMappers([
             new SalutationMapper(),
             new SuffixMapper(),
             new LastnameMapper(['match_single' => true]),
@@ -69,8 +82,16 @@ class Parser
             new MiddlenameMapper(),
         ]);
 
-        $second = new Parser();
-        $second->setMappers([
+        return $parser;
+    }
+
+    /**
+     * @return Parser
+     */
+    protected function getRightSplitNameParser()
+    {
+        $parser = new Parser();
+        $parser->setMappers([
             new SalutationMapper(),
             new SuffixMapper(['match_single' => true]),
             new NicknameMapper(),
@@ -79,12 +100,7 @@ class Parser
             new MiddlenameMapper(),
         ]);
 
-        $parts = array_merge(
-            $first->parse($left)->getParts(),
-            $second->parse($right)->getParts()
-        );
-
-        return new Name($parts);
+        return $parser;
     }
 
     /**
