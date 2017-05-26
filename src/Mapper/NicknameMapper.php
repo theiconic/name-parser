@@ -24,20 +24,19 @@ class NicknameMapper extends AbstractMapper
 
             if (preg_match('/^[\(\[\<\{]/', $part)) {
                 $isEncapsulated = true;
-
                 $part = substr($part, 1);
             }
 
-            $addPart = $isEncapsulated;
+            if (!$isEncapsulated) {
+                continue;
+            }
 
             if (preg_match('/[\)\]\>\}]$/', $part)) {
                 $isEncapsulated = false;
                 $part = substr($part, 0, -1);
             }
 
-            if ($addPart) {
-                $parts[$k] = new Nickname($part);
-            }
+            $parts[$k] = new Nickname($part);
         }
 
         return $parts;
