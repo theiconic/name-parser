@@ -13,6 +13,9 @@ class LastnameMapperTest extends AbstractMapperTest
      */
     public function provider()
     {
+        $vanPrefix = new Lastname('van');
+        $vanPrefix->setApplyPrefix(true);
+
         return [
             [
                 'input' => [
@@ -58,7 +61,7 @@ class LastnameMapperTest extends AbstractMapperTest
                 'expectation' => [
                     new Salutation('Mr'),
                     'Lars',
-                    new Lastname('van'),
+                    $vanPrefix,
                     new Lastname('Trier'),
                 ],
             ],

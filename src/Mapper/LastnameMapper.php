@@ -58,7 +58,9 @@ class LastnameMapper extends AbstractMapper
 
             if ($this->isFollowedByLastnamePart($originalParts, $originalIndex)) {
                 if ($this->isApplicablePrefix($originalParts, $originalIndex)) {
-                    $parts[$k] = new Lastname($part);
+                    $lastname = new Lastname($part);
+                    $lastname->setApplyPrefix(true);
+                    $parts[$k] = $lastname;
                     continue;
                 }
                 break;
