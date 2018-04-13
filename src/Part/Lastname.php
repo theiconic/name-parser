@@ -24,6 +24,8 @@ class Lastname extends AbstractPart
         'la' => 'la',
         'ter' => 'ter'
     ];
+    /** @var bool */
+    private $applyPrefix = false;
 
     /**
      * check if the given word is a lastname prefix
@@ -57,10 +59,18 @@ class Lastname extends AbstractPart
     {
         $value = $this->getValue();
 
-        if (self::isPrefix($value)) {
+        if ($this->applyPrefix && self::isPrefix($value)) {
             return static::$prefixes[self::getKey($value)];
         }
 
         return $this->camelcase($this->getValue());
+    }
+
+    /**
+     * @param bool $applyPrefix
+     */
+    public function setApplyPrefix(bool $applyPrefix)
+    {
+        $this->applyPrefix = $applyPrefix;
     }
 }
