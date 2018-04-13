@@ -21,7 +21,7 @@ class InitialMapperTest extends AbstractMapperTest
                 ],
                 'expectation' => [
                     new Initial('A'),
-                    new Initial('B'),
+                    'B',
                 ],
             ],
             [
@@ -50,6 +50,29 @@ class InitialMapperTest extends AbstractMapperTest
                     new Lastname('Pan'),
                 ],
             ],
+            [
+                'input' => [
+                    'James',
+                    'B'
+                ],
+                'expectation' => [
+                    'James',
+                    'B'
+                ],
+            ],
+            [
+                'input' => [
+                    'James',
+                    'B'
+                ],
+                'expectation' => [
+                    'James',
+                    new Initial('B'),
+                ],
+                'options' => [
+                    'match_last' => true
+                ],
+            ]
         ];
     }
 }

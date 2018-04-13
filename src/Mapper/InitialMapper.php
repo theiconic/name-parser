@@ -11,6 +11,13 @@ use TheIconic\NameParser\Part\Initial;
 class InitialMapper extends AbstractMapper
 {
     /**
+     * @var array options
+     */
+    protected $options = [
+        'match_last' => false,
+    ];
+
+    /**
      * map intials in parts array
      *
      * @param array $parts the name parts
@@ -18,8 +25,14 @@ class InitialMapper extends AbstractMapper
      */
     public function map(array $parts)
     {
+        $last = count($parts) - 1;
+
         foreach ($parts as $k => $part) {
             if ($part instanceof AbstractPart) {
+                continue;
+            }
+
+            if (!$this->options['match_last'] && $k === $last) {
                 continue;
             }
 

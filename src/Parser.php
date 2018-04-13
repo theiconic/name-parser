@@ -95,7 +95,7 @@ class Parser
             new SalutationMapper(),
             new SuffixMapper(['match_single' => true]),
             new NicknameMapper(),
-            new InitialMapper(),
+            new InitialMapper(['match_last' => true]),
             new FirstnameMapper(),
             new MiddlenameMapper(),
         ]);
