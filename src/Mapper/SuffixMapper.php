@@ -20,7 +20,7 @@ class SuffixMapper extends AbstractMapper
      * @param array $parts the name parts
      * @return array the mapped parts
      */
-    public function map(array $parts)
+    public function map(array $parts): array
     {
         if ($this->isMatchingSinglePart($parts)) {
             $parts[0] = new Suffix($parts[0]);
@@ -46,7 +46,7 @@ class SuffixMapper extends AbstractMapper
      * @param $parts
      * @return bool
      */
-    protected function isMatchingSinglePart($parts)
+    protected function isMatchingSinglePart($parts): bool
     {
         if (!$this->options['match_single']) {
             return false;

@@ -58,7 +58,7 @@ class Parser
      *
      * @return Name
      */
-    protected function parseSplitName($left, $right)
+    protected function parseSplitName($left, $right): Name
     {
         $parts = array_merge(
             $this->getLeftSplitNameParser()->parse($left)->getParts(),
@@ -71,7 +71,7 @@ class Parser
     /**
      * @return Parser
      */
-    protected function getLeftSplitNameParser()
+    protected function getLeftSplitNameParser(): Parser
     {
         $parser = new Parser();
         $parser->setMappers([
@@ -88,7 +88,7 @@ class Parser
     /**
      * @return Parser
      */
-    protected function getRightSplitNameParser()
+    protected function getRightSplitNameParser(): Parser
     {
         $parser = new Parser();
         $parser->setMappers([
@@ -108,7 +108,7 @@ class Parser
      *
      * @return array
      */
-    public function getMappers()
+    public function getMappers(): array
     {
         if (empty($this->mappers)) {
             $this->setMappers([
@@ -129,19 +129,22 @@ class Parser
      * set the mappers for this parser
      *
      * @param array $mappers
+     * @return Parser
      */
-    public function setMappers(array $mappers)
+    public function setMappers(array $mappers): Parser
     {
         $this->mappers = $mappers;
+
+        return $this;
     }
 
     /**
      * normalize the name
      *
-     * @param $name
-     * @return mixed
+     * @param string $name
+     * @return string
      */
-    protected function normalize($name)
+    protected function normalize(string $name): string
     {
         $whitespace = $this->getWhitespace();
 
@@ -155,7 +158,7 @@ class Parser
      *
      * @return string
      */
-    public function getWhitespace()
+    public function getWhitespace(): string
     {
         return $this->whitespace;
     }

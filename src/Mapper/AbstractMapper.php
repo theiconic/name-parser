@@ -38,7 +38,7 @@ abstract class AbstractMapper
      * @param $index
      * @return bool
      */
-    protected function hasUnmappedPartsBefore(array $parts, $index)
+    protected function hasUnmappedPartsBefore(array $parts, $index): bool
     {
         foreach ($parts as $k => $part) {
             if ($k === $index) {

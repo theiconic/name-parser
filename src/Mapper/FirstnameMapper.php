@@ -16,7 +16,7 @@ class FirstnameMapper extends AbstractMapper
      * @param array $parts the parts
      * @return array the mapped parts
      */
-    public function map(array $parts)
+    public function map(array $parts): array
     {
         if (count($parts) < 2) {
             return [$this->handleSinglePart($parts[0])];
@@ -35,7 +35,7 @@ class FirstnameMapper extends AbstractMapper
      * @param $part
      * @return Firstname
      */
-    protected function handleSinglePart($part)
+    protected function handleSinglePart($part): AbstractPart
     {
         if ($part instanceof AbstractPart) {
             return $part;
@@ -48,7 +48,7 @@ class FirstnameMapper extends AbstractMapper
      * @param array $parts
      * @return int|null
      */
-    protected function findFirstnamePosition(array $parts)
+    protected function findFirstnamePosition(array $parts): ?int
     {
         $pos = null;
 
@@ -80,7 +80,7 @@ class FirstnameMapper extends AbstractMapper
      * @param array $parts
      * @return int
      */
-    protected function getStartIndex(array $parts)
+    protected function getStartIndex(array $parts): int
     {
         $index = $this->findFirstMapped(Salutation::class, $parts);
 

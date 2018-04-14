@@ -21,14 +21,10 @@ class LastnameMapper extends AbstractMapper
      * @param array $parts the name parts
      * @return array the mapped parts
      */
-    public function map(array $parts)
+    public function map(array $parts): array
     {
         if (!$this->options['match_single'] && count($parts) < 2) {
             return $parts;
-        }
-
-        if (count($parts) === 2 && $parts[0] instanceof AbstractPart) {
-            $parts[1] = new Lastname($parts[1]);
         }
 
         $parts = array_reverse($parts);
@@ -44,6 +40,8 @@ class LastnameMapper extends AbstractMapper
      */
     protected function mapReversedParts(array $parts): array
     {
+        $length = count($parts);
+
         foreach ($parts as $k => $part) {
             if ($part instanceof Suffix) {
                 continue;
@@ -53,7 +51,7 @@ class LastnameMapper extends AbstractMapper
                 break;
             }
 
-            $originalIndex = count($parts) - $k - 1;
+            $originalIndex = $length - $k - 1;
             $originalParts = array_reverse($parts);
 
             if ($this->isFollowedByLastnamePart($originalParts, $originalIndex)) {

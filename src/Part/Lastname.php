@@ -24,6 +24,7 @@ class Lastname extends AbstractPart
         'la' => 'la',
         'ter' => 'ter'
     ];
+
     /** @var bool */
     private $applyPrefix = false;
 
@@ -33,7 +34,7 @@ class Lastname extends AbstractPart
      * @param string $word the word to check
      * @return bool
      */
-    public static function isPrefix($word)
+    public static function isPrefix($word): bool
     {
         return (array_key_exists(self::getKey($word), static::$prefixes));
     }
@@ -44,7 +45,7 @@ class Lastname extends AbstractPart
      * @param string $word the word
      * @return string the key
      */
-    protected static function getKey($word)
+    protected static function getKey($word): string
     {
         return strtolower(str_replace('.', '', $word));
     }
@@ -53,9 +54,9 @@ class Lastname extends AbstractPart
      * if this is a lastname prefix, look up normalized version from registry
      * otherwise camelcase the lastname
      *
-     * @return mixed
+     * @return string
      */
-    public function normalize()
+    public function normalize(): string
     {
         $value = $this->getValue();
 
@@ -68,9 +69,12 @@ class Lastname extends AbstractPart
 
     /**
      * @param bool $applyPrefix
+     * @return Lastname
      */
-    public function setApplyPrefix(bool $applyPrefix)
+    public function setApplyPrefix(bool $applyPrefix): Lastname
     {
         $this->applyPrefix = $applyPrefix;
+
+        return $this;
     }
 }

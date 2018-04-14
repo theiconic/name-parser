@@ -38,7 +38,7 @@ class Suffix extends AbstractPart
      * @param string $word the word to check
      * @return bool
      */
-    public static function isSuffix($word)
+    public static function isSuffix($word): bool
     {
         return (array_key_exists(self::getKey($word), static::$suffixes));
     }
@@ -49,7 +49,7 @@ class Suffix extends AbstractPart
      * @param string $word the word
      * @return string the key
      */
-    protected static function getKey($word)
+    protected static function getKey($word): string
     {
         return strtolower(str_replace('.', '', $word));
     }
@@ -57,9 +57,9 @@ class Suffix extends AbstractPart
     /**
      * lookup the normalized suffix from the registry
      *
-     * @return mixed
+     * @return string
      */
-    public function normalize()
+    public function normalize(): string
     {
         return static::$suffixes[self::getKey($this->getValue())];
     }

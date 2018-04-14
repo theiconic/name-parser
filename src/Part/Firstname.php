@@ -7,9 +7,9 @@ class Firstname extends AbstractPart
     /**
      * camelcase the firstname
      *
-     * @return mixed
+     * @return string
      */
-    public function normalize()
+    public function normalize(): string
     {
         return $this->camelcase($this->getValue());
     }

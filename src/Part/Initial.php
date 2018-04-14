@@ -7,9 +7,9 @@ class Initial extends AbstractPart
     /**
      * uppercase the initial
      *
-     * @return mixed
+     * @return string
      */
-    public function normalize()
+    public function normalize(): string
     {
         return strtoupper($this->getValue());
     }

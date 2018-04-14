@@ -25,7 +25,7 @@ class Salutation extends AbstractPart
      * @param string $word the word to check
      * @return bool
      */
-    public static function isSalutation($word)
+    public static function isSalutation($word): bool
     {
         return (array_key_exists(self::getKey($word), static::$salutations));
     }
@@ -36,7 +36,7 @@ class Salutation extends AbstractPart
      * @param string $word the word
      * @return string the key
      */
-    protected static function getKey($word)
+    protected static function getKey($word): string
     {
         return strtolower(str_replace('.', '', $word));
     }
@@ -44,9 +44,9 @@ class Salutation extends AbstractPart
     /**
      * normalize by looking up the wrapped value against the registry
      *
-     * @return mixed
+     * @return string
      */
-    public function normalize()
+    public function normalize(): string
     {
         return static::$salutations[self::getKey($this->getValue())];
     }

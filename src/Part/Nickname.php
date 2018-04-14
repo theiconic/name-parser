@@ -7,9 +7,9 @@ class Nickname extends AbstractPart
     /**
      * camelcase the nickname for normalization
      *
-     * @return mixed
+     * @return string
      */
-    public function normalize()
+    public function normalize(): string
     {
         return $this->camelcase($this->getValue());
     }

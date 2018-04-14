@@ -29,7 +29,7 @@ class Name
      * @param array $parts
      * @return $this
      */
-    public function setParts(array $parts)
+    public function setParts(array $parts): Name
     {
         $this->parts = $parts;
 
@@ -41,7 +41,7 @@ class Name
      *
      * @return array
      */
-    public function getParts()
+    public function getParts(): array
     {
         return $this->parts;
     }
@@ -49,7 +49,7 @@ class Name
     /**
      * @return array
      */
-    public function getAll()
+    public function getAll(): array
     {
         $results = [];
         $keys = [
@@ -77,7 +77,7 @@ class Name
      *
      * @return string
      */
-    public function getFirstname()
+    public function getFirstname(): string
     {
         return $this->export('Firstname');
     }
@@ -87,7 +87,7 @@ class Name
      *
      * @return string
      */
-    public function getLastname()
+    public function getLastname(): string
     {
         return $this->export('Lastname');
     }
@@ -97,7 +97,7 @@ class Name
      *
      * @return string
      */
-    public function getInitials()
+    public function getInitials(): string
     {
         return $this->export('Initial');
     }
@@ -107,7 +107,7 @@ class Name
      *
      * @return string
      */
-    public function getSuffix()
+    public function getSuffix(): string
     {
         return $this->export('Suffix');
     }
@@ -117,7 +117,7 @@ class Name
      *
      * @return string
      */
-    public function getSalutation()
+    public function getSalutation(): string
     {
         return $this->export('Salutation');
     }
@@ -127,7 +127,7 @@ class Name
      *
      * @return string
      */
-    public function getNickname()
+    public function getNickname(): string
     {
         return $this->export('Nickname');
     }
@@ -137,7 +137,7 @@ class Name
      *
      * @return string
      */
-    public function getMiddlename()
+    public function getMiddlename(): string
     {
         return $this->export('Middlename');
     }
@@ -148,7 +148,7 @@ class Name
      * @param string $type the part type to export
      * @return string the exported parts
      */
-    protected function export($type)
+    protected function export($type): string
     {
         $matched = [];
 

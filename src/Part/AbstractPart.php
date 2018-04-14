@@ -26,7 +26,7 @@ abstract class AbstractPart
      * @param string|AbstractPart $value
      * @return $this
      */
-    public function setValue($value)
+    public function setValue($value): AbstractPart
     {
         if ($value instanceof AbstractPart) {
             $value = $value->getValue();
@@ -42,7 +42,7 @@ abstract class AbstractPart
      *
      * @return string
      */
-    public function getValue()
+    public function getValue(): string
     {
         return $this->value;
     }
@@ -52,7 +52,7 @@ abstract class AbstractPart
      *
      * @return string
      */
-    public function normalize()
+    public function normalize(): string
     {
         return $this->getValue();
     }
@@ -64,7 +64,7 @@ abstract class AbstractPart
      * @param $word
      * @return mixed
      */
-    protected function camelcase($word)
+    protected function camelcase($word): string
     {
         if (preg_match('/[A-Za-z]([A-Z]*[a-z][a-z]*[A-Z]|[a-z]*[A-Z][A-Z]*[a-z])[A-Za-z]*/', $word)) {
             return $word;
@@ -79,7 +79,7 @@ abstract class AbstractPart
      * @param $matches
      * @return string
      */
-    protected function camelcaseReplace($matches)
+    protected function camelcaseReplace($matches): string
     {
         return ucfirst(strtolower($matches[0]));
     }
