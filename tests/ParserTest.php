@@ -169,7 +169,7 @@ class ParserTest extends TestCase
             [
                 'Miss Jennifer Shrader Lawrence',
                 [
-                    'salutation' => 'Ms.',
+                    'salutation' => 'Miss',
                     'firstname' => 'Jennifer',
                     'middlename' => 'Shrader',
                     'lastname' => 'Lawrence',
@@ -184,7 +184,7 @@ class ParserTest extends TestCase
                 ]
             ],
             [
-                'Miss Jamie P. Harrowitz',
+                'Ms. Jamie P. Harrowitz',
                 [
                     'salutation' => 'Ms.',
                     'firstname' => 'Jamie',
