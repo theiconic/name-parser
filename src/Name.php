@@ -28,7 +28,7 @@ class Name
      */
     public function __toString(): string
     {
-        return implode(' ', $this->getAll());
+        return implode(' ', $this->getAll(true));
     }
 
     /**
@@ -55,24 +55,25 @@ class Name
     }
 
     /**
+     * @param bool $format
      * @return array
      */
-    public function getAll(): array
+    public function getAll(bool $format = false): array
     {
         $results = [];
         $keys = [
-            'salutation',
-            'firstname',
-            'middlename',
-            'lastname',
-            'nickname',
-            'initials',
-            'suffix'
+            'salutation' => [],
+            'firstname' => [],
+            'nickname' => [$format],
+            'middlename' => [],
+            'initials' => [],
+            'lastname' => [],
+            'suffix' => [],
         ];
 
-        foreach ($keys as $key) {
+        foreach ($keys as $key => $args) {
             $method = sprintf('get%s', ucfirst($key));
-            if ($value = call_user_func(array($this, $method))) {
+            if ($value = call_user_func_array(array($this, $method), $args)) {
                 $results[$key] = $value;
             };
         }
@@ -133,10 +134,15 @@ class Name
     /**
      * get the nick name(s)
      *
+     * @param bool $wrap
      * @return string
      */
-    public function getNickname(): string
+    public function getNickname(bool $wrap = false): string
     {
+        if ($wrap) {
+            return sprintf('(%s)', $this->export('Nickname'));
+        }
+
         return $this->export('Nickname');
     }
 
