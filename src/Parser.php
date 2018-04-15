@@ -41,10 +41,6 @@ class Parser
 
         if (1 < count($segments)) {
             return $this->parseSplitName($segments[0], $segments[1], $segments[2] ?? '');
-
-        }
-
-        if (false !== $pos = strpos($name, ',')) {
         }
 
         $parts = explode(' ', $name);
