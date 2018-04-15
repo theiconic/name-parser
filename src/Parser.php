@@ -37,8 +37,14 @@ class Parser
     {
         $name = $this->normalize($name);
 
+        $segments = explode(',', $name);
+
+        if (1 < count($segments)) {
+            return $this->parseSplitName($segments[0], $segments[1], $segments[2] ?? '');
+
+        }
+
         if (false !== $pos = strpos($name, ',')) {
-            return $this->parseSplitName(substr($name, 0, $pos), substr($name, $pos + 1));
         }
 
         $parts = explode(' ', $name);
@@ -58,11 +64,12 @@ class Parser
      *
      * @return Name
      */
-    protected function parseSplitName($left, $right): Name
+    protected function parseSplitName($first, $second, $third): Name
     {
         $parts = array_merge(
-            $this->getLeftSplitNameParser()->parse($left)->getParts(),
-            $this->getRightSplitNameParser()->parse($right)->getParts()
+            $this->getFirstSegmentParser()->parse($first)->getParts(),
+            $this->getSecondSegmentParser()->parse($second)->getParts(),
+            $this->getThirdSegmentParser()->parse($third)->getParts()
         );
 
         return new Name($parts);
@@ -71,7 +78,7 @@ class Parser
     /**
      * @return Parser
      */
-    protected function getLeftSplitNameParser(): Parser
+    protected function getFirstSegmentParser(): Parser
     {
         $parser = new Parser();
         $parser->setMappers([
@@ -88,7 +95,7 @@ class Parser
     /**
      * @return Parser
      */
-    protected function getRightSplitNameParser(): Parser
+    protected function getSecondSegmentParser(): Parser
     {
         $parser = new Parser();
         $parser->setMappers([
@@ -98,6 +105,16 @@ class Parser
             new InitialMapper(['match_last' => true]),
             new FirstnameMapper(),
             new MiddlenameMapper(),
+        ]);
+
+        return $parser;
+    }
+
+    protected function getThirdSegmentParser(): Parser
+    {
+        $parser = new Parser();
+        $parser->setMappers([
+            new SuffixMapper(['match_single' => true]),
         ]);
 
         return $parser;

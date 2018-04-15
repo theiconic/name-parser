@@ -372,6 +372,33 @@ class ParserTest extends TestCase
                     'firstname' => 'James',
                     'lastname' => 'B',
                 ]
+            ],
+            [
+                'Williams, Hank, Jr.',
+                [
+                    'firstname' => 'Hank',
+                    'lastname' => 'Williams',
+                    'suffix' => 'Jr',
+                ]
+            ],
+            [
+                'Sir James Reynolds, Junior',
+                [
+                    'salutation' => 'Sir',
+                    'firstname' => 'James',
+                    'lastname' => 'Reynolds',
+                    'suffix' => 'Junior'
+                ]
+            ],
+            [
+                'Sir John Paul Getty Sr.',
+                [
+                    'salutation' => 'Sir',
+                    'firstname' => 'John',
+                    'middlename' => 'Paul',
+                    'lastname' => 'Getty',
+                    'suffix' => 'Sr',
+                ]
             ]
         ];
     }

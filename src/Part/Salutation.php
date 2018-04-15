@@ -8,15 +8,18 @@ class Salutation extends AbstractPart
      * @var array possible salutations
      */
     protected static $salutations = [
-        'mr' => 'Mr.',
-        'master' => 'Mr.',
-        'mister' => 'Mr.',
-        'mrs' => 'Mrs.',
-        'miss' => 'Ms.',
-        'ms' => 'Ms.',
         'dr' => 'Dr.',
-        'rev' => 'Rev.',
         'fr' => 'Fr.',
+        'madam' => 'Madam',
+        'master' => 'Mr.',
+        'miss' => 'Miss',
+        'mister' => 'Mr.',
+        'mr' => 'Mr.',
+        'mrs' => 'Mrs.',
+        'ms' => 'Ms.',
+        'mx' => 'Mx.',
+        'rev' => 'Rev.',
+        'sir' => 'Sir',
     ];
 
     /**

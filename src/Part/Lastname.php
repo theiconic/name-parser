@@ -8,21 +8,21 @@ class Lastname extends AbstractPart
      * @var array possible lastname prefixes
      */
     protected static $prefixes = [
-        'vere' => 'vere',
-        'von' => 'von',
-        'van' => 'van',
+        'da' => 'da',
         'de' => 'de',
-        'der' => 'der',
         'del' => 'del',
         'della' => 'della',
+        'der' => 'der',
         'di' => 'di',
-        'da' => 'da',
-        'pietro' => 'pietro',
-        'vanden' => 'vanden',
         'du' => 'du',
-        'st' => 'st.',
         'la' => 'la',
-        'ter' => 'ter'
+        'pietro' => 'pietro',
+        'st' => 'st.',
+        'ter' => 'ter',
+        'van' => 'van',
+        'vanden' => 'vanden',
+        'vere' => 'vere',
+        'von' => 'von',
     ];
 
     /** @var bool */

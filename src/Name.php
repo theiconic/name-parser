@@ -24,6 +24,14 @@ class Name
     }
 
     /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return implode(' ', $this->getAll());
+    }
+
+    /**
      * set the parts this name consists of
      *
      * @param array $parts

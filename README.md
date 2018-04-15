@@ -25,6 +25,31 @@ E.g. **Mr Anthony R Von Fange III** is parsed to
 - lastname: **von Fange**
 - suffix: **III**
 
+## Parseable patterns
+This parser is able to handle name patterns with and without comma:
+```
+... [firstname] ... [lastname] ...
+```
+```
+... [lastname] ..., ... [firstname] ...
+```
+```
+... [lastname] ..., ... [firstname] ..., [suffix]
+```
+It supports
+- salutations (e.g. Mr, Mrs, Dr, etc.)
+- first name
+- middle names
+- initials (single letters, possibly followed by a dot)
+- nicknames (parts within parenthesis, brackets etc.)
+- last names (also supports prefixes like von, de etc.)
+- suffixes (Jr, Senior, 3rd, PhD, etc.)
+
+## Examples
+
+More than 80 different successfully parsed name patterns can be found in the
+[parser unit test](https://github.com/theiconic/name-parser/blob/master/tests/ParserTest.php#L12-L12).
+
 ## Setup
 ```$xslt
 composer require theiconic/name-parser
@@ -32,7 +57,7 @@ composer require theiconic/name-parser
 
 ## Usage
 
-```
+```php
 <?php
 
 $parser = new TheIconic\NameParser\Parser();
@@ -46,13 +71,12 @@ echo $name->getMiddlename();
 echo $name->getNickname();
 echo $name->getInitials();
 echo $name->getSuffix();
+
+print_r($name->getAll()); // all parts as an associative array
+
+echo $name; // re-prints the full normalised name
 ```
 An empty string is returned for missing parts.
-
-## Examples
-
-An wide array of successfully parsed names can be found in the
-[parser unit test](https://github.com/theiconic/name-parser/blob/master/tests/ParserTest.php#L12-L12).
 
 ## License
 
