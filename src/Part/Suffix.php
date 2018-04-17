@@ -10,7 +10,7 @@ class Suffix extends AbstractPart
     {
         $this->normalized = $normalized ?? $value;
 
-        return parent::__construct($value);
+        parent::__construct($value);
     }
 
     /**

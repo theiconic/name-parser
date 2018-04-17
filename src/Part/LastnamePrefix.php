@@ -10,7 +10,7 @@ class LastnamePrefix extends Lastname
     {
         $this->normalized = $normalized ?? $value;
 
-        return parent::__construct($value);
+        parent::__construct($value);
     }
 
     /**

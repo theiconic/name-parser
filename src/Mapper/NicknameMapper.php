@@ -38,6 +38,8 @@ class NicknameMapper extends AbstractMapper
 
         $regexp = $this->buildRegexp();
 
+        $closingDelimiter = '';
+
         foreach ($parts as $k => $part) {
             if ($part instanceof AbstractPart) {
                 continue;
@@ -46,14 +48,14 @@ class NicknameMapper extends AbstractMapper
             if (preg_match($regexp, $part, $matches)) {
                 $isEncapsulated = true;
                 $part = substr($part, 1);
-                $closing = $this->delimiters[$matches[1]];
+                $closingDelimiter = $this->delimiters[$matches[1]];
             }
 
             if (!$isEncapsulated) {
                 continue;
             }
 
-            if ($closing === substr($part, -1)) {
+            if ($closingDelimiter === substr($part, -1)) {
                 $isEncapsulated = false;
                 $part = substr($part, 0, -1);
             }
