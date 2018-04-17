@@ -70,7 +70,7 @@ abstract class AbstractPart
             return $word;
         }
 
-        return preg_replace_callback('/[a-z0-9]+/i', array($this, 'camelcaseReplace'), $word);
+        return preg_replace_callback('/[a-z0-9]+/i', [$this, 'camelcaseReplace'], $word);
     }
 
     /**

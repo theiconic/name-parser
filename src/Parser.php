@@ -2,6 +2,7 @@
 
 namespace TheIconic\NameParser;
 
+use TheIconic\NameParser\Language\English;
 use TheIconic\NameParser\Mapper\NicknameMapper;
 use TheIconic\NameParser\Mapper\SalutationMapper;
 use TheIconic\NameParser\Mapper\SuffixMapper;
@@ -21,6 +22,25 @@ class Parser
      * @var array
      */
     protected $mappers = [];
+
+    /**
+     * @var array
+     */
+    protected $languages = [];
+
+    /**
+     * @var array
+     */
+    protected $nicknameDelimiters = [];
+
+    public function __construct(array $languages = [])
+    {
+        if (empty($languages)) {
+            $languages = [new English()];
+        }
+
+        $this->languages = $languages;
+    }
 
     /**
      * split full names into the following parts:
@@ -77,10 +97,11 @@ class Parser
     protected function getFirstSegmentParser(): Parser
     {
         $parser = new Parser();
+
         $parser->setMappers([
-            new SalutationMapper(),
-            new SuffixMapper(),
-            new LastnameMapper(['match_single' => true]),
+            new SalutationMapper($this->getSalutations()),
+            new SuffixMapper($this->getSuffixes()),
+            new LastnameMapper($this->getPrefixes(), true),
             new FirstnameMapper(),
             new MiddlenameMapper(),
         ]);
@@ -94,11 +115,12 @@ class Parser
     protected function getSecondSegmentParser(): Parser
     {
         $parser = new Parser();
+
         $parser->setMappers([
-            new SalutationMapper(),
-            new SuffixMapper(['match_single' => true]),
-            new NicknameMapper(),
-            new InitialMapper(['match_last' => true]),
+            new SalutationMapper($this->getSalutations()),
+            new SuffixMapper($this->getSuffixes(), true),
+            new NicknameMapper($this->getNicknameDelimiters()),
+            new InitialMapper(true),
             new FirstnameMapper(),
             new MiddlenameMapper(),
         ]);
@@ -109,8 +131,9 @@ class Parser
     protected function getThirdSegmentParser(): Parser
     {
         $parser = new Parser();
+
         $parser->setMappers([
-            new SuffixMapper(['match_single' => true]),
+            new SuffixMapper($this->getSuffixes(), true),
         ]);
 
         return $parser;
@@ -125,11 +148,11 @@ class Parser
     {
         if (empty($this->mappers)) {
             $this->setMappers([
-                new NicknameMapper(),
-                new SalutationMapper(),
-                new SuffixMapper(),
+                new NicknameMapper($this->getNicknameDelimiters()),
+                new SalutationMapper($this->getSalutations()),
+                new SuffixMapper($this->getSuffixes()),
                 new InitialMapper(),
-                new LastnameMapper(),
+                new LastnameMapper($this->getPrefixes()),
                 new FirstnameMapper(),
                 new MiddlenameMapper(),
             ]);
@@ -185,6 +208,70 @@ class Parser
     public function setWhitespace($whitespace): Parser
     {
         $this->whitespace = $whitespace;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    protected function getPrefixes()
+    {
+        $prefixes = [];
+
+        /** @var LanguageInterface $language */
+        foreach ($this->languages as $language) {
+            $prefixes += $language->getLastnamePrefixes();
+        }
+
+        return $prefixes;
+    }
+
+    /**
+     * @return array
+     */
+    protected function getSuffixes()
+    {
+        $suffixes = [];
+
+        /** @var LanguageInterface $language */
+        foreach ($this->languages as $language) {
+            $suffixes += $language->getSuffixes();
+        }
+
+        return $suffixes;
+    }
+
+    /**
+     * @return array
+     */
+    protected function getSalutations()
+    {
+        $salutations = [];
+
+        /** @var LanguageInterface $language */
+        foreach ($this->languages as $language) {
+            $salutations += $language->getSalutations();
+        }
+
+        return $salutations;
+    }
+
+    /**
+     * @return array
+     */
+    public function getNicknameDelimiters(): array
+    {
+        return $this->nicknameDelimiters;
+    }
+
+    /**
+     * @param array $nicknameDelimiters
+     * @return Parser
+     */
+    public function setNicknameDelimiters(array $nicknameDelimiters): Parser
+    {
+        $this->nicknameDelimiters = $nicknameDelimiters;
 
         return $this;
     }

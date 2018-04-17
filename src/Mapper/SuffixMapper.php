@@ -7,12 +7,15 @@ use TheIconic\NameParser\Part\Suffix;
 
 class SuffixMapper extends AbstractMapper
 {
-    /**
-     * @var array options
-     */
-    protected $options = [
-        'match_single' => false,
-    ];
+    protected $suffixes = [];
+
+    protected $matchSinglePart = false;
+
+    public function __construct(array $suffixes, bool $matchSinglePart = false)
+    {
+        $this->suffixes = $suffixes;
+        $this->matchSinglePart = $matchSinglePart;
+    }
 
     /**
      * map suffixes in the parts array
@@ -23,7 +26,7 @@ class SuffixMapper extends AbstractMapper
     public function map(array $parts): array
     {
         if ($this->isMatchingSinglePart($parts)) {
-            $parts[0] = new Suffix($parts[0]);
+            $parts[0] = new Suffix($parts[0], $this->suffixes[$this->getKey($parts[0])]);
             return $parts;
         }
 
@@ -36,7 +39,7 @@ class SuffixMapper extends AbstractMapper
                 break;
             }
 
-            $parts[$k] = new Suffix($part);
+            $parts[$k] = new Suffix($part, $this->suffixes[$this->getKey($part)]);
         }
 
         return $parts;
@@ -48,7 +51,7 @@ class SuffixMapper extends AbstractMapper
      */
     protected function isMatchingSinglePart($parts): bool
     {
-        if (!$this->options['match_single']) {
+        if (!$this->matchSinglePart) {
             return false;
         }
 
@@ -69,6 +72,6 @@ class SuffixMapper extends AbstractMapper
             return false;
         }
 
-        return (Suffix::isSuffix($part));
+        return (array_key_exists($this->getKey($part), $this->suffixes));
     }
 }

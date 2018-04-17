@@ -2,6 +2,7 @@
 
 namespace TheIconic\NameParser\Mapper;
 
+use TheIconic\NameParser\Language\English;
 use TheIconic\NameParser\Part\Lastname;
 use TheIconic\NameParser\Part\Firstname;
 use TheIconic\NameParser\Part\Suffix;
@@ -77,5 +78,12 @@ class SuffixMapperTest extends AbstractMapperTest
                 ],
             ],
         ];
+    }
+
+    protected function getMapper()
+    {
+        $english = new English();
+
+        return new SuffixMapper($english->getSuffixes());
     }
 }

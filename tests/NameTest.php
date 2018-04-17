@@ -16,13 +16,13 @@ class NameTest extends TestCase
     public function testToString()
     {
         $parts = [
-            new Salutation('Mr'),
+            new Salutation('Mr', 'Mr.'),
             new Firstname('James'),
             new Middlename('Morgan'),
             new Nickname('Jim'),
             new Initial('T.'),
             new Lastname('Smith'),
-            new Suffix('I'),
+            new Suffix('I', 'I'),
         ];
 
         $name = new Name($parts);

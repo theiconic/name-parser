@@ -7,23 +7,6 @@ use TheIconic\NameParser\Part\AbstractPart;
 abstract class AbstractMapper
 {
     /**
-     * @var array
-     */
-    protected $options = [];
-
-    /**
-     * constructor allows passing of options
-     *
-     * @param array $options
-     */
-    public function __construct(array $options = null)
-    {
-        if (null !== $options) {
-            $this->options = array_merge($this->options, $options);
-        }
-    }
-
-    /**
      * implements the mapping of parts
      *
      * @param array $parts - the name parts
@@ -69,5 +52,16 @@ abstract class AbstractMapper
         }
 
         return false;
+    }
+
+    /**
+     * get the registry lookup key for the given word
+     *
+     * @param string $word the word
+     * @return string the key
+     */
+    protected function getKey($word): string
+    {
+        return strtolower(str_replace('.', '', $word));
     }
 }

@@ -25,7 +25,9 @@ E.g. **Mr Anthony R Von Fange III** is parsed to
 - lastname: **von Fange**
 - suffix: **III**
 
-## Parseable patterns
+## Features
+
+### Supported patterns
 This parser is able to handle name patterns with and without comma:
 ```
 ... [firstname] ... [lastname] ...
@@ -36,7 +38,8 @@ This parser is able to handle name patterns with and without comma:
 ```
 ... [lastname] ..., ... [firstname] ..., [suffix]
 ```
-It supports
+
+### Supported parts
 - salutations (e.g. Mr, Mrs, Dr, etc.)
 - first name
 - middle names
@@ -44,6 +47,13 @@ It supports
 - nicknames (parts within parenthesis, brackets etc.)
 - last names (also supports prefixes like von, de etc.)
 - suffixes (Jr, Senior, 3rd, PhD, etc.)
+
+### Other features
+- multi-language support for salutations, suffixes and lastname prefixes
+- customizable nickname delimiters
+- customizable normalisation of all output strings
+  (original values remain accessible)
+- customizable whitespace
 
 ## Examples
 
@@ -57,6 +67,7 @@ composer require theiconic/name-parser
 
 ## Usage
 
+### Basic usage
 ```php
 <?php
 
@@ -77,6 +88,26 @@ print_r($name->getAll()); // all parts as an associative array
 echo $name; // re-prints the full normalised name
 ```
 An empty string is returned for missing parts.
+
+### Setting Languages
+```php
+$parser = new TheIconic\NameParser\Parser([
+    new TheIconic\NameParser\Language\English(), //default
+    new TheIconic\NameParser\Language\German(),
+])
+```
+
+### Setting nickname delimiters
+```php
+$parser = new TheIconic\NameParser\Parser();
+$parser->setNicknameDelimiters(['(' => ')']);
+```
+
+### Setting whitespace characters
+```php
+$parser = new TheIconic\NameParser\Parser();
+$parser->setWhitespace("\t _.");
+```
 
 ## License
 

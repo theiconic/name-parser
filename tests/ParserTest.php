@@ -3,6 +3,7 @@
 namespace TheIconic\NameParser;
 
 use PHPUnit\Framework\TestCase;
+use TheIconic\NameParser\Language\German;
 
 class ParserTest extends TestCase
 {
@@ -444,5 +445,14 @@ class ParserTest extends TestCase
         $this->assertSame(' ', $parser->getWhitespace());
         $parser->setWhitespace('   _');
         $this->assertSame('   _', $parser->getWhitespace());
+    }
+
+    public function testSetGetNicknameDelimiters()
+    {
+        $parser = new Parser();
+        $parser->setNicknameDelimiters(['[' => ']']);
+        $this->assertSame(['[' => ']'], $parser->getNicknameDelimiters());
+        $this->assertSame('Jim', $parser->parse('[Jim]')->getNickname());
+        $this->assertNotSame('Jim', $parser->parse('(Jim)')->getNickname());
     }
 }

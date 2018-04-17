@@ -2,18 +2,23 @@
 
 namespace TheIconic\NameParser\Mapper;
 
+use TheIconic\NameParser\LanguageInterface;
 use TheIconic\NameParser\Part\AbstractPart;
 use TheIconic\NameParser\Part\Lastname;
+use TheIconic\NameParser\Part\LastnamePrefix;
 use TheIconic\NameParser\Part\Suffix;
 
 class LastnameMapper extends AbstractMapper
 {
-    /**
-     * @var array options
-     */
-    protected $options = [
-        'match_single' => false,
-    ];
+    protected $prefixes = [];
+
+    protected $matchSinglePart = false;
+
+    public function __construct(array $prefixes, bool $matchSinglePart = false)
+    {
+        $this->prefixes = $prefixes;
+        $this->matchSinglePart = $matchSinglePart;
+    }
 
     /**
      * map lastnames in the parts array
@@ -23,7 +28,7 @@ class LastnameMapper extends AbstractMapper
      */
     public function map(array $parts): array
     {
-        if (!$this->options['match_single'] && count($parts) < 2) {
+        if (!$this->matchSinglePart && count($parts) < 2) {
             return $parts;
         }
 
@@ -56,9 +61,7 @@ class LastnameMapper extends AbstractMapper
 
             if ($this->isFollowedByLastnamePart($originalParts, $originalIndex)) {
                 if ($this->isApplicablePrefix($originalParts, $originalIndex)) {
-                    $lastname = new Lastname($part);
-                    $lastname->setApplyPrefix(true);
-                    $parts[$k] = $lastname;
+                    $parts[$k] = new LastnamePrefix($part, $this->prefixes[$this->getKey($part)]);
                     continue;
                 }
                 break;
@@ -98,10 +101,21 @@ class LastnameMapper extends AbstractMapper
      */
     protected function isApplicablePrefix(array $parts, int $index): bool
     {
-        if (!Lastname::isPrefix($parts[$index])) {
+        if (!$this->isPrefix($parts[$index])) {
             return false;
         }
 
         return $this->hasUnmappedPartsBefore($parts, $index);
+    }
+
+    /**
+     * check if the given word is a lastname prefix
+     *
+     * @param string $word the word to check
+     * @return bool
+     */
+    protected function isPrefix($word): bool
+    {
+        return (array_key_exists($this->getKey($word), $this->prefixes));
     }
 }

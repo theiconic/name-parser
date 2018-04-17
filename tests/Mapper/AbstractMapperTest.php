@@ -12,11 +12,12 @@ abstract class AbstractMapperTest extends TestCase
      * @param $input
      * @param $expectation
      */
-    public function testMap($input, $expectation, $options = [])
+    public function testMap($input, $expectation, $arguments = [])
     {
-        $classname = substr(get_class($this), 0, -4);
-        $mapper = new $classname($options);
+        $mapper = call_user_func_array([$this, 'getMapper'], $arguments);
 
         $this->assertEquals($expectation, $mapper->map($input));
     }
+
+    abstract protected function getMapper();
 }
