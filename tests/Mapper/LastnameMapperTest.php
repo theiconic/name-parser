@@ -2,9 +2,11 @@
 
 namespace TheIconic\NameParser\Mapper;
 
+use TheIconic\NameParser\Language\English;
 use TheIconic\NameParser\Part\Salutation;
 use TheIconic\NameParser\Part\Firstname;
 use TheIconic\NameParser\Part\Lastname;
+use TheIconic\NameParser\Part\LastnamePrefix;
 
 class LastnameMapperTest extends AbstractMapperTest
 {
@@ -13,9 +15,6 @@ class LastnameMapperTest extends AbstractMapperTest
      */
     public function provider()
     {
-        $vanPrefix = new Lastname('van');
-        $vanPrefix->setApplyPrefix(true);
-
         return [
             [
                 'input' => [
@@ -61,7 +60,7 @@ class LastnameMapperTest extends AbstractMapperTest
                 'expectation' => [
                     new Salutation('Mr'),
                     'Lars',
-                    $vanPrefix,
+                    new LastnamePrefix('van'),
                     new Lastname('Trier'),
                 ],
             ],
@@ -112,10 +111,17 @@ class LastnameMapperTest extends AbstractMapperTest
                 'expectation' => [
                     new Lastname('Kirk'),
                 ],
-                'options' => [
-                    'match_single' => true
+                'arguments' => [
+                    true
                 ],
             ]
         ];
+    }
+
+    protected function getMapper($matchSingle = false)
+    {
+        $english = new English();
+
+        return new LastnameMapper($english->getLastnamePrefixes(), $matchSingle);
     }
 }

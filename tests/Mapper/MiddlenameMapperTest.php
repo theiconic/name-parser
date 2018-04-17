@@ -79,4 +79,9 @@ class MiddlenameMapperTest extends AbstractMapperTest
             ],
         ];
     }
+
+    protected function getMapper()
+    {
+        return new MiddlenameMapper();
+    }
 }

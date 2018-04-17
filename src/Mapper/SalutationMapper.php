@@ -7,6 +7,13 @@ use TheIconic\NameParser\Part\Salutation;
 
 class SalutationMapper extends AbstractMapper
 {
+    protected $salutations = [];
+
+    public function __construct(array $salutations)
+    {
+        $this->salutations = $salutations;
+    }
+
     /**
      * map salutations in the parts array
      *
@@ -20,11 +27,22 @@ class SalutationMapper extends AbstractMapper
                 break;
             }
 
-            if (Salutation::isSalutation($part)) {
+            if ($this->isSalutation($part)) {
                 $parts[$k] = new Salutation($part);
             }
         }
 
         return $parts;
+    }
+
+    /**
+     * check if the given word is a viable salutation
+     *
+     * @param string $word the word to check
+     * @return bool
+     */
+    protected function isSalutation($word): bool
+    {
+        return (array_key_exists($this->getKey($word), $this->salutations));
     }
 }

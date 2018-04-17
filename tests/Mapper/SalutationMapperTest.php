@@ -2,6 +2,7 @@
 
 namespace TheIconic\NameParser\Mapper;
 
+use TheIconic\NameParser\Language\English;
 use TheIconic\NameParser\Part\Salutation;
 use TheIconic\NameParser\Part\Firstname;
 use TheIconic\NameParser\Part\Lastname;
@@ -49,5 +50,12 @@ class SalutationMapperTest extends AbstractMapperTest
                 ],
             ],
         ];
+    }
+
+    protected function getMapper()
+    {
+        $english = new English();
+
+        return new SalutationMapper($english->getSalutations());
     }
 }

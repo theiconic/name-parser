@@ -50,4 +50,9 @@ class FirstnameMapperTest extends AbstractMapperTest
             ],
         ];
     }
+
+    protected function getMapper()
+    {
+        return new FirstnameMapper();
+    }
 }

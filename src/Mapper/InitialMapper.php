@@ -10,12 +10,12 @@ use TheIconic\NameParser\Part\Initial;
  */
 class InitialMapper extends AbstractMapper
 {
-    /**
-     * @var array options
-     */
-    protected $options = [
-        'match_last' => false,
-    ];
+    protected $matchLastPart = false;
+
+    public function __construct(bool $matchLastPart = false)
+    {
+        $this->matchLastPart = $matchLastPart;
+    }
 
     /**
      * map intials in parts array
@@ -32,7 +32,7 @@ class InitialMapper extends AbstractMapper
                 continue;
             }
 
-            if (!$this->options['match_last'] && $k === $last) {
+            if (!$this->matchLastPart && $k === $last) {
                 continue;
             }
 

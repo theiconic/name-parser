@@ -2,6 +2,7 @@
 
 namespace TheIconic\NameParser\Mapper;
 
+use TheIconic\NameParser\Language\English;
 use TheIconic\NameParser\Part\Initial;
 use TheIconic\NameParser\Part\Salutation;
 use TheIconic\NameParser\Part\Lastname;
@@ -69,10 +70,15 @@ class InitialMapperTest extends AbstractMapperTest
                     'James',
                     new Initial('B'),
                 ],
-                'options' => [
-                    'match_last' => true
+                'arguments' => [
+                    true
                 ],
             ]
         ];
+    }
+
+    protected function getMapper($matchLastPart = false)
+    {
+        return new InitialMapper($matchLastPart);
     }
 }

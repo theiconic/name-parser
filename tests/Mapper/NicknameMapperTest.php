@@ -47,4 +47,9 @@ class NicknameMapperTest extends AbstractMapperTest
             ],
         ];
     }
+
+    protected function getMapper()
+    {
+        return new NicknameMapper();
+    }
 }
