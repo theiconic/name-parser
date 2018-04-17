@@ -28,7 +28,7 @@ class SalutationMapper extends AbstractMapper
             }
 
             if ($this->isSalutation($part)) {
-                $parts[$k] = new Salutation($part);
+                $parts[$k] = new Salutation($part, $this->salutations[$this->getKey($part)]);
             }
         }
 

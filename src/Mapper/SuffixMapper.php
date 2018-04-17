@@ -26,7 +26,7 @@ class SuffixMapper extends AbstractMapper
     public function map(array $parts): array
     {
         if ($this->isMatchingSinglePart($parts)) {
-            $parts[0] = new Suffix($parts[0]);
+            $parts[0] = new Suffix($parts[0], $this->suffixes[$this->getKey($parts[0])]);
             return $parts;
         }
 
@@ -39,7 +39,7 @@ class SuffixMapper extends AbstractMapper
                 break;
             }
 
-            $parts[$k] = new Suffix($part);
+            $parts[$k] = new Suffix($part, $this->suffixes[$this->getKey($part)]);
         }
 
         return $parts;

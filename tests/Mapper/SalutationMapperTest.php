@@ -21,7 +21,7 @@ class SalutationMapperTest extends AbstractMapperTest
                     'Pan',
                 ],
                 'expectation' => [
-                    new Salutation('Mr.'),
+                    new Salutation('Mr.', 'Mr.'),
                     'Pan',
                 ],
             ],
@@ -32,7 +32,7 @@ class SalutationMapperTest extends AbstractMapperTest
                     'Pan',
                 ],
                 'expectation' => [
-                    new Salutation('Mr'),
+                    new Salutation('Mr', 'Mr.'),
                     'Peter',
                     'Pan',
                 ],
@@ -44,7 +44,7 @@ class SalutationMapperTest extends AbstractMapperTest
                     'Miss',
                 ],
                 'expectation' => [
-                    new Salutation('Mr'),
+                    new Salutation('Mr', 'Mr.'),
                     new Firstname('James'),
                     'Miss',
                 ],
