@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<phpunit bootstrap="vendor/autoload.php"
+<phpunit bootstrap="tests/bootstrap.php"
          colors="true"
     >
     <logging>
         <log type="coverage-html" target="./tests/coverage" lowUpperBound="35" highLowerBound="70"/>
         <log type="coverage-clover" target="./tests/coverage/coverage.xml"/>
-        <log type="coverage-php" target="./tests/coverage/coverage.serialized"/>
         <log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
         <log type="json" target="./tests/coverage/logfile.json"/>
         <log type="tap" target="./tests/coverage/logfile.tap"/>
-        <log type="junit" target="./tests/coverage/logfile.xml" logIncompleteSkipped="false"/>
+        <log type="junit" target="./tests/coverage/logfile.xml"/>
         <log type="testdox-html" target="./tests/coverage/testdox.html"/>
         <log type="testdox-text" target="./tests/coverage/testdox.txt"/>
     </logging>
@@ -21,9 +20,6 @@
                 <directory suffix=".php">tests</directory>
             </exclude>
         </whitelist>
-        <blacklist>
-            <directory>./vendor</directory>
-        </blacklist>
     </filter>
     <testsuites>
         <testsuite name="The Iconic Name Parser Test Suite">
