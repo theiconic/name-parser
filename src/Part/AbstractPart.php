@@ -66,11 +66,11 @@ abstract class AbstractPart
      */
     protected function camelcase($word): string
     {
-        if (preg_match('/[A-Za-z]([A-Z]*[a-z][a-z]*[A-Z]|[a-z]*[A-Z][A-Z]*[a-z])[A-Za-z]*/', $word)) {
+        if (preg_match('/\p{L}(\p{Lu}*\p{Ll}\p{Ll}*\p{Lu}|\p{Ll}*\p{Lu}\p{Lu}*\p{Ll})\p{L}*/u', $word)) {
             return $word;
         }
 
-        return preg_replace_callback('/[a-z0-9]+/i', [$this, 'camelcaseReplace'], $word);
+        return preg_replace_callback('/[\p{L}0-9]+/ui', [$this, 'camelcaseReplace'], $word);
     }
 
     /**
@@ -81,6 +81,10 @@ abstract class AbstractPart
      */
     protected function camelcaseReplace($matches): string
     {
+        if (function_exists('mb_convert_case')) {
+            return mb_convert_case($matches[0], MB_CASE_TITLE, "UTF-8");
+        }
+        
         return ucfirst(strtolower($matches[0]));
     }
 }
