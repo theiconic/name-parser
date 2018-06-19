@@ -81,6 +81,10 @@ abstract class AbstractPart
      */
     protected function camelcaseReplace($matches): string
     {
-        return mb_convert_case($matches[0], MB_CASE_TITLE, "UTF-8");
+        if (function_exists('mb_convert_case')) {
+            return mb_convert_case($matches[0], MB_CASE_TITLE, "UTF-8");
+        }
+        
+        return ucfirst(strtolower($matches[0]));
     }
 }
