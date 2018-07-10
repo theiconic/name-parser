@@ -77,11 +77,24 @@ class MiddlenameMapperTest extends AbstractMapperTest
                     'Einstein',
                 ],
             ],
+            [
+                'input' => [
+                    new Firstname('James'),
+                    'Tiberius',
+                ],
+                'expectation' => [
+                    new Firstname('James'),
+                    new Middlename('Tiberius'),
+                ],
+                'arguments' => [
+                    true
+                ],
+            ],
         ];
     }
 
-    protected function getMapper()
+    protected function getMapper($mapWithoutLastname = false)
     {
-        return new MiddlenameMapper();
+        return new MiddlenameMapper($mapWithoutLastname);
     }
 }

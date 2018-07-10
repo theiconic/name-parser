@@ -122,7 +122,7 @@ class Parser
             new NicknameMapper($this->getNicknameDelimiters()),
             new InitialMapper(true),
             new FirstnameMapper(),
-            new MiddlenameMapper(),
+            new MiddlenameMapper(true),
         ]);
 
         return $parser;
