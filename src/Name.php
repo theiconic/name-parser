@@ -6,6 +6,8 @@ use TheIconic\NameParser\Part\AbstractPart;
 
 class Name
 {
+    private const PARTS_NAMESPACE = 'TheIconic\NameParser\Part';
+
     /**
      * @var array the parts that make up this name
      */
@@ -179,9 +181,7 @@ class Name
         $matched = [];
 
         foreach ($this->parts as $part) {
-            $method = ($strict) ? 'isStrictType' : 'isType';
-
-            if (call_user_func([$this, $method], $part, $type)) {
+            if ($part instanceof AbstractPart && $this->isType($part, $type, $strict)) {
                 $matched[] = $part->normalize();
             }
         }
@@ -194,22 +194,17 @@ class Name
      *
      * @param AbstractPart $part
      * @param string $type
+     * @param bool $strict
      * @return bool
      */
-    protected function isType(AbstractPart $part, string $type): bool
+    protected function isType(AbstractPart $part, string $type, bool $strict = false): bool
     {
-        return is_a($part, 'TheIconic\\NameParser\\Part\\' . $type);
-    }
+        $className = sprintf('%s\\%s', self::PARTS_NAMESPACE, $type);
 
-    /**
-     * helper method to check if a part is the exact given type (not considering superclasses)
-     *
-     * @param AbstractPart $part
-     * @param string $type
-     * @return bool
-     */
-    protected function isStrictType(AbstractPart $part, string $type): bool
-    {
-        return get_class($part) === 'TheIconic\\NameParser\\Part\\' . $type;
+        if ($strict) {
+            return get_class($part) === $className;
+        }
+
+        return is_a($part, $className);
     }
 }
