@@ -3,6 +3,7 @@
 namespace TheIconic\NameParser\Mapper;
 
 use TheIconic\NameParser\Part\AbstractPart;
+use TheIconic\NameParser\Part\Nickname;
 
 abstract class AbstractMapper
 {

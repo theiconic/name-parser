@@ -416,6 +416,14 @@ class ParserTest extends TestCase
                 ]
             ],
             [
+                'Charles Dixon (20th century)',
+                [
+                    'firstname' => 'Charles',
+                    'lastname' => 'Dixon',
+                    'nickname' => '20Th Century'
+                ]
+            ],
+            [
                 'Smith, John Eric',
                 [
                     'lastname' => 'Smith',
