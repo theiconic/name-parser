@@ -431,6 +431,15 @@ class ParserTest extends TestCase
                     'middlename' => 'Eric',
                 ]
             ],
+            [
+                'PAUL M LEWIS MR',
+                [
+                    'salutation' => 'Mr.',
+                    'firstname' => 'Paul',
+                    'initials' => 'M',
+                    'lastname' => 'Lewis',
+                ]
+            ]
         ];
     }
 
