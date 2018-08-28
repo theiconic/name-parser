@@ -88,6 +88,10 @@ class FirstnameMapper extends AbstractMapper
             return 0;
         }
 
+        if ($index === count($parts) - 1) {
+            return 0;
+        }
+
         return $index + 1;
     }
 }

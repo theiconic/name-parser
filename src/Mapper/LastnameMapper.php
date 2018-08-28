@@ -7,6 +7,7 @@ use TheIconic\NameParser\Part\AbstractPart;
 use TheIconic\NameParser\Part\Lastname;
 use TheIconic\NameParser\Part\LastnamePrefix;
 use TheIconic\NameParser\Part\Nickname;
+use TheIconic\NameParser\Part\Salutation;
 use TheIconic\NameParser\Part\Suffix;
 
 class LastnameMapper extends AbstractMapper
@@ -49,11 +50,7 @@ class LastnameMapper extends AbstractMapper
         $length = count($parts);
 
         foreach ($parts as $k => $part) {
-            if ($part instanceof Suffix) {
-                continue;
-            }
-
-            if ($part instanceof Nickname) {
+            if ($part instanceof Suffix || $part instanceof Nickname || $part instanceof Salutation) {
                 continue;
             }
 
