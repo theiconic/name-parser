@@ -89,6 +89,22 @@ echo $name; // re-prints the full normalised name
 ```
 An empty string is returned for missing parts.
 
+### Special part retrieval features
+#### Explicit last name parts
+You can retrieve last name prefixes and pure last names separately with
+```php
+echo $name->getLastnamePrefix();
+echo $name->getLastname(true); // true enables strict mode for pure lastnames, only
+```
+
+#### Nick names with normalized wrapping
+By default, `getNickname()` returns the pure string of nick names. However, you can
+pass `true` to have the same normalised parenthesis wrapping applied as in `echo $name`:
+```php
+echo $name->getNickname(); // The Giant
+echo $name->getNickname(true); // (The Giant)
+```
+
 ### Setting Languages
 ```php
 $parser = new TheIconic\NameParser\Parser([
