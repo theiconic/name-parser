@@ -94,11 +94,22 @@ class Name
     /**
      * get the last name
      *
+     * @param bool $pure
      * @return string
      */
-    public function getLastname(): string
+    public function getLastname(bool $pure = false): string
     {
-        return $this->export('Lastname');
+        return $this->export('Lastname', $pure);
+    }
+
+    /**
+     * get the last name prefix
+     *
+     * @return string
+     */
+    public function getLastnamePrefix(): string
+    {
+        return $this->export('LastnamePrefix');
     }
 
     /**
@@ -159,19 +170,46 @@ class Name
     /**
      * helper method used by getters to extract and format relevant name parts
      *
-     * @param string $type the part type to export
-     * @return string the exported parts
+     * @param string $type
+     * @param bool $pure
+     * @return string
      */
-    protected function export($type): string
+    protected function export(string $type, bool $strict = false): string
     {
         $matched = [];
 
         foreach ($this->parts as $part) {
-            if ($part instanceof AbstractPart && is_a($part, 'TheIconic\\NameParser\\Part\\' . $type)) {
+            $method = ($strict) ? 'isStrictType' : 'isType';
+
+            if (call_user_func([$this, $method], $part, $type)) {
                 $matched[] = $part->normalize();
             }
         }
 
         return implode(' ',  $matched);
+    }
+
+    /**
+     * helper method to check if a part is of the given type
+     *
+     * @param AbstractPart $part
+     * @param string $type
+     * @return bool
+     */
+    protected function isType(AbstractPart $part, string $type): bool
+    {
+        return is_a($part, 'TheIconic\\NameParser\\Part\\' . $type);
+    }
+
+    /**
+     * helper method to check if a part is the exact given type (not considering superclasses)
+     *
+     * @param AbstractPart $part
+     * @param string $type
+     * @return bool
+     */
+    protected function isStrictType(AbstractPart $part, string $type): bool
+    {
+        return get_class($part) === 'TheIconic\\NameParser\\Part\\' . $type;
     }
 }

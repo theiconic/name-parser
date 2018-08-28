@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 use TheIconic\NameParser\Part\Firstname;
 use TheIconic\NameParser\Part\Initial;
 use TheIconic\NameParser\Part\Lastname;
+use TheIconic\NameParser\Part\LastnamePrefix;
 use TheIconic\NameParser\Part\Middlename;
 use TheIconic\NameParser\Part\Nickname;
 use TheIconic\NameParser\Part\Salutation;
@@ -39,5 +40,19 @@ class NameTest extends TestCase
 
         $this->assertSame('Jim', $name->getNickname());
         $this->assertSame('(Jim)', $name->getNickname(true));
+    }
+
+    public function testGettingLastnameAndLastnamePrefixSeparately()
+    {
+        $name = new Name([
+            new Firstname('Frank'),
+            new LastnamePrefix('van'),
+            new Lastname('Delft'),
+        ]);
+
+        $this->assertSame('Frank', $name->getFirstname());
+        $this->assertSame('van', $name->getLastnamePrefix());
+        $this->assertSame('Delft', $name->getLastname(true));
+        $this->assertSame('van Delft', $name->getLastname());
     }
 }
