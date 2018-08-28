@@ -6,7 +6,6 @@
 [![Latest Stable Version](https://poser.pugx.org/theiconic/name-parser/v/stable?t=201705161308)](https://packagist.org/packages/theiconic/name-parser)
 [![Total Downloads](https://poser.pugx.org/theiconic/name-parser/downloads?t=201705161308)](https://packagist.org/packages/theiconic/name-parser)
 [![License](https://poser.pugx.org/theiconic/name-parser/license?t=201705161308)](https://packagist.org/packages/theiconic/name-parser)
-[![Dependency Status](https://www.versioneye.com/user/projects/591a676ba593390051b42cdd/badge.svg?style=flat&t=201705161308)](https://www.versioneye.com/user/projects/591a676ba593390051b42cdd)
 
 ## Purpose
 This is a universal, language-independent name parser.
