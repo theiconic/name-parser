@@ -6,6 +6,7 @@ use TheIconic\NameParser\LanguageInterface;
 use TheIconic\NameParser\Part\AbstractPart;
 use TheIconic\NameParser\Part\Lastname;
 use TheIconic\NameParser\Part\LastnamePrefix;
+use TheIconic\NameParser\Part\Nickname;
 use TheIconic\NameParser\Part\Suffix;
 
 class LastnameMapper extends AbstractMapper
@@ -52,6 +53,10 @@ class LastnameMapper extends AbstractMapper
                 continue;
             }
 
+            if ($part instanceof Nickname) {
+                continue;
+            }
+
             if ($part instanceof AbstractPart) {
                 break;
             }
@@ -80,7 +85,7 @@ class LastnameMapper extends AbstractMapper
      */
     protected function isFollowedByLastnamePart(array $parts, int $index): bool
     {
-        $next = $index + 1;
+        $next = $this->skipNicknameParts($parts, $index + 1);
 
         return (isset($parts[$next]) && $parts[$next] instanceof Lastname);
     }
@@ -117,5 +122,25 @@ class LastnameMapper extends AbstractMapper
     protected function isPrefix($word): bool
     {
         return (array_key_exists($this->getKey($word), $this->prefixes));
+    }
+
+    /**
+     * find the next non-nickname index in parts
+     *
+     * @param $parts
+     * @param $startIndex
+     * @return int|void
+     */
+    protected function skipNicknameParts($parts, $startIndex)
+    {
+        $total = count($parts);
+
+        for ($i = $startIndex; $i < $total; $i++) {
+            if (!($parts[$i] instanceof Nickname)) {
+                return $i;
+            }
+        }
+
+        return $total - 1;
     }
 }
