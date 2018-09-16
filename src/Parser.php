@@ -33,6 +33,11 @@ class Parser
      */
     protected $nicknameDelimiters = [];
 
+    /**
+     * @var int
+     */
+    protected $maxSalutationIndex = 0;
+
     public function __construct(array $languages = [])
     {
         if (empty($languages)) {
@@ -99,7 +104,7 @@ class Parser
         $parser = new Parser();
 
         $parser->setMappers([
-            new SalutationMapper($this->getSalutations()),
+            new SalutationMapper($this->getSalutations(), $this->getMaxSalutationIndex()),
             new SuffixMapper($this->getSuffixes()),
             new LastnameMapper($this->getPrefixes(), true),
             new FirstnameMapper(),
@@ -117,7 +122,7 @@ class Parser
         $parser = new Parser();
 
         $parser->setMappers([
-            new SalutationMapper($this->getSalutations()),
+            new SalutationMapper($this->getSalutations(), $this->getMaxSalutationIndex()),
             new SuffixMapper($this->getSuffixes(), true),
             new NicknameMapper($this->getNicknameDelimiters()),
             new InitialMapper(true),
@@ -149,7 +154,7 @@ class Parser
         if (empty($this->mappers)) {
             $this->setMappers([
                 new NicknameMapper($this->getNicknameDelimiters()),
-                new SalutationMapper($this->getSalutations()),
+                new SalutationMapper($this->getSalutations(), $this->getMaxSalutationIndex()),
                 new SuffixMapper($this->getSuffixes()),
                 new InitialMapper(),
                 new LastnameMapper($this->getPrefixes()),
@@ -272,6 +277,25 @@ class Parser
     public function setNicknameDelimiters(array $nicknameDelimiters): Parser
     {
         $this->nicknameDelimiters = $nicknameDelimiters;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMaxSalutationIndex(): int
+    {
+        return $this->maxSalutationIndex;
+    }
+
+    /**
+     * @param int $maxSalutationIndex
+     * @return Parser
+     */
+    public function setMaxSalutationIndex(int $maxSalutationIndex): Parser
+    {
+        $this->maxSalutationIndex = $maxSalutationIndex;
 
         return $this;
     }

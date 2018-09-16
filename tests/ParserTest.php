@@ -434,10 +434,24 @@ class ParserTest extends TestCase
             [
                 'PAUL M LEWIS MR',
                 [
-                    'salutation' => 'Mr.',
                     'firstname' => 'Paul',
                     'initials' => 'M',
-                    'lastname' => 'Lewis',
+                    'lastname' => 'Lewis Mr',
+                ]
+            ],
+            [
+                'SUJAN MASTER',
+                [
+                    'firstname' => 'Sujan',
+                    'lastname' => 'Master',
+                ],
+            ],
+            [
+                'JAMES J MA',
+                [
+                    'firstname' => 'James',
+                    'initials' => 'J',
+                    'lastname' => 'Ma'
                 ]
             ]
         ];
@@ -493,5 +507,20 @@ class ParserTest extends TestCase
         $this->assertSame(['[' => ']'], $parser->getNicknameDelimiters());
         $this->assertSame('Jim', $parser->parse('[Jim]')->getNickname());
         $this->assertNotSame('Jim', $parser->parse('(Jim)')->getNickname());
+    }
+
+    public function testSetMaxSalutationIndex()
+    {
+        $parser = new Parser();
+        $this->assertSame(0, $parser->getMaxSalutationIndex());
+        $parser->setMaxSalutationIndex(1);
+        $this->assertSame(1, $parser->getMaxSalutationIndex());
+        $this->assertSame('', $parser->parse('Francis Mr')->getSalutation());
+
+        $parser = new Parser();
+        $this->assertSame(0, $parser->getMaxSalutationIndex());
+        $parser->setMaxSalutationIndex(2);
+        $this->assertSame(2, $parser->getMaxSalutationIndex());
+        $this->assertSame('Mr.', $parser->parse('Francis Mr')->getSalutation());
     }
 }

@@ -124,6 +124,17 @@ $parser = new TheIconic\NameParser\Parser();
 $parser->setWhitespace("\t _.");
 ```
 
+### Limiting the position of salutations
+```php
+$parser = new TheIconic\NameParser\Parser();
+$parser->setMaxSalutationIndex(2);
+```
+This will require salutations to appear within the
+first two words of the given input string.
+This defaults to half the amount of words in the input string,
+meaning that effectively the salutation may occur within
+the first half of the name parts.
+
 ## License
 
 THE ICONIC Name Parser library for PHP is released under the MIT License.

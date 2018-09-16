@@ -34,38 +34,120 @@ class LastnameMapper extends AbstractMapper
             return $parts;
         }
 
-        $parts = array_reverse($parts);
-
-        $parts = $this->mapReversedParts($parts);
-
-        return array_reverse($parts);
+        return $this->mapParts($parts);
     }
 
     /**
+     * we map the parts in reverse order because it makes more
+     * sense to parse for the lastname starting from the end
+     *
      * @param array $parts
      * @return array
      */
-    protected function mapReversedParts(array $parts): array
+    protected function mapParts(array $parts): array
     {
-        $length = count($parts);
+        $k = $this->skipIgnoredParts($parts) + 1;
+        $remapIgnored = true;
 
-        foreach ($parts as $k => $part) {
-            if ($part instanceof Suffix || $part instanceof Nickname || $part instanceof Salutation) {
-                continue;
-            }
+        while (--$k >= 0) {
+            $part = $parts[$k];
 
             if ($part instanceof AbstractPart) {
                 break;
             }
 
-            $originalIndex = $length - $k - 1;
-            $originalParts = array_reverse($parts);
-
-            if ($this->isFollowedByLastnamePart($originalParts, $originalIndex)) {
-                if ($this->isApplicablePrefix($originalParts, $originalIndex)) {
+            if ($this->isFollowedByLastnamePart($parts, $k)) {
+                if ($this->isApplicablePrefix($parts, $k)) {
                     $parts[$k] = new LastnamePrefix($part, $this->prefixes[$this->getKey($part)]);
                     continue;
                 }
+
+                if ($this->shouldStopMapping($parts, $k)) {
+                    break;
+                }
+            }
+
+            $parts[$k] = new Lastname($part);
+            $remapIgnored = false;
+        }
+
+        if ($remapIgnored) {
+            $parts = $this->remapIgnored($parts);
+        }
+
+        return $parts;
+    }
+
+    /**
+     * skip through the parts we want to ignore and return the start index
+     *
+     * @param array $parts
+     * @return int
+     */
+    protected function skipIgnoredParts(array $parts): int
+    {
+        $k = count($parts);
+
+        while (--$k >= 0) {
+            if (!$this->isIgnoredPart($parts[$k])) {
+                break;
+            }
+        }
+
+        return $k;
+    }
+
+    /**
+     * indicates if we should stop mapping at the give index $k
+     *
+     * the assumption is that lastname parts have already been found
+     * but we want to see if we should add more parts
+     *
+     * @param array $parts
+     * @param int $k
+     * @return bool
+     */
+    protected function shouldStopMapping(array $parts, int $k): bool
+    {
+        if ($k < 1) {
+            return true;
+        }
+
+        if ($parts[$k + 1] instanceof LastnamePrefix) {
+            return true;
+        }
+
+        return strlen($parts[$k + 1]->getValue()) >= 3;
+    }
+
+    /**
+     * indicates if the given part should be ignored (skipped) during mapping
+     *
+     * @param $part
+     * @return bool
+     */
+    protected function isIgnoredPart($part) {
+        return $part instanceof Suffix || $part instanceof Nickname || $part instanceof Salutation;
+    }
+
+    /**
+     * remap ignored parts as lastname
+     *
+     * if the mapping did not derive any lastname this is called to transform
+     * any previously ignored parts into lastname parts
+     * the parts array is still reversed at this point
+     *
+     * @param array $parts
+     * @return array
+     */
+    protected function remapIgnored(array $parts): array
+    {
+        $k = count($parts);
+
+        while (--$k >= 0) {
+            $part = $parts[$k];
+
+            if (!$this->isIgnoredPart($part)) {
                 break;
             }
 

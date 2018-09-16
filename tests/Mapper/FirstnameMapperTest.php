@@ -48,6 +48,16 @@ class FirstnameMapperTest extends AbstractMapperTest
                     new Lastname('Pan'),
                 ],
             ],
+            [
+                'input' => [
+                    'Alfonso',
+                    new Salutation('Mr'),
+                ],
+                'expectation' => [
+                    new Firstname('Alfonso'),
+                    new Salutation('Mr'),
+                ]
+            ]
         ];
     }
 
