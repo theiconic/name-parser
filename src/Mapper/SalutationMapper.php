@@ -9,9 +9,12 @@ class SalutationMapper extends AbstractMapper
 {
     protected $salutations = [];
 
-    public function __construct(array $salutations)
+    protected $maxIndex = 0;
+
+    public function __construct(array $salutations, $maxIndex = 0)
     {
         $this->salutations = $salutations;
+        $this->maxIndex = $maxIndex;
     }
 
     /**
@@ -22,7 +25,11 @@ class SalutationMapper extends AbstractMapper
      */
     public function map(array $parts): array
     {
-        foreach ($parts as $k => $part) {
+        $max = ($this->maxIndex > 0) ? $this->maxIndex : floor(count($parts) / 2);
+
+        for ($k = 0; $k < $max; $k++) {
+            $part = $parts[$k];
+
             if ($part instanceof AbstractPart) {
                 break;
             }
