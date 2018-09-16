@@ -34,11 +34,7 @@ class LastnameMapper extends AbstractMapper
             return $parts;
         }
 
-        $parts = array_reverse($parts);
-
-        $parts = $this->mapReversedParts($parts);
-
-        return array_reverse($parts);
+        return $this->mapParts($parts);
     }
 
     /**
@@ -48,25 +44,20 @@ class LastnameMapper extends AbstractMapper
      * @param array $parts
      * @return array
      */
-    protected function mapReversedParts(array $parts): array
+    protected function mapParts(array $parts): array
     {
-        $length = count($parts);
+        $k = $this->skipIgnoredParts($parts) + 1;
         $remapIgnored = true;
 
-        foreach ($parts as $k => $part) {
-            if ($this->isIgnoredPart($part)) {
-                continue;
-            }
+        while (--$k >= 0) {
+            $part = $parts[$k];
 
             if ($part instanceof AbstractPart) {
                 break;
             }
 
-            $originalIndex = $length - $k - 1;
-            $originalParts = array_reverse($parts);
-
-            if ($this->isFollowedByLastnamePart($originalParts, $originalIndex)) {
-                if ($this->isApplicablePrefix($originalParts, $originalIndex)) {
+            if ($this->isFollowedByLastnamePart($parts, $k)) {
+                if ($this->isApplicablePrefix($parts, $k)) {
                     $parts[$k] = new LastnamePrefix($part, $this->prefixes[$this->getKey($part)]);
                     continue;
                 }
@@ -88,6 +79,25 @@ class LastnameMapper extends AbstractMapper
     }
 
     /**
+     * skip through the parts we want to ignore and return the start index
+     *
+     * @param array $parts
+     * @return int
+     */
+    protected function skipIgnoredParts(array $parts): int
+    {
+        $k = count($parts);
+
+        while (--$k >= 0) {
+            if (!$this->isIgnoredPart($parts[$k])) {
+                break;
+            }
+        }
+
+        return $k;
+    }
+
+    /**
      * indicates if we should stop mapping at the give index $k
      *
      * the assumption is that lastname parts have already been found
@@ -99,11 +109,15 @@ class LastnameMapper extends AbstractMapper
      */
     protected function shouldStopMapping(array $parts, int $k): bool
     {
-        if ($k + 2 > count($parts)) {
+        if ($k < 1) {
             return true;
         }
 
-        return strlen($parts[$k - 1]->getValue()) >= 3;
+        if ($parts[$k + 1] instanceof LastnamePrefix) {
+            return true;
+        }
+
+        return strlen($parts[$k + 1]->getValue()) >= 3;
     }
 
     /**
@@ -128,7 +142,11 @@ class LastnameMapper extends AbstractMapper
      */
     protected function remapIgnored(array $parts): array
     {
-        foreach ($parts as $k => $part) {
+        $k = count($parts);
+
+        while (--$k >= 0) {
+            $part = $parts[$k];
+
             if (!$this->isIgnoredPart($part)) {
                 break;
             }
