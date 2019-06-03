@@ -105,7 +105,7 @@ class Parser
 
         $parser->setMappers([
             new SalutationMapper($this->getSalutations(), $this->getMaxSalutationIndex()),
-            new SuffixMapper($this->getSuffixes()),
+            new SuffixMapper($this->getSuffixes(), false, 2),
             new LastnameMapper($this->getPrefixes(), true),
             new FirstnameMapper(),
             new MiddlenameMapper(),
@@ -123,7 +123,7 @@ class Parser
 
         $parser->setMappers([
             new SalutationMapper($this->getSalutations(), $this->getMaxSalutationIndex()),
-            new SuffixMapper($this->getSuffixes(), true),
+            new SuffixMapper($this->getSuffixes(), true, 1),
             new NicknameMapper($this->getNicknameDelimiters()),
             new InitialMapper(true),
             new FirstnameMapper(),
@@ -138,7 +138,7 @@ class Parser
         $parser = new Parser();
 
         $parser->setMappers([
-            new SuffixMapper($this->getSuffixes(), true),
+            new SuffixMapper($this->getSuffixes(), true, 0),
         ]);
 
         return $parser;

@@ -11,10 +11,13 @@ class SuffixMapper extends AbstractMapper
 
     protected $matchSinglePart = false;
 
-    public function __construct(array $suffixes, bool $matchSinglePart = false)
+    protected $reservedParts = 2;
+
+    public function __construct(array $suffixes, bool $matchSinglePart = false, int $reservedParts = 2)
     {
         $this->suffixes = $suffixes;
         $this->matchSinglePart = $matchSinglePart;
+        $this->reservedParts = $reservedParts;
     }
 
     /**
@@ -32,7 +35,7 @@ class SuffixMapper extends AbstractMapper
 
         $start = count($parts) - 1;
 
-        for ($k = $start; $k > 1; $k--) {
+        for ($k = $start; $k > $this->reservedParts - 1; $k--) {
             $part = $parts[$k];
 
             if (!$this->isSuffix($part)) {
