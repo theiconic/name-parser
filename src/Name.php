@@ -173,7 +173,7 @@ class Name
      * helper method used by getters to extract and format relevant name parts
      *
      * @param string $type
-     * @param bool $pure
+     * @param bool $strict
      * @return string
      */
     protected function export(string $type, bool $strict = false): string
