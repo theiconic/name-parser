@@ -487,6 +487,14 @@ class ParserTest extends TestCase
                     'initials' => 'M.',
                     'suffix' => 'Jr',
                 ]
+            ],
+            [
+                'Thái Quốc Nguyễn',
+                [
+                    'lastname' => 'Nguyễn',
+                    'middlename' => 'Quốc',
+                    'firstname' => 'Thái',
+                ]
             ]
         ];
     }

@@ -30,6 +30,12 @@ class NormalisationTest extends TestCase
 
         $part = new Firstname('etna');
         $this->assertEquals('Etna', $part->normalize());
+
+        $part = new Firstname('thái');
+        $this->assertEquals('Thái', $part->normalize());
+
+        $part = new Lastname('nguyễn');
+        $this->assertEquals('Nguyễn', $part->normalize());
    }
 
     /**
