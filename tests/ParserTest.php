@@ -565,4 +565,20 @@ class ParserTest extends TestCase
         $this->assertSame(2, $parser->getMaxSalutationIndex());
         $this->assertSame('Mr.', $parser->parse('Francis Mr')->getSalutation());
     }
+
+    public function testInitialsBeforeFirstname()
+    {
+        $parser = new Parser();
+        $input = "A. Bartholo C. Denzel";
+        $expectation = [
+            'firstname' => 'Bartholo',
+            'initials' => 'A. C.',
+            'lastname' => 'Denzel'];
+        $fullgivenname = "A. Bartholo C.";
+        $name = $parser->parse($input);
+
+        $this->assertInstanceOf(Name::class, $name);
+        $this->assertEquals($expectation, $name->getAll());
+        $this->assertEquals($fullgivenname, $name->getFullgivenname());
+    }
 }
