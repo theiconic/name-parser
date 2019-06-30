@@ -265,13 +265,6 @@ class Parser
         return $salutations;
     }
 
-    protected function initialsAllowed()
-    {
-        foreach ($this->languages as $language) {
-            $salutations += $language->getSalutations();
-        }
-    }
-
     /**
      * @return array
      */
