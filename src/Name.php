@@ -168,6 +168,15 @@ class Name
     {
         return $this->export('Middlename');
     }
+    /**
+     * get the given name(s)
+     *
+     * @return string
+     */
+    public function getFullgivenname(): string
+    {
+        return $this->export('Fullgivenname');
+    }
 
     /**
      * helper method used by getters to extract and format relevant name parts

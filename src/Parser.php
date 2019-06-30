@@ -10,6 +10,7 @@ use TheIconic\NameParser\Mapper\InitialMapper;
 use TheIconic\NameParser\Mapper\LastnameMapper;
 use TheIconic\NameParser\Mapper\FirstnameMapper;
 use TheIconic\NameParser\Mapper\MiddlenameMapper;
+use TheIconic\NameParser\Mapper\FullgivennameMapper;
 
 class Parser
 {
@@ -128,6 +129,7 @@ class Parser
             new InitialMapper(true),
             new FirstnameMapper(),
             new MiddlenameMapper(true),
+            new FullgivennameMapper(),
         ]);
 
         return $parser;
@@ -160,6 +162,7 @@ class Parser
                 new LastnameMapper($this->getPrefixes()),
                 new FirstnameMapper(),
                 new MiddlenameMapper(),
+                new FullgivennameMapper(),
             ]);
         }
 
@@ -260,6 +263,13 @@ class Parser
         }
 
         return $salutations;
+    }
+
+    protected function initialsAllowed()
+    {
+        foreach ($this->languages as $language) {
+            $salutations += $language->getSalutations();
+        }
     }
 
     /**

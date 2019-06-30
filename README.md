@@ -89,6 +89,11 @@ echo $name; // re-prints the full normalised name
 An empty string is returned for missing parts.
 
 ### Special part retrieval features
+#### Full given name
+You can get firstname initials and middlename in original order with
+```php
+echo $name->getFullGivenname();
+```
 #### Explicit last name parts
 You can retrieve last name prefixes and pure last names separately with
 ```php
