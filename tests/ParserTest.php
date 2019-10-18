@@ -210,6 +210,23 @@ class ParserTest extends TestCase
                 ]
             ],
             [
+                'Prof. Tyson J. Hirthe',
+                [
+                    'salutation' => 'Prof.',
+                    'lastname' => 'Hirthe',
+                    'firstname' => 'Tyson',
+                    'initials' => 'J.',
+                ]
+            ],
+            [
+                'prof Eveline Aufderhar',
+                [
+                    'salutation' => 'Prof.',
+                    'lastname' => 'Aufderhar',
+                    'firstname' => 'Eveline',
+                ]
+            ],
+            [
                 'Anthony Von Fange III',
                 [
                     'firstname' => 'Anthony',
