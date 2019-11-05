@@ -2,15 +2,6 @@
 
 namespace TheIconic\NameParser\Part;
 
-class Middlename extends AbstractPart
+class Middlename extends GivenNamePart
 {
-    /**
-     * camelcase the middlename for normalization
-     *
-     * @return string
-     */
-    public function normalize(): string
-    {
-        return $this->camelcase($this->getValue());
-    }
 }

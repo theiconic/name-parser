@@ -55,4 +55,18 @@ class NameTest extends TestCase
         $this->assertSame('Delft', $name->getLastname(true));
         $this->assertSame('van Delft', $name->getLastname());
     }
+
+    public function testGetGivenNameShouldReturnGivenNameInGivenOrder(): void
+    {
+        $parser = new Parser();
+        $name = $parser->parse('Schuler, J. Peter M.');
+        $this->assertSame('J. Peter M.', $name->getGivenName());
+    }
+
+    public function testGetFullNameShouldReturnTheFullNameInGivenOrder(): void
+    {
+        $parser = new Parser();
+        $name = $parser->parse('Schuler, J. Peter M.');
+        $this->assertSame('J. Peter M. Schuler', $name->getFullName());
+    }
 }
