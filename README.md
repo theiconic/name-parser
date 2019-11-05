@@ -151,6 +151,38 @@ This defaults to half the amount of words in the input string,
 meaning that effectively the salutation may occur within
 the first half of the name parts.
 
+## Tips
+### Dealing with names in different languages
+The parser is primarily built around the patterns of english names
+but tries to be compatible with names in other languages. Problems
+occur with different salutations, last name prefixes, suffixes etc.
+or in some cases even with the parsing order.
+
+To solve problems with salutations, last name prefixes and suffixes
+you can create a separate language definition file and inject it when
+instantiating the parser, see 'Setting Languages' above and compare
+the existing language files as examples.
+
+To deal with parsing order you may want to reformat the input string,
+e.g. by simply splitting it into words and reversing their order.
+You can even let the parser run over the original string and then over
+the reversed string and then pick the best results from either of the
+two resulting name objects. E.g. the salutation from the one and the
+lastname from the other.
+
+The name parser has no in-built language detection. However, you may
+already ask the user for their nationality in the same form. If you
+do that you may want to narrow the language definition files passed
+into the parser to the given language and maybe a fallback like english.
+You can also use this information to prepare the input string as outlined
+above.
+
+Alternatively, Patrick Schur as a [PHP language detection library](https://github.com/patrickschur/language-detection)
+that seems to deliver astonishing results. It won't give you much luck if
+you run it over the the name input string only, but if you have any more
+text from the person in their actual language, you could use this to detect
+the language and then proceed as above.
+
 ## License
 
 THE ICONIC Name Parser library for PHP is released under the MIT License.
