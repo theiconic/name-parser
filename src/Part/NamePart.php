@@ -2,15 +2,15 @@
 
 namespace TheIconic\NameParser\Part;
 
-class Initial extends GivenNamePart
+abstract class NamePart extends AbstractPart
 {
     /**
-     * uppercase the initial
+     * camelcase the lastname
      *
      * @return string
      */
     public function normalize(): string
     {
-        return strtoupper($this->getValue());
+        return $this->camelcase($this->getValue());
     }
 }

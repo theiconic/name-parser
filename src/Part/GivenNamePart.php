@@ -2,6 +2,6 @@
 
 namespace TheIconic\NameParser\Part;
 
-class Firstname extends GivenNamePart
+abstract class GivenNamePart extends NamePart
 {
 }

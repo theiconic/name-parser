@@ -82,9 +82,9 @@ echo $name->getNickname();
 echo $name->getInitials();
 echo $name->getSuffix();
 
-print_r($name->getAll()); // all parts as an associative array
+print_r($name->getAll());
 
-echo $name; // re-prints the full normalised name
+echo $name;
 ```
 An empty string is returned for missing parts.
 
@@ -102,6 +102,22 @@ pass `true` to have the same normalised parenthesis wrapping applied as in `echo
 ```php
 echo $name->getNickname(); // The Giant
 echo $name->getNickname(true); // (The Giant)
+```
+
+#### Re-print given name in the order as entered
+You can re-print the parts that form a given name (that is first name, middle names and any initials)
+in the order they were entered in while still applying normalisation
+via `getGivenName()`:
+```php
+echo $name->getGivenName(); // J. Peter M.
+```
+
+#### Re-print full name (actual name parts only)
+You can re-print the full name, that is the given name as above followed by
+any last name parts (excluding any salutations, nick names or suffixes)
+via `getFullName()`:
+```php
+echo $name->getFullName(); // J. Peter M. Schluter
 ```
 
 ### Setting Languages

@@ -3,6 +3,7 @@
 namespace TheIconic\NameParser;
 
 use TheIconic\NameParser\Part\AbstractPart;
+use TheIconic\NameParser\Part\GivenNamePart;
 
 class Name
 {
@@ -81,6 +82,35 @@ class Name
         }
 
         return $results;
+    }
+
+    /**
+     * get the given name (first name, middle names and initials)
+     * in the order they were entered while still applying normalisation
+     *
+     * @return string
+     */
+    public function getGivenName(): string
+    {
+        $fullNameParts = [];
+
+        foreach ($this->parts as $part) {
+            if ($part instanceof GivenNamePart) {
+                $fullNameParts[] = $part->normalize();
+            }
+        }
+
+        return implode(' ', $fullNameParts);
+    }
+
+    /**
+     * get the given name followed by the last name (including any prefixes)
+     *
+     * @return string
+     */
+    public function getFullName(): string
+    {
+        return sprintf('%s %s', $this->getGivenName(), $this->getLastname());
     }
 
     /**
