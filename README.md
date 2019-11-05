@@ -24,6 +24,9 @@ E.g. **Mr Anthony R Von Fange III** is parsed to
 - lastname: **von Fange**
 - suffix: **III**
 
+This package has been used by The Iconic in production for years,
+successfully processing hundreds of thousands of customer names.
+
 ## Features
 
 ### Supported patterns
@@ -56,7 +59,7 @@ This parser is able to handle name patterns with and without comma:
 
 ## Examples
 
-More than 80 different successfully parsed name patterns can be found in the
+More than 60 different successfully parsed name patterns can be found in the
 [parser unit test](https://github.com/theiconic/name-parser/blob/master/tests/ParserTest.php#L12-L12).
 
 ## Setup
@@ -152,6 +155,25 @@ meaning that effectively the salutation may occur within
 the first half of the name parts.
 
 ## Tips
+### Provide clean input strings
+If your input string consists of more than just the name and
+directly related bits like salutations, suffixes etc.,
+any additional parts can easily confuse the parser.
+It is therefore recommended to pre-process any non-clean input
+to isolate the name before passing it to the parser.
+
+### Multi-pass parsing
+We have not played with this, but you may be able to improve results
+by chaining several parses in sequence. E.g.
+```php
+$parser = new Parser();
+$name = $parser->parse($input);
+$name = $parser->parse((string) $name);
+...
+```
+You can even compose your new input string from individual parts of
+a previous pass.
+
 ### Dealing with names in different languages
 The parser is primarily built around the patterns of english names
 but tries to be compatible with names in other languages. Problems
@@ -182,6 +204,29 @@ that seems to deliver astonishing results. It won't give you much luck if
 you run it over the the name input string only, but if you have any more
 text from the person in their actual language, you could use this to detect
 the language and then proceed as above.
+
+### Gender detection
+Gender detection is outside the scope of this project.
+Detecting the gender from a name often requires large lists of first
+name to gender mappings.
+
+However, you can use this parser to extract salutation, first name and
+nick names from the input string and then use these to implement gender
+detection using another package (e.g. [this one](https://github.com/tuqqu/gender-detector)) or service.
+
+### Having fun with normalisation
+Writing different language files can not only be useful for parsing,
+but you can remap the normalised versions of salutations, prefixes and suffixes
+to transform them into something totally different.
+
+E.g. you could map `Ms.` to `princess of the kingdom of` and then output
+the parts in appropriate order to build a pipeline that automatically transforms
+e.g. `Ms. Louisa Lichtenstein` into `Louisa, princess of the kingdom of Lichtenstein`.
+Of course, this is a silly and rather contrived example, but you get the
+gist.
+
+Of course this can also be used in more useful ways, e.g. to spell out
+abbreviated titles, like `Prof.` as `Professor` etc. .
 
 ## License
 
