@@ -3,6 +3,7 @@
 namespace TheIconic\NameParser;
 
 use PHPUnit\Framework\TestCase;
+use TheIconic\NameParser\Language\English;
 use TheIconic\NameParser\Language\German;
 
 class ParserTest extends TestCase
@@ -512,6 +513,13 @@ class ParserTest extends TestCase
                     'middlename' => 'Quốc',
                     'firstname' => 'Thái',
                 ]
+            ],
+            [
+                'Yumeng Du',
+                [
+                    'lastname' => 'Du',
+                    'firstname' => 'Yumeng',
+                ]
             ]
         ];
     }
@@ -581,5 +589,15 @@ class ParserTest extends TestCase
         $parser->setMaxSalutationIndex(2);
         $this->assertSame(2, $parser->getMaxSalutationIndex());
         $this->assertSame('Mr.', $parser->parse('Francis Mr')->getSalutation());
+    }
+
+    public function testParserAndSubparsersProperlyHandleLanguages()
+    {
+        $parser = new Parser([
+            new German(),
+        ]);
+
+        $this->assertSame('Herr', $parser->parse('Herr Schmidt')->getSalutation());
+        $this->assertSame('Herr', $parser->parse('Herr Schmidt, Bernd')->getSalutation());
     }
 }
