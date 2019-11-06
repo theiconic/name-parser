@@ -45,6 +45,8 @@ class English implements LanguageInterface
         'rev' => 'Rev.',
         'sir' => 'Sir',
         'prof' => 'Prof.',
+        'his honour' => 'His Honour',
+        'her honour' => 'Her Honour'
     ];
 
     const LASTNAME_PREFIXES = [
