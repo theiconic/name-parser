@@ -57,8 +57,8 @@ class LastnameMapper extends AbstractMapper
             }
 
             if ($this->isFollowedByLastnamePart($parts, $k)) {
-                if ($this->isApplicablePrefix($parts, $k)) {
-                    $parts[$k] = new LastnamePrefix($part, $this->prefixes[$this->getKey($part)]);
+                if ($mapped = $this->mapAsPrefixIfPossible($parts, $k)) {
+                    $parts[$k] = $mapped;
                     continue;
                 }
 
@@ -76,6 +76,45 @@ class LastnameMapper extends AbstractMapper
         }
 
         return $parts;
+    }
+
+    /**
+     * try to map this part as a lastname prefix or as a combined
+     * lastname part containing a prefix
+     *
+     * @param array $parts
+     * @param int $k
+     * @return Lastname|null
+     */
+    private function mapAsPrefixIfPossible(array $parts, int $k): ?Lastname
+    {
+        if ($this->isApplicablePrefix($parts, $k)) {
+            return new LastnamePrefix($parts[$k], $this->prefixes[$this->getKey($parts[$k])]);
+        }
+
+        if ($this->isCombinedWithPrefix($parts[$k])) {
+            return new Lastname($parts[$k]);
+        }
+
+        return null;
+    }
+
+    /**
+     * check if the given part is a combined lastname part
+     * that ends in a lastname prefix
+     *
+     * @param string $part
+     * @return bool
+     */
+    private function isCombinedWithPrefix(string $part): bool
+    {
+        $pos = strpos($part, '-');
+
+        if (false === $pos) {
+            return false;
+        }
+
+        return $this->isPrefix(substr($part, $pos + 1));
     }
 
     /**
@@ -98,7 +137,7 @@ class LastnameMapper extends AbstractMapper
     }
 
     /**
-     * indicates if we should stop mapping at the give index $k
+     * indicates if we should stop mapping at the given index $k
      *
      * the assumption is that lastname parts have already been found
      * but we want to see if we should add more parts
@@ -113,11 +152,15 @@ class LastnameMapper extends AbstractMapper
             return true;
         }
 
-        if ($parts[$k + 1] instanceof LastnamePrefix) {
+        $lastPart = $parts[$k + 1];
+
+        if ($lastPart instanceof LastnamePrefix) {
             return true;
         }
 
-        return strlen($parts[$k + 1]->getValue()) >= 3;
+
+
+        return strlen($lastPart->getValue()) >= 3;
     }
 
     /**
@@ -135,7 +178,6 @@ class LastnameMapper extends AbstractMapper
      *
      * if the mapping did not derive any lastname this is called to transform
      * any previously ignored parts into lastname parts
-     * the parts array is still reversed at this point
      *
      * @param array $parts
      * @return array

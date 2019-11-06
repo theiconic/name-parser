@@ -92,15 +92,7 @@ class Name
      */
     public function getGivenName(): string
     {
-        $fullNameParts = [];
-
-        foreach ($this->parts as $part) {
-            if ($part instanceof GivenNamePart) {
-                $fullNameParts[] = $part->normalize();
-            }
-        }
-
-        return implode(' ', $fullNameParts);
+        return $this->export('GivenNamePart');
     }
 
     /**
