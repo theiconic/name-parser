@@ -71,14 +71,39 @@ class InitialMapperTest extends AbstractMapperTest
                     new Initial('B'),
                 ],
                 'arguments' => [
+                    2,
                     true
                 ],
+            ],
+            [
+                'input' => [
+                    'JM',
+                    'Walker',
+                ],
+                'expectation' => [
+                    new Initial('J'),
+                    new Initial('M'),
+                    'Walker'
+                ]
+            ],
+            [
+                'input' => [
+                    'JM',
+                    'Walker',
+                ],
+                'expectation' => [
+                    'JM',
+                    'Walker'
+                ],
+                'arguments' => [
+                    1
+                ]
             ]
         ];
     }
 
-    protected function getMapper($matchLastPart = false)
+    protected function getMapper($maxCombined = 2, $matchLastPart = false)
     {
-        return new InitialMapper($matchLastPart);
+        return new InitialMapper($maxCombined, $matchLastPart);
     }
 }

@@ -12,9 +12,12 @@ class InitialMapper extends AbstractMapper
 {
     protected $matchLastPart = false;
 
-    public function __construct(bool $matchLastPart = false)
+    private $combinedMax = 2;
+
+    public function __construct(int $combinedMax = 2, bool $matchLastPart = false)
     {
         $this->matchLastPart = $matchLastPart;
+        $this->combinedMax = $combinedMax;
     }
 
     /**
@@ -27,13 +30,26 @@ class InitialMapper extends AbstractMapper
     {
         $last = count($parts) - 1;
 
-        foreach ($parts as $k => $part) {
+        for ($k = 0; $k < count($parts); $k++) {
+            $part = $parts[$k];
+
             if ($part instanceof AbstractPart) {
                 continue;
             }
 
             if (!$this->matchLastPart && $k === $last) {
                 continue;
+            }
+
+            if (strtoupper($part) === $part) {
+                $stripped = str_replace('.', '', $part);
+                $length = strlen($stripped);
+
+                if (1 < $length && $length <= $this->combinedMax) {
+                    array_splice($parts, $k, 1, str_split($stripped));
+                    $last = count($parts) - 1;
+                    $part = $parts[$k];
+                }
             }
 
             if ($this->isInitial($part)) {
