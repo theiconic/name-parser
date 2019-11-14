@@ -154,6 +154,26 @@ This defaults to half the amount of words in the input string,
 meaning that effectively the salutation may occur within
 the first half of the name parts.
 
+### Adjusting combined initials support
+```php
+$parser = new TheIconic\NameParser\Parser();
+$parser->setMaxCombinedInitials(3);
+```
+Combined initials are combinations of several
+uppercased letters, e.g. `DJ` or `J.T.` without
+separating spaces. The parser will treat such sequences
+of uppercase letters (with optional dots) as combined
+initials and parse them into individual initials.
+This value adjusts the maximum number of uppercase letters
+in a single name part are recognised as comnined initials.
+Parts with more than the specified maximum amount of letters
+will not be parsed into initials and hence will most likely
+be parsed into first or middle names.
+
+The default value is 2.
+
+To disable combined initials support, set this value to 1;
+
 ## Tips
 ### Provide clean input strings
 If your input string consists of more than just the name and

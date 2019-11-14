@@ -38,6 +38,11 @@ class Parser
      */
     protected $maxSalutationIndex = 0;
 
+    /**
+     * @var int
+     */
+    protected $maxCombinedInitials = 2;
+
     public function __construct(array $languages = [])
     {
         if (empty($languages)) {
@@ -125,7 +130,7 @@ class Parser
             new SalutationMapper($this->getSalutations(), $this->getMaxSalutationIndex()),
             new SuffixMapper($this->getSuffixes(), true, 1),
             new NicknameMapper($this->getNicknameDelimiters()),
-            new InitialMapper(true),
+            new InitialMapper($this->getMaxCombinedInitials(), true),
             new FirstnameMapper(),
             new MiddlenameMapper(true),
         ]);
@@ -156,7 +161,7 @@ class Parser
                 new NicknameMapper($this->getNicknameDelimiters()),
                 new SalutationMapper($this->getSalutations(), $this->getMaxSalutationIndex()),
                 new SuffixMapper($this->getSuffixes()),
-                new InitialMapper(),
+                new InitialMapper($this->getMaxCombinedInitials()),
                 new LastnameMapper($this->getPrefixes()),
                 new FirstnameMapper(),
                 new MiddlenameMapper(),
@@ -296,6 +301,25 @@ class Parser
     public function setMaxSalutationIndex(int $maxSalutationIndex): Parser
     {
         $this->maxSalutationIndex = $maxSalutationIndex;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMaxCombinedInitials(): int
+    {
+        return $this->maxCombinedInitials;
+    }
+
+    /**
+     * @param int $maxCombinedInitials
+     * @return Parser
+     */
+    public function setMaxCombinedInitials(int $maxCombinedInitials): Parser
+    {
+        $this->maxCombinedInitials = $maxCombinedInitials;
 
         return $this;
     }

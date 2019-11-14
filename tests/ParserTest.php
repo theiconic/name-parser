@@ -51,7 +51,8 @@ class ParserTest extends TestCase
             [
                 'J.B. Hunt',
                 [
-                    'firstname' => 'J.B.',
+                    'firstname' => 'J',
+                    'initials' => 'B',
                     'lastname' => 'Hunt',
                 ]
             ],
@@ -534,24 +535,31 @@ class ParserTest extends TestCase
                     'firstname' => 'Etje',
                     'lastname' => 'Heijdanus-De Boer',
                 ]
-            ]
-        ];
-    }
-
-    /**
-     * @return array
-     */
-    public function dysfunctionalFirstnameProvider()
-    {
-        return [
-            // fails. both initials should be capitalized
+            ],
             [
                 'JB Hunt',
                 [
-                    'firstname' => 'JB',
+                    'firstname' => 'J',
+                    'initials' => 'B',
                     'lastname' => 'Hunt',
                 ]
             ],
+            [
+                'Charles Philip Arthur George Mountbatten-Windsor',
+                [
+                    'firstname' => 'Charles',
+                    'middlename' => 'Philip Arthur George',
+                    'lastname' => 'Mountbatten-Windsor',
+                ]
+            ],
+            [
+                'Ella Marija Lani Yelich-O\'Connor',
+                [
+                    'firstname' => 'Ella',
+                    'middlename' => 'Marija Lani',
+                    'lastname' => 'Yelich-O\'Connor',
+                ]
+            ]
         ];
     }
 
@@ -603,6 +611,21 @@ class ParserTest extends TestCase
         $parser->setMaxSalutationIndex(2);
         $this->assertSame(2, $parser->getMaxSalutationIndex());
         $this->assertSame('Mr.', $parser->parse('Francis Mr')->getSalutation());
+    }
+
+    public function testSetMaxCombinedInitials()
+    {
+        $parser = new Parser();
+        $this->assertSame(2, $parser->getMaxCombinedInitials());
+        $parser->setMaxCombinedInitials(1);
+        $this->assertSame(1, $parser->getMaxCombinedInitials());
+        $this->assertSame('', $parser->parse('DJ Westbam')->getInitials());
+
+        $parser = new Parser();
+        $this->assertSame(2, $parser->getMaxCombinedInitials());
+        $parser->setMaxCombinedInitials(3);
+        $this->assertSame(3, $parser->getMaxCombinedInitials());
+        $this->assertSame('P A G', $parser->parse('Charles PAG Mountbatten-Windsor')->getInitials());
     }
 
     public function testParserAndSubparsersProperlyHandleLanguages()
