@@ -12,7 +12,7 @@ abstract class AbstractPart
     /**
      * constructor allows passing the value to wrap
      *
-     * @param $value
+     * @param string|AbstractPart $value
      */
     public function __construct($value)
     {
@@ -61,8 +61,8 @@ abstract class AbstractPart
      * helper for camelization of values
      * to be used during normalize
      *
-     * @param $word
-     * @return mixed
+     * @param string $word
+     * @return string
      */
     protected function camelcase($word): string
     {
@@ -76,7 +76,7 @@ abstract class AbstractPart
     /**
      * camelcasing callback
      *
-     * @param $matches
+     * @param string $matches
      * @return string
      */
     protected function camelcaseReplace($matches): string
@@ -84,7 +84,7 @@ abstract class AbstractPart
         if (function_exists('mb_convert_case')) {
             return mb_convert_case($matches[0], MB_CASE_TITLE, 'UTF-8');
         }
-        
+
         return ucfirst(strtolower($matches[0]));
     }
 }

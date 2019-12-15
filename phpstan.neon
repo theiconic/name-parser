@@ -1,0 +1,4 @@
+parameters:
+	inferPrivatePropertyTypeFromConstructor: true
+	ignoreErrors:
+		- '#Array has [0-9] duplicate keys with value *#'

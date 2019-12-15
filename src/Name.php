@@ -72,6 +72,9 @@ class Name
             'initials' => [],
             'lastname' => [],
             'suffix' => [],
+            'company' => [],
+            'extension' => [],
+            'title' => [],
         ];
 
         foreach ($keys as $key => $args) {
@@ -189,6 +192,36 @@ class Name
     public function getMiddlename(): string
     {
         return $this->export('Middlename');
+    }
+
+    /**
+     * get the company
+     *
+     * @return string
+     */
+    public function getCompany(): string
+    {
+        return $this->export('Company');
+    }
+
+    /**
+     * get the extension
+     *
+     * @return string
+     */
+    public function getExtension(): string
+    {
+        return $this->export('Extension');
+    }
+
+    /**
+     * get the titles(s)
+     *
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        return $this->export('Title');
     }
 
     /**

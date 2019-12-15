@@ -32,8 +32,8 @@ class FirstnameMapper extends AbstractMapper
     }
 
     /**
-     * @param $part
-     * @return Firstname
+     * @param string|AbstractPart $part
+     * @return AbstractPart
      */
     protected function handleSinglePart($part): AbstractPart
     {
