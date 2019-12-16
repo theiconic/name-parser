@@ -66,15 +66,15 @@ class Name
         $results = [];
         $keys = [
             'salutation' => [],
+            'title' => [],
             'firstname' => [],
             'nickname' => [$format],
             'middlename' => [],
             'initials' => [],
+            'extension' => [],
             'lastname' => [],
             'suffix' => [],
             'company' => [],
-            'extension' => [],
-            'title' => [],
         ];
 
         foreach ($keys as $key => $args) {
@@ -222,6 +222,41 @@ class Name
     public function getTitle(): string
     {
         return $this->export('Title');
+    }
+
+    /**
+     * get an array with well formated names and their separators,
+     * where the keys are representing vCard properties
+     * see: https://tools.ietf.org/html/rfc6350#section-6.2.2
+     *
+     * @return array
+     */
+    public function getVCardArray(): array
+    {
+        return [
+            'FN' => implode(' ', array_diff_key($this->getAll(), [
+                'nickname' => $this->getNickname(),     // fullname with stripped off nickname
+                ])),
+            'N' => implode(';', array_filter([          // RFC6350: five segments in sequence:
+                $this->getLastname(true),               // 1. Family Names (also known as surnames)
+                $this->getFirstname(),                  // 2. Given Names
+                implode(',', array_filter([             // 3. Additional Names
+                    str_replace(' ', ',', $this->getMiddlename()),
+                    $this->getInitials(),
+                ])),
+                implode(',', array_filter([             // 4. Honorific Prefixes
+                    $this->getSalutation(),
+                    $this->getTitle(),
+                ])),
+                implode(',', array_filter([             // 5. Honorific Suffixes
+                    $this->getExtension(),
+                    $this->getLastnamePrefix(),
+                    $this->getSuffix(),
+                ])),
+            ])),
+            'NICKNAME' => $this->getNickname(),
+            'ORG'      => $this->getCompany(),
+        ];
     }
 
     /**
