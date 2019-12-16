@@ -1,0 +1,110 @@
+
+
+parameters:
+	ignoreErrors:
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$index\\)\\: Unexpected token \"\\$index\", expected TOKEN_IDENTIFIER at offset 131$#"
+			count: 1
+			path: src/Mapper/AbstractMapper.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$part\\)\\: Unexpected token \"\\$part\", expected TOKEN_IDENTIFIER at offset 18$#"
+			count: 1
+			path: src/Mapper/FirstnameMapper.php
+
+		-
+			message: "#^Method TheIconic\\\\NameParser\\\\Mapper\\\\FirstnameMapper\\:\\:handleSinglePart\\(\\) should return TheIconic\\\\NameParser\\\\Part\\\\Firstname but returns TheIconic\\\\NameParser\\\\Part\\\\AbstractPart\\.$#"
+			count: 1
+			path: src/Mapper/FirstnameMapper.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$part\\)\\: Unexpected token \"\\$part\", expected TOKEN_IDENTIFIER at offset 103$#"
+			count: 1
+			path: src/Mapper/LastnameMapper.php
+
+		-
+			message: "#^Possibly invalid array key type int\\|void\\.$#"
+			count: 1
+			path: src/Mapper/LastnameMapper.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$parts\\)\\: Unexpected token \"\\$parts\", expected TOKEN_IDENTIFIER at offset 74$#"
+			count: 1
+			path: src/Mapper/LastnameMapper.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$startIndex\\)\\: Unexpected token \"\\$startIndex\", expected TOKEN_IDENTIFIER at offset 95$#"
+			count: 1
+			path: src/Mapper/LastnameMapper.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$parts\\)\\: Unexpected token \"\\$parts\", expected TOKEN_IDENTIFIER at offset 39$#"
+			count: 1
+			path: src/Mapper/MiddlenameMapper.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$start\\)\\: Unexpected token \"\\$start\", expected TOKEN_IDENTIFIER at offset 18$#"
+			count: 1
+			path: src/Mapper/MiddlenameMapper.php
+
+		-
+			message: "#^PHPDoc tag @return with type mixed is not subtype of native type array\\.$#"
+			count: 1
+			path: src/Mapper/MiddlenameMapper.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$parts\\)\\: Unexpected token \"\\$parts\", expected TOKEN_IDENTIFIER at offset 18$#"
+			count: 1
+			path: src/Mapper/SuffixMapper.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$part\\)\\: Unexpected token \"\\$part\", expected TOKEN_IDENTIFIER at offset 18$#"
+			count: 1
+			path: src/Mapper/SuffixMapper.php
+
+		-
+			message: "#^Parameter \\#1 \\$function of function call_user_func_array expects callable\\(\\)\\: mixed, array\\(\\$this\\(TheIconic\\\\NameParser\\\\Name\\), string\\) given\\.$#"
+			count: 1
+			path: src/Name.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$left \\- the name part left of the comma\\)\\: Unexpected token \"\\$left\", expected TOKEN_IDENTIFIER at offset 84$#"
+			count: 1
+			path: src/Parser.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$right \\- the name part right of the comma\\)\\: Unexpected token \"\\$right\", expected TOKEN_IDENTIFIER at offset 138$#"
+			count: 1
+			path: src/Parser.php
+
+		-
+			message: "#^Method TheIconic\\\\NameParser\\\\Parser\\:\\:normalize\\(\\) should return string but returns string\\|null\\.$#"
+			count: 1
+			path: src/Parser.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$whitespace\\)\\: Unexpected token \"\\$whitespace\", expected TOKEN_IDENTIFIER at offset 107$#"
+			count: 1
+			path: src/Parser.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$value\\)\\: Unexpected token \"\\$value\", expected TOKEN_IDENTIFIER at offset 77$#"
+			count: 1
+			path: src/Part/AbstractPart.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$word\\)\\: Unexpected token \"\\$word\", expected TOKEN_IDENTIFIER at offset 101$#"
+			count: 1
+			path: src/Part/AbstractPart.php
+
+		-
+			message: "#^PHPDoc tag @return with type mixed is not subtype of native type string\\.$#"
+			count: 1
+			path: src/Part/AbstractPart.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$matches\\)\\: Unexpected token \"\\$matches\", expected TOKEN_IDENTIFIER at offset 53$#"
+			count: 1
+			path: src/Part/AbstractPart.php
+
+

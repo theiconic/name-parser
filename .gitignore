@@ -1,3 +1,4 @@
 /vendor/
 /tests/coverage
 phpunit.xml
+composer.lock
