@@ -120,12 +120,12 @@ class Parser
         $parser = new Parser();
 
         $parser->setMappers([
-            new ExtensionMapper($this->getExtensions()),
-            new MultipartMapper($this->getTitles(), 'title'),
-            new MultipartMapper($this->getPrefixes(), 'prefix'),
-            new SalutationMapper($this->getSalutations(), $this->getMaxSalutationIndex()),
-            new SuffixMapper($this->getSuffixes(), false, 2),
-            new LastnameMapper($this->getPrefixes(), true),
+            new ExtensionMapper($this->getSamples('Extensions')),
+            new MultipartMapper($this->getSamples('Titles'), 'title'),
+            new MultipartMapper($this->getSamples('LastnamePrefixes'), 'prefix'),
+            new SalutationMapper($this->getSamples('Salutations'), $this->getMaxSalutationIndex()),
+            new SuffixMapper($this->getSamples('Suffixes'), false, 2),
+            new LastnameMapper($this->getSamples('LastnamePrefixes'), true),
             new FirstnameMapper(),
             new MiddlenameMapper(),
         ]);
@@ -141,11 +141,11 @@ class Parser
         $parser = new Parser();
 
         $parser->setMappers([
-            new ExtensionMapper($this->getExtensions()),
-            new MultipartMapper($this->getTitles(), 'title'),
-            new MultipartMapper($this->getPrefixes(), 'prefix'),
-            new SalutationMapper($this->getSalutations(), $this->getMaxSalutationIndex()),
-            new SuffixMapper($this->getSuffixes(), true, 1),
+            new ExtensionMapper($this->getSamples('Extensions')),
+            new MultipartMapper($this->getSamples('Titles'), 'title'),
+            new MultipartMapper($this->getSamples('LastnamePrefixes'), 'prefix'),
+            new SalutationMapper($this->getSamples('Salutations'), $this->getMaxSalutationIndex()),
+            new SuffixMapper($this->getSamples('Suffixes'), true, 1),
             new NicknameMapper($this->getNicknameDelimiters()),
             new InitialMapper($this->getMaxCombinedInitials(), true),
             new FirstnameMapper(),
@@ -160,7 +160,7 @@ class Parser
         $parser = new Parser();
 
         $parser->setMappers([
-            new SuffixMapper($this->getSuffixes(), true, 0),
+            new SuffixMapper($this->getSamples('Suffixes'), true, 0),
         ]);
 
         return $parser;
@@ -175,14 +175,14 @@ class Parser
     {
         if (empty($this->mappers)) {
             $this->setMappers([
-                new ExtensionMapper($this->getExtensions()),
-                new MultipartMapper($this->getTitles(), 'title'),
-                new MultipartMapper($this->getPrefixes(), 'prefix'),
+                new ExtensionMapper($this->getSamples('Extensions')),
+                new MultipartMapper($this->getSamples('Titles'), 'title'),
+                new MultipartMapper($this->getSamples('LastnamePrefixes'), 'prefix'),
                 new NicknameMapper($this->getNicknameDelimiters()),
-                new SalutationMapper($this->getSalutations(), $this->getMaxSalutationIndex()),
-                new SuffixMapper($this->getSuffixes()),
+                new SalutationMapper($this->getSamples('Salutations'), $this->getMaxSalutationIndex()),
+                new SuffixMapper($this->getSamples('Suffixes')),
                 new InitialMapper($this->getMaxCombinedInitials()),
-                new LastnameMapper($this->getPrefixes()),
+                new LastnameMapper($this->getSamples('LastnamePrefixes')),
                 new FirstnameMapper(),
                 new MiddlenameMapper(),
             ]);
@@ -199,7 +199,7 @@ class Parser
      */
     protected function getCompany(string $name): array
     {
-        $mapper = new CompanyMapper($this->getCompanies());
+        $mapper = new CompanyMapper($this->getSamples('Companies'));
 
         return $mapper->map([$name]);
     }
@@ -258,91 +258,15 @@ class Parser
     /**
      * @return array
      */
-    protected function getPrefixes()
+    protected function getSamples(string $sampleName): array
     {
-        $prefixes = [];
-
-        /** @var LanguageInterface $language */
+        $samples = [];
+        $method = sprintf('get%s', $sampleName);
         foreach ($this->languages as $language) {
-            $prefixes += $language->getLastnamePrefixes();
+            $samples += call_user_func_array([$language, $method], []);
         }
 
-        return $prefixes;
-    }
-
-    /**
-     * @return array
-     */
-    protected function getSuffixes()
-    {
-        $suffixes = [];
-
-        /** @var LanguageInterface $language */
-        foreach ($this->languages as $language) {
-            $suffixes += $language->getSuffixes();
-        }
-
-        return $suffixes;
-    }
-
-    /**
-     * @return array
-     */
-    protected function getSalutations()
-    {
-        $salutations = [];
-
-        /** @var LanguageInterface $language */
-        foreach ($this->languages as $language) {
-            $salutations += $language->getSalutations();
-        }
-
-        return $salutations;
-    }
-
-    /**
-     * @return array
-     */
-    protected function getExtensions()
-    {
-        $extensions = [];
-
-        /** @var LanguageInterface $language */
-        foreach ($this->languages as $language) {
-            $extensions += $language->getExtensions();
-        }
-
-        return $extensions;
-    }
-
-    /**
-     * @return array
-     */
-    protected function getTitles()
-    {
-        $titles = [];
-
-        /** @var LanguageInterface $language */
-        foreach ($this->languages as $language) {
-            $titles += $language->getTitles();
-        }
-
-        return $titles;
-    }
-
-    /**
-     * @return array
-     */
-    protected function getCompanies()
-    {
-        $companies = [];
-
-        /** @var LanguageInterface $language */
-        foreach ($this->languages as $language) {
-            $companies += $language->getCompanies();
-        }
-
-        return $companies;
+        return $samples;
     }
 
     /**

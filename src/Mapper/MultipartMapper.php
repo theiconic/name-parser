@@ -44,7 +44,6 @@ class MultipartMapper extends AbstractMapper
             $fragments = explode(' ', $sample);
             $values[$key][$sampleType] = $sample;
             $values[$key]['fragments'] = $fragments;
-            $values[$key]['number'] = count($fragments);
         }
         $this->samples = $values;
     }
@@ -57,12 +56,7 @@ class MultipartMapper extends AbstractMapper
      */
     public function map(array $parts): array
     {
-        $className = $this->className;
-        $countParts = count($parts);
         foreach ($this->samples as $sample) {
-            if ($sample['number'] >= $countParts + 1) {      // assumption: minimum composite of name parts and the lastname
-                continue;
-            }
             $mappedParts = [];
             foreach ($sample['fragments'] as $fragment) {
                 $result = array_search($fragment, $parts);
@@ -72,14 +66,30 @@ class MultipartMapper extends AbstractMapper
                     continue(2);
                 }
             }
-            foreach ($mappedParts as $key) {
-                if ($parts[$key] instanceof AbstractPart) {
-                    break;
-                }
-                $parts[$key] = new $className($parts[$key]);
+            if (count($result = $this->mapParts($mappedParts, $parts))) {
+                $parts = $result;                       // all sample fragments successful mapped to parts
+                break;
             }
+        }
 
-            return $parts;
+        return $parts;
+    }
+
+    /**
+     * map sample fragments to parts
+     *
+     * @param array $mappedParts
+     * @param array $parts
+     * @return array
+     */
+    public function mapParts(array $mappedParts, array $parts): array
+    {
+        $className = $this->className;
+        foreach ($mappedParts as $key) {
+            if ($parts[$key] instanceof AbstractPart) {
+                return [];
+            }
+            $parts[$key] = new $className($parts[$key]);
         }
 
         return $parts;
