@@ -20,6 +20,7 @@ class English implements LanguageInterface
         'apr' => 'APR',
         'cme' => 'CME',
         'dmd' => 'DMD',
+        'esq' => 'Esq',
         'jr' => 'Jr',
         'junior' => 'Junior',
         'ma' => 'MA',
