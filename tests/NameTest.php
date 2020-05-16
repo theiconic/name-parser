@@ -69,4 +69,18 @@ class NameTest extends TestCase
         $name = $parser->parse('Schuler, J. Peter M.');
         $this->assertSame('J. Peter M. Schuler', $name->getFullName());
     }
+
+    public function testAddOneCustomSalutation()
+    {
+        $parser = new Parser();
+        $name = $parser->addCustomSalutation('custom', 'Custom.')->parse('Custom John Smith');
+        $this->assertSame('Custom. John Smith', (string) $name);
+    }
+
+    public function testAddBulkCustomSalutations()
+    {
+        $parser = new Parser();
+        $name = $parser->addCustomSalutations(['custom' => 'Custom.'])->parse('Custom John Smith');
+        $this->assertSame('Custom. John Smith', (string) $name);
+    }
 }
