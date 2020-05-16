@@ -34,6 +34,11 @@ class Parser
     protected $nicknameDelimiters = [];
 
     /**
+     * @var array
+     */
+    protected $customSalutations = [];
+
+    /**
      * @var int
      */
     protected $maxSalutationIndex = 0;
@@ -263,8 +268,34 @@ class Parser
         foreach ($this->languages as $language) {
             $salutations += $language->getSalutations();
         }
+        
+        $salutations += $this->customSalutations;
 
         return $salutations;
+    }
+
+    /**
+     * @param array $customSalutations
+     * @return Parser
+     */
+    public function addCustomSalutation(string $key, string $salutation): Parser
+    {
+        $this->customSalutations += [$key => $salutations];
+
+        return $this;
+    }
+
+    /**
+     * @param array $customSalutations
+     * @return Parser
+     */
+    public function addCustomSalutations(array $customSalutations): Parser
+    {
+        foreach ($customSalutations as $key => $salutation) {
+            $this->addCustomSalutation($key, $salutation);
+        }
+        
+        return $this;
     }
 
     /**
