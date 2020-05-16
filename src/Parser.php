@@ -280,7 +280,7 @@ class Parser
      */
     public function addCustomSalutation(string $key, string $salutation): Parser
     {
-        $this->customSalutations += [$key => $salutations];
+        $this->customSalutations += [$key => $salutation];
 
         return $this;
     }
