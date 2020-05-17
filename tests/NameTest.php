@@ -74,13 +74,13 @@ class NameTest extends TestCase
     {
         $parser = new Parser();
         $name = $parser->addCustomSalutation('custom', 'Custom.')->parse('Custom John Smith');
-        $this->assertSame('Custom. John Smith', $name->getFullName());
+        $this->assertSame('Custom. John Smith', $name-getSalutation() . ' ' . $name->getFullName());
     }
 
     public function testAddBulkCustomSalutations()
     {
         $parser = new Parser();
         $name = $parser->addCustomSalutations(['custom' => 'Custom.'])->parse('Custom John Smith');
-        $this->assertSame('Custom. John Smith', $name->getFullName());
+        $this->assertSame('Custom. John Smith', $name-getSalutation() . ' ' . $name->getFullName());
     }
 }
