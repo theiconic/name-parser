@@ -2,7 +2,7 @@
 
 namespace TheIconic\NameParser;
 
-use TheIconic\NameParser\Language\English;
+use TheIconic\NameParser\Definition\English\Basics;
 use TheIconic\NameParser\Mapper\NicknameMapper;
 use TheIconic\NameParser\Mapper\SalutationMapper;
 use TheIconic\NameParser\Mapper\SuffixMapper;
@@ -26,7 +26,7 @@ class Parser
     /**
      * @var array
      */
-    protected $languages = [];
+    protected $definitions = [];
 
     /**
      * @var array
@@ -43,13 +43,13 @@ class Parser
      */
     protected $maxCombinedInitials = 2;
 
-    public function __construct(array $languages = [])
+    public function __construct(array $definition = [])
     {
-        if (empty($languages)) {
-            $languages = [new English()];
+        if (empty($definition)) {
+            $definition = [new Basics()];
         }
 
-        $this->languages = $languages;
+        $this->definitions = $definition;
     }
 
     /**
@@ -229,9 +229,9 @@ class Parser
     {
         $prefixes = [];
 
-        /** @var LanguageInterface $language */
-        foreach ($this->languages as $language) {
-            $prefixes += $language->getLastnamePrefixes();
+        /** @var DefinitionInterface $definition */
+        foreach ($this->definitions as $definition) {
+            $prefixes += $definition->getLastnamePrefixes();
         }
 
         return $prefixes;
@@ -244,9 +244,9 @@ class Parser
     {
         $suffixes = [];
 
-        /** @var LanguageInterface $language */
-        foreach ($this->languages as $language) {
-            $suffixes += $language->getSuffixes();
+        /** @var DefinitionInterface $definition */
+        foreach ($this->definitions as $definition) {
+            $suffixes += $definition->getSuffixes();
         }
 
         return $suffixes;
@@ -259,9 +259,9 @@ class Parser
     {
         $salutations = [];
 
-        /** @var LanguageInterface $language */
-        foreach ($this->languages as $language) {
-            $salutations += $language->getSalutations();
+        /** @var DefinitionInterface $definition */
+        foreach ($this->definitions as $definition) {
+            $salutations += $definition->getSalutations();
         }
 
         return $salutations;

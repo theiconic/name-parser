@@ -123,12 +123,13 @@ via `getFullName()`:
 echo $name->getFullName(); // J. Peter M. Schluter
 ```
 
-### Setting Languages
+### Setting Definitions (Languages)
 ```php
 $parser = new TheIconic\NameParser\Parser([
-    new TheIconic\NameParser\Language\English(), //default
-    new TheIconic\NameParser\Language\German(),
-])
+    new TheIconic\NameParser\Definition\English\Basics(), //default
+    new TheIconic\NameParser\Definition\German\Basics(),
+    new TheIconic\NameParser\Definition\Configurable([...], [...], [...]),
+]);
 ```
 
 ### Setting nickname delimiters
@@ -201,9 +202,9 @@ occur with different salutations, last name prefixes, suffixes etc.
 or in some cases even with the parsing order.
 
 To solve problems with salutations, last name prefixes and suffixes
-you can create a separate language definition file and inject it when
-instantiating the parser, see 'Setting Languages' above and compare
-the existing language files as examples.
+you can create a separate definition file and inject it when
+instantiating the parser, see 'Setting Definitions' above and compare
+the existing definition files as examples.
 
 To deal with parsing order you may want to reformat the input string,
 e.g. by simply splitting it into words and reversing their order.
@@ -235,7 +236,7 @@ nick names from the input string and then use these to implement gender
 detection using another package (e.g. [this one](https://github.com/tuqqu/gender-detector)) or service.
 
 ### Having fun with normalisation
-Writing different language files can not only be useful for parsing,
+Writing different definition files can not only be useful for parsing,
 but you can remap the normalised versions of salutations, prefixes and suffixes
 to transform them into something totally different.
 
@@ -247,6 +248,12 @@ gist.
 
 Of course this can also be used in more useful ways, e.g. to spell out
 abbreviated titles, like `Prof.` as `Professor` etc. .
+
+### Dynamic definition classes
+As the `Configurable` definition class shows, your custom definitions
+do not have to be defined in fixed constants. You can implement definition
+files that load them from a configuration file or from a database or from
+an API. And of course you can combine multiple of those.
 
 ## License
 

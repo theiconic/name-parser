@@ -3,7 +3,7 @@
 namespace TheIconic\NameParser;
 
 use PHPUnit\Framework\TestCase;
-use TheIconic\NameParser\Language\German;
+use TheIconic\NameParser\Definition\German\Basics;
 
 class GermanParserTest extends TestCase
 {
@@ -56,7 +56,7 @@ class GermanParserTest extends TestCase
     public function testParse($input, $expectation)
     {
         $parser = new Parser([
-            new German()
+            new Basics()
         ]);
         $name = $parser->parse($input);
 

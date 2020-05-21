@@ -2,7 +2,7 @@
 
 namespace TheIconic\NameParser\Mapper;
 
-use TheIconic\NameParser\Language\English;
+use TheIconic\NameParser\Definition\English\Basics;
 use TheIconic\NameParser\Part\Salutation;
 use TheIconic\NameParser\Part\Firstname;
 use TheIconic\NameParser\Part\Lastname;
@@ -120,7 +120,7 @@ class LastnameMapperTest extends AbstractMapperTest
 
     protected function getMapper($matchSingle = false)
     {
-        $english = new English();
+        $english = new Basics();
 
         return new LastnameMapper($english->getLastnamePrefixes(), $matchSingle);
     }

@@ -2,7 +2,6 @@
 
 namespace TheIconic\NameParser\Mapper;
 
-use TheIconic\NameParser\LanguageInterface;
 use TheIconic\NameParser\Part\AbstractPart;
 use TheIconic\NameParser\Part\Lastname;
 use TheIconic\NameParser\Part\LastnamePrefix;

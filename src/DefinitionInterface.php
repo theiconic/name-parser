@@ -2,7 +2,7 @@
 
 namespace TheIconic\NameParser;
 
-interface LanguageInterface
+interface DefinitionInterface
 {
     public function getSuffixes(): array;
 
