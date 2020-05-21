@@ -1,10 +1,10 @@
 <?php
 
-namespace TheIconic\NameParser\Language;
+namespace TheIconic\NameParser\Definition\German;
 
-use TheIconic\NameParser\LanguageInterface;
+use TheIconic\NameParser\DefinitionInterface;
 
-class German implements LanguageInterface
+class Basics implements DefinitionInterface
 {
     const SUFFIXES = [
         '1.' => '1.',

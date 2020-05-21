@@ -1,10 +1,10 @@
 <?php
 
-namespace TheIconic\NameParser\Language;
+namespace TheIconic\NameParser\Definition\English;
 
-use TheIconic\NameParser\LanguageInterface;
+use TheIconic\NameParser\DefinitionInterface;
 
-class English implements LanguageInterface
+class Basics implements DefinitionInterface
 {
     const SUFFIXES = [
         '1st' => '1st',
@@ -35,8 +35,11 @@ class English implements LanguageInterface
     ];
 
     const SALUTATIONS = [
+        'dame' => 'Dame',
         'dr' => 'Dr.',
         'fr' => 'Fr.',
+        'lady' => 'Lady',
+        'lord' => 'Lord',
         'madam' => 'Madam',
         'master' => 'Mr.',
         'miss' => 'Miss',
@@ -45,9 +48,14 @@ class English implements LanguageInterface
         'mrs' => 'Mrs.',
         'ms' => 'Ms.',
         'mx' => 'Mx.',
+        'pastor' => 'Pr.',
+        'pr' => 'Pr.',
         'rev' => 'Rev.',
+        'reverend' => 'Rev.',
+        'rt hon' => 'Rt. Hon.',
         'sir' => 'Sir',
         'prof' => 'Prof.',
+        'professor' => 'Prof.',
         'his honour' => 'His Honour',
         'her honour' => 'Her Honour'
     ];

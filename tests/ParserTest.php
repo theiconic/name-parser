@@ -3,8 +3,9 @@
 namespace TheIconic\NameParser;
 
 use PHPUnit\Framework\TestCase;
-use TheIconic\NameParser\Language\English;
-use TheIconic\NameParser\Language\German;
+use TheIconic\NameParser\Definition\English\Basics as BasicEnglish;
+use TheIconic\NameParser\Definition\English\MilitaryRanks as MilitaryEnglish;
+use TheIconic\NameParser\Definition\German\Basics as German;
 
 class ParserTest extends TestCase
 {
@@ -636,5 +637,16 @@ class ParserTest extends TestCase
 
         $this->assertSame('Herr', $parser->parse('Herr Schmidt')->getSalutation());
         $this->assertSame('Herr', $parser->parse('Herr Schmidt, Bernd')->getSalutation());
+    }
+
+    public function testParserCombinesMultipleDefinitions(): void
+    {
+        $parser = new Parser([
+            new BasicEnglish(),
+            new MilitaryEnglish()
+        ]);
+
+        $this->assertSame('Mr.', $parser->parse('Mr Brown')->getSalutation());
+        $this->assertSame('Sgt.', $parser->parse('Sgt Montgomery Scott')->getSalutation());
     }
 }

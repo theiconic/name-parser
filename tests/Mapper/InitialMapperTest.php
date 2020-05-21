@@ -2,7 +2,6 @@
 
 namespace TheIconic\NameParser\Mapper;
 
-use TheIconic\NameParser\Language\English;
 use TheIconic\NameParser\Part\Initial;
 use TheIconic\NameParser\Part\Salutation;
 use TheIconic\NameParser\Part\Lastname;
