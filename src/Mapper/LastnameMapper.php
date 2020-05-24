@@ -166,7 +166,7 @@ class LastnameMapper extends AbstractMapper
     /**
      * indicates if the given part should be ignored (skipped) during mapping
      *
-     * @param $part
+     * @param string|AbstractPart $part
      * @return bool
      */
     protected function isIgnoredPart($part) {
@@ -248,8 +248,8 @@ class LastnameMapper extends AbstractMapper
     /**
      * find the next non-nickname index in parts
      *
-     * @param $parts
-     * @param $startIndex
+     * @param array $parts
+     * @param int $startIndex
      * @return int|void
      */
     protected function skipNicknameParts($parts, $startIndex)

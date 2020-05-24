@@ -84,4 +84,23 @@ class English implements LanguageInterface
     {
         return self::LASTNAME_PREFIXES;
     }
+
+    // see German for further information
+    public function getExtensions(): array
+    {
+        return [];
+    }
+
+    // see German for further information
+    public function getTitles(): array
+    {
+        return [];
+    }
+
+    // see German for further information
+    public function getCompanies(): array
+    {
+        return [];
+    }
 }
+

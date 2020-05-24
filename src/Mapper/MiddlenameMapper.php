@@ -41,9 +41,9 @@ class MiddlenameMapper extends AbstractMapper
     }
 
     /**
-     * @param $start
-     * @param $parts
-     * @return mixed
+     * @param int $start
+     * @param array $parts
+     * @return array
      */
     protected function mapFrom($start, $parts): array
     {

@@ -19,7 +19,7 @@ abstract class AbstractMapper
      * checks if there are still unmapped parts left before the given position
      *
      * @param array $parts
-     * @param $index
+     * @param int $index
      * @return bool
      */
     protected function hasUnmappedPartsBefore(array $parts, $index): bool
@@ -65,4 +65,21 @@ abstract class AbstractMapper
     {
         return strtolower(str_replace('.', '', $word));
     }
+
+    /**
+     * sort array by length descending and alphabetically ascending
+     * https://stackoverflow.com/questions/44835807/sort-array-by-length-and-then-alphabetically
+     *
+     * @param array $values
+     * @return array
+     */
+    protected function sortArrayDescending(array $values): array
+    {
+        uasort($values, function($a, $b) {
+            return strlen($b) <=> strlen($a) ?: strcmp($a, $b);;
+        });
+
+        return $values;
+    }
 }
+

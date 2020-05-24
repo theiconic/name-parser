@@ -49,7 +49,7 @@ class SuffixMapper extends AbstractMapper
     }
 
     /**
-     * @param $parts
+     * @param array $parts
      * @return bool
      */
     protected function isMatchingSinglePart($parts): bool
@@ -66,7 +66,7 @@ class SuffixMapper extends AbstractMapper
     }
 
     /**
-     * @param $part
+     * @param string|AbstractPart $part
      * @return bool
      */
     protected function isSuffix($part): bool

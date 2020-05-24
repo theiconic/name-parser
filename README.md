@@ -40,6 +40,7 @@ This parser is able to handle name patterns with and without comma:
 ```
 ... [lastname] ..., ... [firstname] ..., [suffix]
 ```
+Without a comma, the string is first compared against identifiers for company names (Ltd., Inc. etc). If so the whole string will be returned as a company name.
 
 ### Supported parts
 - salutations (e.g. Mr, Mrs, Dr, etc.)
@@ -49,6 +50,8 @@ This parser is able to handle name patterns with and without comma:
 - nicknames (parts within parenthesis, brackets etc.)
 - last names (also supports prefixes like von, de etc.)
 - suffixes (Jr, Senior, 3rd, PhD, etc.)
+- titles (academic titles like Dr. med., Dr.h.c. etc)
+- lastname extensions (nobility predicates like Gräfin, Baron)
 
 ### Other features
 - multi-language support for salutations, suffixes and lastname prefixes
@@ -77,6 +80,7 @@ $parser = new TheIconic\NameParser\Parser();
 
 $name = $parser->parse($input);
 
+echo $name->getCompany();
 echo $name->getSalutation();
 echo $name->getFirstname();
 echo $name->getLastname();
@@ -84,6 +88,8 @@ echo $name->getMiddlename();
 echo $name->getNickname();
 echo $name->getInitials();
 echo $name->getSuffix();
+echo $name->getTitle();
+echo $name->getExtension();
 
 print_r($name->getAll());
 
