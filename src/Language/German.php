@@ -5,19 +5,14 @@ namespace TheIconic\NameParser\Language;
 use TheIconic\NameParser\LanguageInterface;
 
 /**
- * These lists have been extensively supplemented by
- * @author Volker Püschel <kuffy@anasco.de>
- * @copyright 2019 Volker Püschel
- * @license MIT
- *
  * The only structured definition of name parts and their allowed values
  * I could found on the web are according to HL7 (health level 7) standard
- * https://simplifier.net/guide/LeitfadenBasisDE/PatientimVersichertenstammdatenmanagementVSDM
+ * @see https://simplifier.net/guide/LeitfadenBasisDE/PatientimVersichertenstammdatenmanagementVSDM
  *
  * Names in Germany could be structured like this:
  * "[SALUTATION] [TITLES] [FIRSTNAME] [MIDDLENAMES] [EXTENSION] [LASTNAME_PREFIX] [LASTNAME], [SUFFIX]"
  *        1          n         1            n            1              1             1          n
- * source: https://wiki.hl7.de/index.php?title=bp:Personennamen
+ * @see https://wiki.hl7.de/index.php?title=bp:Personennamen
  *
  * Example:
  * "Herr Prof. Dr. med. Dr. rer. nat. Fritz Julius Karl Freiherr von und zu Rathenburg vor der Isar, MdB"
@@ -30,7 +25,7 @@ use TheIconic\NameParser\LanguageInterface;
  * "Rathenburg vor der Isar, Fritz Julius Karl Freiherr von und zu"
  */
 
-class German implements LanguageInterface
+ class German implements LanguageInterface
 {
     const SUFFIXES = [
         '1.' => '1.',
@@ -64,7 +59,7 @@ class German implements LanguageInterface
 
     /**
       * the following list is according to HL7 (Health Level 7) standard
-      * https://www.vdek.com/vertragspartner/arbeitgeber/deuev/_jcr_content/par/download_8/file.res/Anlage_07_Vers.pdf
+      * @see https://www.vdek.com/vertragspartner/arbeitgeber/deuev/_jcr_content/par/download_8/file.res/Anlage_07_Vers.pdf
       */
     const LASTNAME_PREFIXES = [
         'a' => 'a',
@@ -258,7 +253,7 @@ class German implements LanguageInterface
 
     /**
       * the following list is according to HL7 (Health Level 7) standard
-      * https://www.vdek.com/vertragspartner/arbeitgeber/deuev/_jcr_content/par/download_8/file.res/Anlage_07_Vers.pdf
+      * @see https://www.vdek.com/vertragspartner/arbeitgeber/deuev/_jcr_content/par/download_8/file.res/Anlage_07_Vers.pdf
       */
     const EXTENSIONS = [                            // nobility predicate (Adelsprädikate)
         'bar' => 'Bar',
@@ -336,7 +331,7 @@ class German implements LanguageInterface
     /**
      * the following list contains the academic titles for doctor degrees
      * from DACH (Germany, Austria, Swiss)
-     * copied from wikipedia (https://de.wikipedia.org/wiki/Doktor)
+     * @see https://de.wikipedia.org/wiki/Doktor
      */
     const TITLES_DR = [
         'ddr.' => 'DDr.',
@@ -525,7 +520,7 @@ class German implements LanguageInterface
     /**
      * the following list contains the academaic titles mainly for professors
      * from DACH (Germany, Austria, Swiss), which are often used in names as titles
-     * copied from wikipedia (https://de.wikipedia.org/wiki/Professor)
+     * @see https://de.wikipedia.org/wiki/Professor
      * this list is kept separate from TITLES to better maintain both
      */
     const OFFICIAL_TITLES = [

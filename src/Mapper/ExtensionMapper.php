@@ -7,10 +7,7 @@ use TheIconic\NameParser\Part\Extension;
 
 /**
  * Mapper to identify lastname extensions (nobility predicates) in a name
- * see /Language/German.php for more information
- * @author Volker Püschel <kuffy@anasco.de>
- * @copyright 2019 Volker Püschel
- * @license MIT
+ * @see /Language/German.php for more information
  */
 
 class ExtensionMapper extends AbstractMapper

@@ -12,13 +12,9 @@ use TheIconic\NameParser\Part\LastnamePrefix;
  * This affects in Germany for example lastname prefixes
  * and (academic) titles, which are often consisting
  * of several words
- * See describing samples in: \Language\German.php:
+ * @see describing samples in: \Language\German.php:
  * LASTNAME_PREFIXES[], TITLES_DR[], OFFICIAL_TITLES[]
  * and JOB_TITLES[]
- *
- * @author Volker Püschel <kuffy@anasco.de>
- * @copyright 2019 Volker Püschel
- * @license MIT
  */
 
 class MultipartMapper extends AbstractMapper

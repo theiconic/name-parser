@@ -227,7 +227,7 @@ class Name
     /**
      * get an array with well formated names and their separators,
      * where the keys are representing vCard properties
-     * see: https://tools.ietf.org/html/rfc6350#section-6.2.2
+     * @see https://tools.ietf.org/html/rfc6350#section-6.2.2
      *
      * @return array
      */

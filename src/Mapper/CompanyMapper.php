@@ -6,9 +6,6 @@ use TheIconic\NameParser\Part\Company;
 
 /**
  * Mapper to identify a string as a company name
- * @author Volker Püschel <kuffy@anasco.de>
- * @copyright 2019 Volker Püschel
- * @license MIT
  */
 
 class CompanyMapper extends AbstractMapper
