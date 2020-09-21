@@ -67,6 +67,14 @@ More than 60 different successfully parsed name patterns can be found in the
 composer require theiconic/name-parser
 ```
 
+## Tests
+
+Static code analysis (uses PHPStan) by running:
+
+```
+$ make static
+```
+
 ## Usage
 
 ### Basic usage
