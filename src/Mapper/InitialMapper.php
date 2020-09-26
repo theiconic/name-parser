@@ -43,10 +43,11 @@ class InitialMapper extends AbstractMapper
 
             if (strtoupper($part) === $part) {
                 $stripped = str_replace('.', '', $part);
-                $length = strlen($stripped);
+                $length = mb_strlen($stripped);
 
                 if (1 < $length && $length <= $this->combinedMax) {
-                    array_splice($parts, $k, 1, str_split($stripped));
+                    $charactersAsArray = preg_split('//u', $stripped, null, PREG_SPLIT_NO_EMPTY);
+                    array_splice($parts, $k, 1, $charactersAsArray);
                     $last = count($parts) - 1;
                     $part = $parts[$k];
                 }
@@ -66,12 +67,12 @@ class InitialMapper extends AbstractMapper
      */
     protected function isInitial(string $part): bool
     {
-        $length = strlen($part);
+        $length = mb_strlen($part);
 
         if (1 === $length) {
             return true;
         }
 
-        return ($length === 2 && substr($part, -1) ===  '.');
+        return ($length === 2 && mb_substr($part, -1) ===  '.');
     }
 }
