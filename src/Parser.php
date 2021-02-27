@@ -43,13 +43,21 @@ class Parser
      */
     protected $maxCombinedInitials = 2;
 
-    public function __construct(array $languages = [])
+    /** @var Factory  */
+    protected $factory;
+
+    public function __construct(array $languages = [], Factory $factory = null)
     {
         if (empty($languages)) {
             $languages = [new English()];
         }
 
+        if (!$factory) {
+            $factory = new Factory();
+        }
+
         $this->languages = $languages;
+        $this->factory = $factory;
     }
 
     /**
@@ -79,7 +87,7 @@ class Parser
             $parts = $mapper->map($parts);
         }
 
-        return new Name($parts);
+        return $this->factory->createName($parts);
     }
 
     /**
@@ -98,7 +106,7 @@ class Parser
             $this->getThirdSegmentParser()->parse($third)->getParts()
         );
 
-        return new Name($parts);
+        return $this->factory->createName($parts);
     }
 
     /**
@@ -106,7 +114,7 @@ class Parser
      */
     protected function getFirstSegmentParser(): Parser
     {
-        $parser = new Parser();
+        $parser = new static($this->languages, $this->factory);
 
         $parser->setMappers([
             new SalutationMapper($this->getSalutations(), $this->getMaxSalutationIndex()),
@@ -124,7 +132,7 @@ class Parser
      */
     protected function getSecondSegmentParser(): Parser
     {
-        $parser = new Parser();
+        $parser = new static($this->languages, $this->factory);
 
         $parser->setMappers([
             new SalutationMapper($this->getSalutations(), $this->getMaxSalutationIndex()),
@@ -140,7 +148,7 @@ class Parser
 
     protected function getThirdSegmentParser(): Parser
     {
-        $parser = new Parser();
+        $parser = new static($this->languages, $this->factory);
 
         $parser->setMappers([
             new SuffixMapper($this->getSuffixes(), true, 0),
