@@ -79,7 +79,7 @@ class Parser
             $parts = $mapper->map($parts);
         }
 
-        return new Name($parts);
+        return $this->createName($parts);
     }
 
     /**
@@ -98,7 +98,7 @@ class Parser
             $this->getThirdSegmentParser()->parse($third)->getParts()
         );
 
-        return new Name($parts);
+        return $this->createName($parts);
     }
 
     /**
@@ -106,7 +106,7 @@ class Parser
      */
     protected function getFirstSegmentParser(): Parser
     {
-        $parser = new Parser();
+        $parser = $this->createParser();
 
         $parser->setMappers([
             new SalutationMapper($this->getSalutations(), $this->getMaxSalutationIndex()),
@@ -124,7 +124,7 @@ class Parser
      */
     protected function getSecondSegmentParser(): Parser
     {
-        $parser = new Parser();
+        $parser = $this->createParser();
 
         $parser->setMappers([
             new SalutationMapper($this->getSalutations(), $this->getMaxSalutationIndex()),
@@ -140,7 +140,7 @@ class Parser
 
     protected function getThirdSegmentParser(): Parser
     {
-        $parser = new Parser();
+        $parser = $this->createParser();
 
         $parser->setMappers([
             new SuffixMapper($this->getSuffixes(), true, 0),
@@ -322,5 +322,15 @@ class Parser
         $this->maxCombinedInitials = $maxCombinedInitials;
 
         return $this;
+    }
+
+    protected function createParser(): Parser
+    {
+        return new static();
+    }
+
+    protected function createName(array $parts = null): Name
+    {
+        return new Name($parts);
     }
 }
