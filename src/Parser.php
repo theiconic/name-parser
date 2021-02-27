@@ -53,7 +53,7 @@ class Parser
         }
 
         if (!$factory) {
-            $factory = new Factory($this);
+            $factory = new Factory();
         }
 
         $this->languages = $languages;
