@@ -6,7 +6,7 @@ abstract class PreNormalizedPart extends AbstractPart
 {
     protected $normalized = '';
 
-    public function __construct(string $value, string $normalized = null)
+    public function __construct(string $value, ?string $normalized)
     {
         $this->normalized = $normalized ?? $value;
 
