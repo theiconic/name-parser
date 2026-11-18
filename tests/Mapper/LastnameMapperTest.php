@@ -8,12 +8,12 @@ use TheIconic\NameParser\Part\Firstname;
 use TheIconic\NameParser\Part\Lastname;
 use TheIconic\NameParser\Part\LastnamePrefix;
 
-class LastnameMapperTest extends AbstractMapperTest
+class LastnameMapperTest extends AbstractMapperTestCase
 {
     /**
      * @return array
      */
-    public function provider()
+    public static function provider(): array
     {
         return [
             [

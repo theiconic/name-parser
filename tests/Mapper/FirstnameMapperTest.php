@@ -6,12 +6,12 @@ use TheIconic\NameParser\Part\Salutation;
 use TheIconic\NameParser\Part\Firstname;
 use TheIconic\NameParser\Part\Lastname;
 
-class FirstnameMapperTest extends AbstractMapperTest
+class FirstnameMapperTest extends AbstractMapperTestCase
 {
     /**
      * @return array
      */
-    public function provider()
+    public static function provider(): array
     {
         return [
             [

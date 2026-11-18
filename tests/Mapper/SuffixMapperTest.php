@@ -7,12 +7,12 @@ use TheIconic\NameParser\Part\Lastname;
 use TheIconic\NameParser\Part\Firstname;
 use TheIconic\NameParser\Part\Suffix;
 
-class SuffixMapperTest extends AbstractMapperTest
+class SuffixMapperTest extends AbstractMapperTestCase
 {
     /**
      * @return array
      */
-    public function provider()
+    public static function provider(): array
     {
         return [
             [
@@ -28,7 +28,7 @@ class SuffixMapperTest extends AbstractMapperTest
                     'Blueberg',
                     new Suffix('PhD'),
                 ],
-                [
+                'arguments' => [
                     'matchSinglePart' => false,
                     'reservedParts' => 2,
                 ]
@@ -44,7 +44,7 @@ class SuffixMapperTest extends AbstractMapperTest
                     'Alfred',
                     new Suffix('III'),
                 ],
-                [
+                'arguments' => [
                     'matchSinglePart' => false,
                     'reservedParts' => 2,
                 ]
@@ -60,7 +60,7 @@ class SuffixMapperTest extends AbstractMapperTest
                     new Lastname('Smith'),
                     new Suffix('Senior'),
                 ],
-                [
+                'arguments' => [
                     'matchSinglePart' => false,
                     'reservedParts' => 2,
                 ]
@@ -76,7 +76,7 @@ class SuffixMapperTest extends AbstractMapperTest
                     new Firstname('James'),
                     'Norrington',
                 ],
-                [
+                'arguments' => [
                     'matchSinglePart' => false,
                     'reservedParts' => 2,
                 ]
@@ -92,7 +92,7 @@ class SuffixMapperTest extends AbstractMapperTest
                     new Firstname('James'),
                     new Lastname('Norrington'),
                 ],
-                [
+                'arguments' => [
                     'matchSinglePart' => false,
                     'reservedParts' => 2,
                 ]
@@ -108,7 +108,7 @@ class SuffixMapperTest extends AbstractMapperTest
                     'Norrington',
                     new Suffix('Senior'),
                 ],
-                [
+                'arguments' => [
                     false,
                     2,
                 ]
@@ -122,7 +122,7 @@ class SuffixMapperTest extends AbstractMapperTest
                     'Norrington',
                     'Senior',
                 ],
-                [
+                'arguments' => [
                     false,
                     2,
                 ]
@@ -136,7 +136,7 @@ class SuffixMapperTest extends AbstractMapperTest
                     new Lastname('Norrington'),
                     new Suffix('Senior'),
                 ],
-                [
+                'arguments' => [
                     false,
                     1,
                 ]
@@ -148,7 +148,7 @@ class SuffixMapperTest extends AbstractMapperTest
                 'expectation' => [
                     new Suffix('Senior'),
                 ],
-                [
+                'arguments' => [
                     true,
                 ]
             ],

@@ -1,12 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TheIconic\NameParser\Part;
 
 class LastnamePrefix extends Lastname
 {
-    protected $normalized = '';
+    protected readonly string $normalized;
 
-    public function __construct(string $value, string $normalized = null)
+    /**
+     * @param string $normalized normalized form of the prefix, defaults to the value itself
+     */
+    public function __construct(string $value, ?string $normalized = null)
     {
         $this->normalized = $normalized ?? $value;
 
@@ -14,10 +19,8 @@ class LastnamePrefix extends Lastname
     }
 
     /**
-     * if this is a lastname prefix, look up normalized version from registry
-     * otherwise camelcase the lastname
-     *
-     * @return string
+     * return the normalized prefix looked up from the language registry
+     * (prefixes are not camelcased like the rest of the lastname)
      */
     public function normalize(): string
     {

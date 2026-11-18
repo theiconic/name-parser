@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TheIconic\NameParser\Mapper;
 
-use TheIconic\NameParser\LanguageInterface;
 use TheIconic\NameParser\Part\AbstractPart;
 use TheIconic\NameParser\Part\Lastname;
 use TheIconic\NameParser\Part\LastnamePrefix;
@@ -12,21 +13,21 @@ use TheIconic\NameParser\Part\Suffix;
 
 class LastnameMapper extends AbstractMapper
 {
-    protected $prefixes = [];
-
-    protected $matchSinglePart = false;
-
-    public function __construct(array $prefixes, bool $matchSinglePart = false)
-    {
-        $this->prefixes = $prefixes;
-        $this->matchSinglePart = $matchSinglePart;
+    /**
+     * @param array<string, string> $prefixes lowercase lookup key => normalized prefix
+     * @param bool $matchSinglePart whether a single part may be mapped as lastname
+     */
+    public function __construct(
+        protected readonly array $prefixes,
+        protected readonly bool $matchSinglePart = false,
+    ) {
     }
 
     /**
      * map lastnames in the parts array
      *
-     * @param array $parts the name parts
-     * @return array the mapped parts
+     * @param array<int, AbstractPart|string> $parts the name parts
+     * @return array<int, AbstractPart|string> the mapped parts
      */
     public function map(array $parts): array
     {
@@ -41,8 +42,8 @@ class LastnameMapper extends AbstractMapper
      * we map the parts in reverse order because it makes more
      * sense to parse for the lastname starting from the end
      *
-     * @param array $parts
-     * @return array
+     * @param array<int, AbstractPart|string> $parts
+     * @return array<int, AbstractPart|string>
      */
     protected function mapParts(array $parts): array
     {
@@ -82,9 +83,7 @@ class LastnameMapper extends AbstractMapper
      * try to map this part as a lastname prefix or as a combined
      * lastname part containing a prefix
      *
-     * @param array $parts
-     * @param int $k
-     * @return Lastname|null
+     * @param array<int, AbstractPart|string> $parts
      */
     private function mapAsPrefixIfPossible(array $parts, int $k): ?Lastname
     {
@@ -102,9 +101,6 @@ class LastnameMapper extends AbstractMapper
     /**
      * check if the given part is a combined lastname part
      * that ends in a lastname prefix
-     *
-     * @param string $part
-     * @return bool
      */
     private function isCombinedWithPrefix(string $part): bool
     {
@@ -120,8 +116,7 @@ class LastnameMapper extends AbstractMapper
     /**
      * skip through the parts we want to ignore and return the start index
      *
-     * @param array $parts
-     * @return int
+     * @param array<int, AbstractPart|string> $parts
      */
     protected function skipIgnoredParts(array $parts): int
     {
@@ -142,9 +137,7 @@ class LastnameMapper extends AbstractMapper
      * the assumption is that lastname parts have already been found
      * but we want to see if we should add more parts
      *
-     * @param array $parts
-     * @param int $k
-     * @return bool
+     * @param array<int, AbstractPart|string> $parts
      */
     protected function shouldStopMapping(array $parts, int $k): bool
     {
@@ -158,18 +151,14 @@ class LastnameMapper extends AbstractMapper
             return true;
         }
 
-
-
         return strlen($lastPart->getValue()) >= 3;
     }
 
     /**
      * indicates if the given part should be ignored (skipped) during mapping
-     *
-     * @param $part
-     * @return bool
      */
-    protected function isIgnoredPart($part) {
+    protected function isIgnoredPart(AbstractPart|string $part): bool
+    {
         return $part instanceof Suffix || $part instanceof Nickname || $part instanceof Salutation;
     }
 
@@ -179,8 +168,8 @@ class LastnameMapper extends AbstractMapper
      * if the mapping did not derive any lastname this is called to transform
      * any previously ignored parts into lastname parts
      *
-     * @param array $parts
-     * @return array
+     * @param array<int, AbstractPart|string> $parts
+     * @return array<int, AbstractPart|string>
      */
     protected function remapIgnored(array $parts): array
     {
@@ -200,15 +189,13 @@ class LastnameMapper extends AbstractMapper
     }
 
     /**
-     * @param array $parts
-     * @param int $index
-     * @return bool
+     * @param array<int, AbstractPart|string> $parts
      */
     protected function isFollowedByLastnamePart(array $parts, int $index): bool
     {
         $next = $this->skipNicknameParts($parts, $index + 1);
 
-        return (isset($parts[$next]) && $parts[$next] instanceof Lastname);
+        return isset($parts[$next]) && $parts[$next] instanceof Lastname;
     }
 
     /**
@@ -221,9 +208,7 @@ class LastnameMapper extends AbstractMapper
      *
      * This expects the parts array and index to be in the original order.
      *
-     * @param array $parts
-     * @param int $index
-     * @return bool
+     * @param array<int, AbstractPart|string> $parts
      */
     protected function isApplicablePrefix(array $parts, int $index): bool
     {
@@ -236,23 +221,18 @@ class LastnameMapper extends AbstractMapper
 
     /**
      * check if the given word is a lastname prefix
-     *
-     * @param string $word the word to check
-     * @return bool
      */
-    protected function isPrefix($word): bool
+    protected function isPrefix(string $word): bool
     {
-        return (array_key_exists($this->getKey($word), $this->prefixes));
+        return array_key_exists($this->getKey($word), $this->prefixes);
     }
 
     /**
      * find the next non-nickname index in parts
      *
-     * @param $parts
-     * @param $startIndex
-     * @return int|void
+     * @param array<int, AbstractPart|string> $parts
      */
-    protected function skipNicknameParts($parts, $startIndex)
+    protected function skipNicknameParts(array $parts, int $startIndex): int
     {
         $total = count($parts);
 

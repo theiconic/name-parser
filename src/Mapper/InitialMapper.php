@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TheIconic\NameParser\Mapper;
 
 use TheIconic\NameParser\Part\AbstractPart;
@@ -10,21 +12,21 @@ use TheIconic\NameParser\Part\Initial;
  */
 class InitialMapper extends AbstractMapper
 {
-    protected $matchLastPart = false;
-
-    private $combinedMax = 2;
-
-    public function __construct(int $combinedMax = 2, bool $matchLastPart = false)
-    {
-        $this->matchLastPart = $matchLastPart;
-        $this->combinedMax = $combinedMax;
+    /**
+     * @param int $combinedMax maximum number of combined initials to split up (e.g. "JM" => "J", "M")
+     * @param bool $matchLastPart whether the last part may be mapped as an initial
+     */
+    public function __construct(
+        private readonly int $combinedMax = 2,
+        protected readonly bool $matchLastPart = false,
+    ) {
     }
 
     /**
      * map intials in parts array
      *
-     * @param array $parts the name parts
-     * @return array the mapped parts
+     * @param array<int, AbstractPart|string> $parts the name parts
+     * @return array<int, AbstractPart|string> the mapped parts
      */
     public function map(array $parts): array
     {
@@ -60,10 +62,6 @@ class InitialMapper extends AbstractMapper
         return $parts;
     }
 
-    /**
-     * @param string $part
-     * @return bool
-     */
     protected function isInitial(string $part): bool
     {
         $length = strlen($part);
@@ -72,6 +70,6 @@ class InitialMapper extends AbstractMapper
             return true;
         }
 
-        return ($length === 2 && substr($part, -1) ===  '.');
+        return $length === 2 && str_ends_with($part, '.');
     }
 }

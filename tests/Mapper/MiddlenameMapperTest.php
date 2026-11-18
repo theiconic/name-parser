@@ -7,12 +7,12 @@ use TheIconic\NameParser\Part\Firstname;
 use TheIconic\NameParser\Part\Middlename;
 use TheIconic\NameParser\Part\Lastname;
 
-class MiddlenameMapperTest extends AbstractMapperTest
+class MiddlenameMapperTest extends AbstractMapperTestCase
 {
     /**
      * @return array
      */
-    public function provider()
+    public static function provider(): array
     {
         return [
             [

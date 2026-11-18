@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TheIconic\NameParser\Mapper;
 
 use TheIconic\NameParser\Part\AbstractPart;
@@ -8,17 +10,20 @@ use TheIconic\NameParser\Part\Nickname;
 class NicknameMapper extends AbstractMapper
 {
     /**
-     * @var array
+     * @var array<string, string> opening => closing delimiter
      */
-    protected $delimiters = [
+    protected array $delimiters = [
         '[' => ']',
         '{' => '}',
         '(' => ')',
         '<' => '>',
         '"' => '"',
-        '\'' => '\''
+        '\'' => '\'',
     ];
 
+    /**
+     * @param array<string, string> $delimiters opening => closing delimiter, defaults are used when empty
+     */
     public function __construct(array $delimiters = [])
     {
         if (!empty($delimiters)) {
@@ -29,8 +34,8 @@ class NicknameMapper extends AbstractMapper
     /**
      * map nicknames in the parts array
      *
-     * @param array $parts the name parts
-     * @return array the mapped parts
+     * @param array<int, AbstractPart|string> $parts the name parts
+     * @return array<int, AbstractPart|string> the mapped parts
      */
     public function map(array $parts): array
     {
@@ -55,7 +60,7 @@ class NicknameMapper extends AbstractMapper
                 continue;
             }
 
-            if ($closingDelimiter === substr($part, -1)) {
+            if (str_ends_with($part, $closingDelimiter)) {
                 $isEncapsulated = false;
                 $part = substr($part, 0, -1);
             }
@@ -66,14 +71,11 @@ class NicknameMapper extends AbstractMapper
         return $parts;
     }
 
-    /**
-     * @return string
-     */
-    protected function buildRegexp()
+    protected function buildRegexp(): string
     {
         $regexp = '/^([';
 
-        foreach ($this->delimiters as $opening => $closing) {
+        foreach (array_keys($this->delimiters) as $opening) {
             $regexp .= sprintf('\\%s', $opening);
         }
 

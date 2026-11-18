@@ -5,12 +5,12 @@ namespace TheIconic\NameParser\Mapper;
 use TheIconic\NameParser\Part\Salutation;
 use TheIconic\NameParser\Part\Nickname;
 
-class NicknameMapperTest extends AbstractMapperTest
+class NicknameMapperTest extends AbstractMapperTestCase
 {
     /**
      * @return array
      */
-    public function provider()
+    public static function provider(): array
     {
         return [
             [

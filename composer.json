@@ -1,5 +1,5 @@
 {
-    "name": "theiconic/name-parser",
+    "name": "kwojtas/name-parser",
     "description": "PHP library for parsing a string containing a full name into its parts",
     "type": "library",
     "license": "MIT",
@@ -7,19 +7,27 @@
         {
             "name": "The Iconic",
             "email": "engineering@theiconic.com.au"
+        },
+        {
+            "name": "Krzysztof Wojtas",
+            "email": "wojtas.krzysztof@gmail.com"
         }
     ],
     "require": {
-        "php": ">=7.1"
+        "php": ">=8.2",
+        "ext-mbstring": "*"
     },
     "require-dev": {
-        "phpunit/phpunit": "^7.0",
-        "php-coveralls/php-coveralls": "^2.1",
-        "php-mock/php-mock-phpunit": "^2.1"
+        "phpunit/phpunit": "^12.5"
     },
     "autoload": {
         "psr-4": {
-            "TheIconic\\NameParser\\": ["src/", "tests/"]
+            "TheIconic\\NameParser\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "TheIconic\\NameParser\\": "tests/"
         }
     }
 }

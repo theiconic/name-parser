@@ -1,28 +1,27 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TheIconic\NameParser\Mapper;
 
 use TheIconic\NameParser\Part\AbstractPart;
-use TheIconic\NameParser\Part\Nickname;
 
 abstract class AbstractMapper
 {
     /**
      * implements the mapping of parts
      *
-     * @param array $parts - the name parts
-     * @return array $parts - the mapped parts
+     * @param array<int, AbstractPart|string> $parts the name parts
+     * @return array<int, AbstractPart|string> the mapped parts
      */
-    abstract public function map(array $parts);
+    abstract public function map(array $parts): array;
 
     /**
      * checks if there are still unmapped parts left before the given position
      *
-     * @param array $parts
-     * @param $index
-     * @return bool
+     * @param array<int, AbstractPart|string> $parts
      */
-    protected function hasUnmappedPartsBefore(array $parts, $index): bool
+    protected function hasUnmappedPartsBefore(array $parts, int $index): bool
     {
         foreach ($parts as $k => $part) {
             if ($k === $index) {
@@ -38,11 +37,12 @@ abstract class AbstractMapper
     }
 
     /**
-     * @param string $type
-     * @param array $parts
-     * @return int|bool
+     * find the index of the first part of the given type
+     *
+     * @param class-string<AbstractPart> $type
+     * @param array<int, AbstractPart|string> $parts
      */
-    protected function findFirstMapped(string $type, array $parts)
+    protected function findFirstMapped(string $type, array $parts): int|false
     {
         $total = count($parts);
 
@@ -57,11 +57,8 @@ abstract class AbstractMapper
 
     /**
      * get the registry lookup key for the given word
-     *
-     * @param string $word the word
-     * @return string the key
      */
-    protected function getKey($word): string
+    protected function getKey(string $word): string
     {
         return strtolower(str_replace('.', '', $word));
     }

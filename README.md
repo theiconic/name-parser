@@ -1,11 +1,55 @@
 # THE ICONIC Name Parser
 
-[![Build Status](https://travis-ci.org/theiconic/name-parser.svg?branch=master&t=201705161308)](https://travis-ci.org/theiconic/name-parser)
-[![Coverage Status](https://coveralls.io/repos/github/theiconic/name-parser/badge.svg?branch=master&t=201705161308)](https://coveralls.io/github/theiconic/name-parser?branch=master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/theiconic/name-parser/badges/quality-score.png?b=master&t=201705161308)](https://scrutinizer-ci.com/g/theiconic/name-parser/?branch=master)
-[![Latest Stable Version](https://poser.pugx.org/theiconic/name-parser/v/stable?t=201705161308)](https://packagist.org/packages/theiconic/name-parser)
-[![Total Downloads](https://poser.pugx.org/theiconic/name-parser/downloads?t=201705161308)](https://packagist.org/packages/theiconic/name-parser)
-[![License](https://poser.pugx.org/theiconic/name-parser/license?t=201705161308)](https://packagist.org/packages/theiconic/name-parser)
+[![PHP Version](https://img.shields.io/badge/php-%3E%3D8.2-8892BF.svg)](https://www.php.net/supported-versions.php)
+[![PHPUnit](https://img.shields.io/badge/tested%20with-PHPUnit%2012-3C9CD7.svg)](https://phpunit.de)
+[![Latest Tag](https://img.shields.io/github/v/tag/kwojtas6/name-parser?sort=semver)](https://github.com/kwojtas6/name-parser/tags)
+[![License](https://img.shields.io/github/license/kwojtas6/name-parser.svg)](https://github.com/kwojtas6/name-parser/blob/main/LICENSE)
+[![Forked from](https://img.shields.io/badge/forked%20from-theiconic%2Fname--parser-lightgrey.svg)](https://github.com/theiconic/name-parser)
+
+> **This repository is a fork** of [theiconic/name-parser](https://github.com/theiconic/name-parser),
+> based on upstream release `v1.2.9`.
+> The fork is published as `kwojtas/name-parser` and modernises the library for PHP 8.2+.
+
+## Changes compared to the original project
+
+### Requirements and tooling
+- requires **PHP >= 8.2** (upstream: PHP >= 7.1) and the **`mbstring`** extension
+- test suite migrated from PHPUnit 7 to **PHPUnit 12**:
+  - data providers are `public static` and use the `#[DataProvider]` attribute instead of `@dataProvider` annotations
+  - `getMockForAbstractClass()` replaced with anonymous classes
+  - the abstract mapper test base class renamed to `AbstractMapperTestCase`
+  - `phpunit.xml.dist` rewritten for the current configuration schema; the suite fails on deprecations and warnings
+- removed the dev dependencies `php-mock/php-mock-phpunit` and `php-coveralls/php-coveralls`, together with `tests/bootstrap.php`
+- package renamed to `kwojtas/name-parser`; **the PHP namespace `TheIconic\NameParser` is unchanged**, so existing code keeps working
+
+### Code modernisation (PHP 8.x features)
+- `declare(strict_types=1)` in all source files
+- typed properties and full parameter/return type declarations, including union types (`string|AbstractPart`, `int|false`)
+- constructor property promotion with `readonly` properties in all mappers and pre-normalised parts
+- explicitly nullable parameters (`?array`, `?string`) – fixes the PHP 8.4 implicit-nullable deprecations
+- first-class callable syntax (`$this->camelcaseReplace(...)`) instead of `[$this, 'method']` callables
+- `str_ends_with()`, `intdiv()`, `$object::class` and class-name based part lookups in `Name`
+- fluent setters return `static`
+
+### Bug fixes
+- parsing names like `His (Jim) Smith` no longer throws a `TypeError`
+  (the multi-word salutation check received an already mapped nickname part)
+- the salutation mapper no longer reads past the end of the name when `setMaxSalutationIndex()` exceeds the number of words
+- custom whitespace characters containing `/` are now escaped correctly
+- camel-casing always uses `mb_convert_case()`; the non-multibyte fallback was removed
+
+### New languages
+- `TheIconic\NameParser\Language\Dutch` – salutations (Dhr., De heer, Mevr., Mw., Ir., Drs., …),
+  "tussenvoegsels" as last name prefixes (van, de, den, der, ter, ten, uit, v.d., …) and suffixes (jr., sr., MSc, …)
+- `TheIconic\NameParser\Language\Spanish` – salutations (Sr., Sra., Srta., Don, Doña, Dra., Lic., …),
+  last name prefixes (de, del, la, las, los) and suffixes (Jr., hijo, …)
+
+### Backwards compatibility
+Code that only *uses* the parser works as before (except that `Parser::parse()` now requires a string).
+Code that *extends* the library classes may need adjustments:
+- overriding methods must declare compatible return types (e.g. `map(array $parts): array`)
+- overridden fluent setters must return `static`
+- mapper configuration properties are `readonly`
 
 ## Purpose
 This is a universal, language-independent name parser.
@@ -63,9 +107,18 @@ More than 60 different successfully parsed name patterns can be found in the
 [parser unit test](https://github.com/theiconic/name-parser/blob/master/tests/ParserTest.php#L12-L12).
 
 ## Setup
-```$xslt
-composer require theiconic/name-parser
+```bash
+composer require kwojtas/name-parser
 ```
+
+If the package is not available on Packagist, add this repository as a VCS source first:
+```json
+"repositories": [
+    { "type": "vcs", "url": "https://github.com/kwojtas6/name-parser" }
+]
+```
+
+The original package is still available via `composer require theiconic/name-parser`.
 
 ## Usage
 
@@ -128,6 +181,8 @@ echo $name->getFullName(); // J. Peter M. Schluter
 $parser = new TheIconic\NameParser\Parser([
     new TheIconic\NameParser\Language\English(), //default
     new TheIconic\NameParser\Language\German(),
+    new TheIconic\NameParser\Language\Dutch(),
+    new TheIconic\NameParser\Language\Spanish(),
 ])
 ```
 

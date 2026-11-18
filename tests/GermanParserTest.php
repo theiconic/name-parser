@@ -2,6 +2,7 @@
 
 namespace TheIconic\NameParser;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use TheIconic\NameParser\Language\German;
 
@@ -10,7 +11,7 @@ class GermanParserTest extends TestCase
     /**
      * @return array
      */
-    public function provider()
+    public static function provider(): array
     {
         return [
             [
@@ -47,13 +48,8 @@ class GermanParserTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provider
-     *
-     * @param $input
-     * @param $expectation
-     */
-    public function testParse($input, $expectation)
+    #[DataProvider('provider')]
+    public function testParse(string $input, array $expectation): void
     {
         $parser = new Parser([
             new German()

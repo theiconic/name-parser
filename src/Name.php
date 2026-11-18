@@ -1,34 +1,39 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TheIconic\NameParser;
 
 use TheIconic\NameParser\Part\AbstractPart;
+use TheIconic\NameParser\Part\Firstname;
 use TheIconic\NameParser\Part\GivenNamePart;
+use TheIconic\NameParser\Part\Initial;
+use TheIconic\NameParser\Part\Lastname;
+use TheIconic\NameParser\Part\LastnamePrefix;
+use TheIconic\NameParser\Part\Middlename;
+use TheIconic\NameParser\Part\Nickname;
+use TheIconic\NameParser\Part\Salutation;
+use TheIconic\NameParser\Part\Suffix;
 
 class Name
 {
-    private const PARTS_NAMESPACE = 'TheIconic\NameParser\Part';
-
     /**
-     * @var array the parts that make up this name
+     * @var array<int, AbstractPart|string> the parts that make up this name
      */
-    protected $parts = [];
+    protected array $parts = [];
 
     /**
      * constructor takes the array of parts this name consists of
      *
-     * @param array|null $parts
+     * @param array<int, AbstractPart|string>|null $parts
      */
-    public function __construct(array $parts = null)
+    public function __construct(?array $parts = null)
     {
         if (null !== $parts) {
             $this->setParts($parts);
         }
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return implode(' ', $this->getAll(true));
@@ -37,10 +42,9 @@ class Name
     /**
      * set the parts this name consists of
      *
-     * @param array $parts
-     * @return $this
+     * @param array<int, AbstractPart|string> $parts
      */
-    public function setParts(array $parts): Name
+    public function setParts(array $parts): static
     {
         $this->parts = $parts;
 
@@ -50,7 +54,7 @@ class Name
     /**
      * get the parts this name consists of
      *
-     * @return array
+     * @return array<int, AbstractPart|string>
      */
     public function getParts(): array
     {
@@ -58,145 +62,98 @@ class Name
     }
 
     /**
-     * @param bool $format
-     * @return array
+     * get all non-empty name components keyed by component name
+     *
+     * @return array<string, string>
      */
     public function getAll(bool $format = false): array
     {
-        $results = [];
-        $keys = [
-            'salutation' => [],
-            'firstname' => [],
-            'nickname' => [$format],
-            'middlename' => [],
-            'initials' => [],
-            'lastname' => [],
-            'suffix' => [],
-        ];
-
-        foreach ($keys as $key => $args) {
-            $method = sprintf('get%s', ucfirst($key));
-            if ($value = call_user_func_array(array($this, $method), $args)) {
-                $results[$key] = $value;
-            };
-        }
-
-        return $results;
+        return array_filter([
+            'salutation' => $this->getSalutation(),
+            'firstname' => $this->getFirstname(),
+            'nickname' => $this->getNickname($format),
+            'middlename' => $this->getMiddlename(),
+            'initials' => $this->getInitials(),
+            'lastname' => $this->getLastname(),
+            'suffix' => $this->getSuffix(),
+        ]);
     }
 
     /**
      * get the given name (first name, middle names and initials)
      * in the order they were entered while still applying normalisation
-     *
-     * @return string
      */
     public function getGivenName(): string
     {
-        return $this->export('GivenNamePart');
+        return $this->export(GivenNamePart::class);
     }
 
     /**
      * get the given name followed by the last name (including any prefixes)
-     *
-     * @return string
      */
     public function getFullName(): string
     {
         return sprintf('%s %s', $this->getGivenName(), $this->getLastname());
     }
 
-    /**
-     * get the first name
-     *
-     * @return string
-     */
     public function getFirstname(): string
     {
-        return $this->export('Firstname');
+        return $this->export(Firstname::class);
     }
 
     /**
      * get the last name
      *
-     * @param bool $pure
-     * @return string
+     * @param bool $pure only return the lastname itself, without any prefixes
      */
     public function getLastname(bool $pure = false): string
     {
-        return $this->export('Lastname', $pure);
+        return $this->export(Lastname::class, $pure);
     }
 
-    /**
-     * get the last name prefix
-     *
-     * @return string
-     */
     public function getLastnamePrefix(): string
     {
-        return $this->export('LastnamePrefix');
+        return $this->export(LastnamePrefix::class);
     }
 
-    /**
-     * get the initials
-     *
-     * @return string
-     */
     public function getInitials(): string
     {
-        return $this->export('Initial');
+        return $this->export(Initial::class);
     }
 
-    /**
-     * get the suffix(es)
-     *
-     * @return string
-     */
     public function getSuffix(): string
     {
-        return $this->export('Suffix');
+        return $this->export(Suffix::class);
     }
 
-    /**
-     * get the salutation(s)
-     *
-     * @return string
-     */
     public function getSalutation(): string
     {
-        return $this->export('Salutation');
+        return $this->export(Salutation::class);
     }
 
     /**
      * get the nick name(s)
      *
-     * @param bool $wrap
-     * @return string
+     * @param bool $wrap wrap the nickname in parentheses
      */
     public function getNickname(bool $wrap = false): string
     {
         if ($wrap) {
-            return sprintf('(%s)', $this->export('Nickname'));
+            return sprintf('(%s)', $this->export(Nickname::class));
         }
 
-        return $this->export('Nickname');
+        return $this->export(Nickname::class);
     }
 
-    /**
-     * get the middle name(s)
-     *
-     * @return string
-     */
     public function getMiddlename(): string
     {
-        return $this->export('Middlename');
+        return $this->export(Middlename::class);
     }
 
     /**
      * helper method used by getters to extract and format relevant name parts
      *
-     * @param string $type
-     * @param bool $strict
-     * @return string
+     * @param class-string<AbstractPart> $type
      */
     protected function export(string $type, bool $strict = false): string
     {
@@ -208,25 +165,21 @@ class Name
             }
         }
 
-        return implode(' ',  $matched);
+        return implode(' ', $matched);
     }
 
     /**
      * helper method to check if a part is of the given type
      *
-     * @param AbstractPart $part
-     * @param string $type
-     * @param bool $strict
-     * @return bool
+     * @param class-string<AbstractPart> $type
+     * @param bool $strict match the exact class only (no subclasses)
      */
     protected function isType(AbstractPart $part, string $type, bool $strict = false): bool
     {
-        $className = sprintf('%s\\%s', self::PARTS_NAMESPACE, $type);
-
         if ($strict) {
-            return get_class($part) === $className;
+            return $part::class === $type;
         }
 
-        return is_a($part, $className);
+        return $part instanceof $type;
     }
 }

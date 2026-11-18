@@ -2,6 +2,7 @@
 
 namespace TheIconic\NameParser;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use TheIconic\NameParser\Language\English;
 use TheIconic\NameParser\Language\German;
@@ -11,7 +12,7 @@ class ParserTest extends TestCase
     /**
      * @return array
      */
-    public function provider()
+    public static function provider(): array
     {
         return [
             [
@@ -563,13 +564,8 @@ class ParserTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provider
-     *
-     * @param $input
-     * @param $expectation
-     */
-    public function testParse($input, $expectation)
+    #[DataProvider('provider')]
+    public function testParse(string $input, array $expectation): void
     {
         $parser = new Parser();
         $name = $parser->parse($input);
@@ -636,5 +632,22 @@ class ParserTest extends TestCase
 
         $this->assertSame('Herr', $parser->parse('Herr Schmidt')->getSalutation());
         $this->assertSame('Herr', $parser->parse('Herr Schmidt, Bernd')->getSalutation());
+    }
+
+    public function testMultiWordSalutationCheckSkipsAlreadyMappedParts(): void
+    {
+        $parser = new Parser();
+        $name = $parser->parse('His (Jim) Smith');
+
+        $this->assertSame('Jim', $name->getNickname());
+        $this->assertSame('Smith', $name->getLastname());
+    }
+
+    public function testMaxSalutationIndexBeyondNameLength(): void
+    {
+        $parser = new Parser();
+        $parser->setMaxSalutationIndex(5);
+
+        $this->assertSame(['firstname' => 'Peter', 'lastname' => 'Pan'], $parser->parse('Peter Pan')->getAll());
     }
 }

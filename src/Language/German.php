@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TheIconic\NameParser\Language;
 
 use TheIconic\NameParser\LanguageInterface;
 
 class German implements LanguageInterface
 {
-    const SUFFIXES = [
+    public const SUFFIXES = [
         '1.' => '1.',
         '2.' => '2.',
         '3.' => '3.',
@@ -19,14 +21,14 @@ class German implements LanguageInterface
         'v' => 'V',
     ];
 
-    const SALUTATIONS = [
+    public const SALUTATIONS = [
         'herr' => 'Herr',
         'hr' => 'Herr',
         'frau' => 'Frau',
         'fr' => 'Frau'
     ];
 
-    const LASTNAME_PREFIXES = [
+    public const LASTNAME_PREFIXES = [
         'der' => 'der',
         'von' => 'von',
     ];

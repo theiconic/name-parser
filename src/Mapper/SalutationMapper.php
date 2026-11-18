@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TheIconic\NameParser\Mapper;
 
 use TheIconic\NameParser\Part\AbstractPart;
@@ -7,27 +9,28 @@ use TheIconic\NameParser\Part\Salutation;
 
 class SalutationMapper extends AbstractMapper
 {
-    protected $salutations = [];
-
-    protected $maxIndex = 0;
-
-    public function __construct(array $salutations, $maxIndex = 0)
-    {
-        $this->salutations = $salutations;
-        $this->maxIndex = $maxIndex;
+    /**
+     * @param array<string, string> $salutations lowercase lookup key => normalized salutation
+     * @param int $maxIndex highest index a salutation may start at, 0 = first half of the name
+     */
+    public function __construct(
+        protected readonly array $salutations,
+        protected readonly int $maxIndex = 0,
+    ) {
     }
 
     /**
      * map salutations in the parts array
      *
-     * @param array $parts the name parts
-     * @return array the mapped parts
+     * @param array<int, AbstractPart|string> $parts the name parts
+     * @return array<int, AbstractPart|string> the mapped parts
      */
     public function map(array $parts): array
     {
-        $max = ($this->maxIndex > 0) ? $this->maxIndex : floor(count($parts) / 2);
+        $max = ($this->maxIndex > 0) ? $this->maxIndex : intdiv(count($parts), 2);
 
-        for ($k = 0; $k < $max; $k++) {
+        // count($parts) is re-evaluated because multi-word salutations shrink the array
+        for ($k = 0; $k < $max && $k < count($parts); $k++) {
             if ($parts[$k] instanceof AbstractPart) {
                 break;
             }
@@ -43,9 +46,8 @@ class SalutationMapper extends AbstractMapper
      * not only single-word matches but also combined matches with
      * subsequent words (parts).
      *
-     * @param array $parts
-     * @param int $start
-     * @return array
+     * @param array<int, AbstractPart|string> $parts
+     * @return array<int, AbstractPart|string>
      */
     protected function substituteWithSalutation(array $parts, int $start): array
     {
@@ -74,14 +76,14 @@ class SalutationMapper extends AbstractMapper
      * which means word by word, except that we first need to key-ify
      * the subset words
      *
-     * @param array $keys
-     * @param array $subset
-     * @return bool
+     * @param string[] $keys
+     * @param array<int, AbstractPart|string> $subset
      */
     private function isMatchingSubset(array $keys, array $subset): bool
     {
-        for ($i = 0; $i < count($subset); $i++) {
-            if ($this->getKey($subset[$i]) !== $keys[$i]) {
+        foreach ($subset as $i => $word) {
+            // already mapped parts (e.g. nicknames) can't be part of a salutation
+            if (!is_string($word) || $this->getKey($word) !== $keys[$i]) {
                 return false;
             }
         }
@@ -91,12 +93,9 @@ class SalutationMapper extends AbstractMapper
 
     /**
      * check if the given word is a viable salutation
-     *
-     * @param string $word the word to check
-     * @return bool
      */
-    protected function isSalutation($word): bool
+    protected function isSalutation(string $word): bool
     {
-        return (array_key_exists($this->getKey($word), $this->salutations));
+        return array_key_exists($this->getKey($word), $this->salutations);
     }
 }

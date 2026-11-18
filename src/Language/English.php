@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TheIconic\NameParser\Language;
 
 use TheIconic\NameParser\LanguageInterface;
 
 class English implements LanguageInterface
 {
-    const SUFFIXES = [
+    public const SUFFIXES = [
         '1st' => '1st',
         '2nd' => '2nd',
         '3rd' => '3rd',
@@ -34,7 +36,7 @@ class English implements LanguageInterface
         'sr' => 'Sr',
     ];
 
-    const SALUTATIONS = [
+    public const SALUTATIONS = [
         'dr' => 'Dr.',
         'fr' => 'Fr.',
         'madam' => 'Madam',
@@ -52,7 +54,7 @@ class English implements LanguageInterface
         'her honour' => 'Her Honour'
     ];
 
-    const LASTNAME_PREFIXES = [
+    public const LASTNAME_PREFIXES = [
         'da' => 'da',
         'de' => 'de',
         'del' => 'del',

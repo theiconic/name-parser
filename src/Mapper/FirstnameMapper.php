@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TheIconic\NameParser\Mapper;
 
 use TheIconic\NameParser\Part\AbstractPart;
 use TheIconic\NameParser\Part\Firstname;
-use TheIconic\NameParser\Part\Lastname;
 use TheIconic\NameParser\Part\Initial;
+use TheIconic\NameParser\Part\Lastname;
 use TheIconic\NameParser\Part\Salutation;
 
 class FirstnameMapper extends AbstractMapper
@@ -13,8 +15,8 @@ class FirstnameMapper extends AbstractMapper
     /**
      * map firstnames in parts array
      *
-     * @param array $parts the parts
-     * @return array the mapped parts
+     * @param array<int, AbstractPart|string> $parts the parts
+     * @return array<int, AbstractPart|string> the mapped parts
      */
     public function map(array $parts): array
     {
@@ -31,11 +33,7 @@ class FirstnameMapper extends AbstractMapper
         return $parts;
     }
 
-    /**
-     * @param $part
-     * @return Firstname
-     */
-    protected function handleSinglePart($part): AbstractPart
+    protected function handleSinglePart(AbstractPart|string $part): AbstractPart
     {
         if ($part instanceof AbstractPart) {
             return $part;
@@ -45,8 +43,7 @@ class FirstnameMapper extends AbstractMapper
     }
 
     /**
-     * @param array $parts
-     * @return int|null
+     * @param array<int, AbstractPart|string> $parts
      */
     protected function findFirstnamePosition(array $parts): ?int
     {
@@ -77,8 +74,7 @@ class FirstnameMapper extends AbstractMapper
     }
 
     /**
-     * @param array $parts
-     * @return int
+     * @param array<int, AbstractPart|string> $parts
      */
     protected function getStartIndex(array $parts): int
     {
